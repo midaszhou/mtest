@@ -1,0 +1,1 @@
+cmd_/works/mtest/gpio_int/gpio_int.ko := ld -EL -r  -T ./scripts/module-common.lds --build-id  -o /works/mtest/gpio_int/gpio_int.ko /works/mtest/gpio_int/gpio_int.o /works/mtest/gpio_int/gpio_int.mod.o ;  true
