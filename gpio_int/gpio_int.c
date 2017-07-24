@@ -12,8 +12,11 @@
 
 #define CPU_PORT_CONTROL_BASE 0x01C20800
 #define PG_CFG1_REG 0xDC
+#define PG_DRV0_REG 0xEC
+#define PG_PULL0_REG 0xF4
 #define PG_EINT_CFG1_REG 0x224
 #define PG_EINT_CTL_REG  0x230
+#define PG_EINT_STATUS_REG 0x234
 #define PG_CONTROL_IOMAP_SIZE 0x23C
 
 volatile unsigned long phys_addr,virt_addr; //-- physical and virtual address 
@@ -39,6 +42,44 @@ static void unmap_gpio_reg(void)
   iounmap((void *)virt_addr);
 }
 
+/*----- st PG11 Multi_Driving Level 3 -------*/
+static void set_pg11_level3(void)
+{
+  volatile unsigned long *pg_conf_reg;
+  uint32_t  conf_reg_val;
+
+  pg_conf_reg=(unsigned long *)(virt_addr+PG_DRV0_REG); //--get pg_eint_ctl_reg register value
+  conf_reg_val=ioread32(pg_conf_reg);
+  conf_reg_val |= (0b11<<22);
+  iowrite32(conf_reg_val,pg_conf_reg);
+}
+/*------ set PG11 PULL DOWN ------*/
+static void set_pg11_pulld(void)
+{
+  volatile unsigned long *pg_conf_reg;
+  uint32_t  conf_reg_val;
+
+  pg_conf_reg=(unsigned long *)(virt_addr+PG_PULL0_REG); //--get pg_eint_ctl_reg register value
+  conf_reg_val=ioread32(pg_conf_reg);
+  conf_reg_val |= (1<<23);
+  conf_reg_val &= ~(1<<22);
+  iowrite32(conf_reg_val,pg_conf_reg);
+
+}
+
+/*------ clear IRQ pending status -----------*/
+static void clear_pg_eint_status(void)
+{
+  volatile unsigned long *pg_conf_reg;
+  uint32_t  conf_reg_val;
+
+  pg_conf_reg=(unsigned long *)(virt_addr+PG_EINT_STATUS_REG); //--get pg_eint_ctl_reg register value
+  conf_reg_val=ioread32(pg_conf_reg);
+  //---clear PG exteranl interrupt status regsiter----
+  conf_reg_val |= (1<<11); //-- write '1' to clear EINT_STATUS
+  iowrite32(conf_reg_val,pg_conf_reg);
+}
+
 /*------ disable external INT of PG11 -------*/
 static void disable_pg11_int(void)
 {
@@ -61,13 +102,13 @@ static void set_pg11_eint(void)
   pg_conf_reg=(unsigned long *)(virt_addr+PG_CFG1_REG); //--get pg_eint_ctl_reg register value
   conf_reg_val=ioread32(pg_conf_reg);
   //---enable gp11 int--
-  conf_reg_val |= (0x11<<13);
+  conf_reg_val |= (0b11<<13);
   conf_reg_val &= ~(1<<12);
   iowrite32(conf_reg_val,pg_conf_reg);
 }
 
 /*------ set PG11 IO disable ------*/
-static void set_pg11_disable(void)
+static void set_pg11_IOdisable(void)
 {
   volatile unsigned long *pg_conf_reg;
   uint32_t  conf_reg_val;
@@ -75,7 +116,7 @@ static void set_pg11_disable(void)
   pg_conf_reg=(unsigned long *)(virt_addr+PG_CFG1_REG); //--get pg_eint_ctl_reg register value
   conf_reg_val=ioread32(pg_conf_reg);
   //---set gp11 IO Disable---
-  conf_reg_val |= (0x111<<12);
+  conf_reg_val |= (0xb111<<12);
   iowrite32(conf_reg_val,pg_conf_reg);
 }
 
@@ -111,28 +152,33 @@ static void enable_int_wq(struct work_struct *data)
 {
    printk(KERN_INFO"Entering work_queue and start msleep....\n");
    gpio_set_value(gpio_beep,1); //--start to beep... 
-   msleep(2000);
+   msleep(1000);
    gpio_set_value(gpio_beep,0); //--stop beeping ... 
    printk(KERN_INFO"Re-enable irq now....\n");
 
+   clear_pg_eint_status();// clear PG EINT_STATUS
    enable_irq(int_num); // this will both activate PG_EINT11 and PG_EINT_CTL_REG 11 ?????? NOPE!!!
+   //set_pg11_eint();
    enable_pg11_int();
-   set_pg11_eint();
 
-   printk("----- PG_EINT_CTL_REG: 0x%04x -----\n",get_pg_config(PG_EINT_CTL_REG));
+   printk("----- PG_EINT_CTL_REG: 0x%08x -----\n",get_pg_config(PG_EINT_CTL_REG));
 }
 
 /*----------  interrupter call handler ----------*/
 static irqreturn_t int_handler(int irq, void *dev_id)
 {
+   //-- to confirm the interrupt ------
+   printk("----To Confirm the EINT, PG_EINT_STATUS_REG: 0x%08x -----\n",get_pg_config(PG_EINT_STATUS_REG));
+
    disable_irq_nosync(int_num); //--!!!Must NOT use disable_irq() anyway,it's cause deadloop and will crash the kernel
+   clear_pg_eint_status();// clear PG EINT_STATUS
    //---- !!!! you have to use both of following functions to prevent INT flag change after disable_irq_nosync()
-   set_pg11_disable();
+   //set_pg11_IOdisable();
    disable_pg11_int();
 
    printk(KERN_INFO "------ gpio_to_irq(PG11) triggered! -----\n");
    printk(KERN_INFO "Disable irq ...\n");
-   printk("----- PG_EINT_CTL_REG: 0x%04x -----\n",get_pg_config(PG_EINT_CTL_REG));
+   printk("----- PG_EINT_CTL_REG: 0x%08x -----\n",get_pg_config(PG_EINT_CTL_REG));
 
    //----- start irq handler low part -------
    schedule_work(&int_wq);
@@ -161,8 +207,6 @@ static int __init gpio_int_init(void)
    map_gpio_reg();
 //   set_pg11_eint(); //--set PG11 for external interrupt
 
-   printk("----- PG_EINT_CTL_REG: 0x%04x -----\n",get_pg_config(PG_EINT_CTL_REG));
-   printk("----- PG_CFG1_REG: 0x%04x -----\n",get_pg_config(PG_CFG1_REG));
 
    gpio_direction_output(gpio_beep,0);
    if(gpio_is_valid(gpio_beep) == 0)
@@ -173,7 +217,11 @@ static int __init gpio_int_init(void)
    else
 	printk("gpio_beep is NOT valid!\n");
 
+   //------- init PG11 config ------------
    gpio_direction_input(gpio_int); //-set gpio direction
+   set_pg11_eint();// set PG11 EINT11
+   set_pg11_pulld(); // SET PG11 PULL DOWN
+   set_pg11_level3(); // set PG11 Multi-Driving Level3
    if(gpio_is_valid(gpio_int) == 0)
    {
 	printk("gpio_int is valid!\n");
@@ -183,6 +231,15 @@ static int __init gpio_int_init(void)
 	printk("gpio_int is NOT valid!\n");
 
 //   gpio_set_value(gpio_int,0);
+
+   printk("----- PG_CFG1_REG: 0x%08x -----\n",get_pg_config(PG_CFG1_REG));
+   printk("----- PG_DRV0_REG: 0x%08x -----\n",get_pg_config(PG_DRV0_REG));
+   printk("----- PG_PULL0_REG: 0x%08x -----\n",get_pg_config(PG_PULL0_REG));
+   printk("----- PG_EINT_CTL_REG: 0x%08x -----\n",get_pg_config(PG_EINT_CTL_REG));
+   printk("----- PG_EINT_CFG1_REG: 0x%08x -----\n",get_pg_config(PG_EINT_CFG1_REG));
+   printk("----- PG_CFG1_REG: 0x%08x -----\n",get_pg_config(PG_CFG1_REG));
+
+
 
    int_num=gpio_to_irq(gpio_int);
    if(int_num>0)
