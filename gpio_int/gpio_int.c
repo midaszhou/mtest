@@ -46,11 +46,14 @@ static void unmap_gpio_reg(void)
 static void set_pg11_level3(void)
 {
   volatile unsigned long *pg_conf_reg;
-  uint32_t  conf_reg_val;
+  volatile unsigned long  conf_reg_val;
 
   pg_conf_reg=(unsigned long *)(virt_addr+PG_DRV0_REG); //--get pg_eint_ctl_reg register value
   conf_reg_val=ioread32(pg_conf_reg);
-  conf_reg_val |= (0b11<<22);
+  //conf_reg_val |= (0b11<<22);
+   set_bit(22,&conf_reg_val);  //--!!! set_bit(22,pg_conf_reg) will cause SEGMENTATION FAULT !!!
+   set_bit(23,&conf_reg_val);
+
   iowrite32(conf_reg_val,pg_conf_reg);
 }
 /*------ set PG11 PULL DOWN ------*/
@@ -61,8 +64,11 @@ static void set_pg11_pulld(void)
 
   pg_conf_reg=(unsigned long *)(virt_addr+PG_PULL0_REG); //--get pg_eint_ctl_reg register value
   conf_reg_val=ioread32(pg_conf_reg);
-  conf_reg_val |= (1<<23);
-  conf_reg_val &= ~(1<<22);
+  //conf_reg_val |= (1<<23);
+  //conf_reg_val &= ~(1<<22);
+  clear_bit(22,(volatile unsigned long *)&conf_reg_val);
+  set_bit(23,(volatile unsigned long *)&conf_reg_val);
+
   iowrite32(conf_reg_val,pg_conf_reg);
 
 }
@@ -158,7 +164,7 @@ static void enable_int_wq(struct work_struct *data)
 
    clear_pg_eint_status();// clear PG EINT_STATUS
    enable_irq(int_num); // this will both activate PG_EINT11 and PG_EINT_CTL_REG 11 ?????? NOPE!!!
-   //set_pg11_eint();
+   ////set_pg11_eint();
    enable_pg11_int();
 
    printk("----- PG_EINT_CTL_REG: 0x%08x -----\n",get_pg_config(PG_EINT_CTL_REG));
@@ -170,10 +176,10 @@ static irqreturn_t int_handler(int irq, void *dev_id)
    //-- to confirm the interrupt ------
    printk("----To Confirm the EINT, PG_EINT_STATUS_REG: 0x%08x -----\n",get_pg_config(PG_EINT_STATUS_REG));
 
-   disable_irq_nosync(int_num); //--!!!Must NOT use disable_irq() anyway,it's cause deadloop and will crash the kernel
    clear_pg_eint_status();// clear PG EINT_STATUS
+   disable_irq_nosync(int_num); //--!!!Must NOT use disable_irq() anyway,it's cause deadloop and will crash the kernel
    //---- !!!! you have to use both of following functions to prevent INT flag change after disable_irq_nosync()
-   //set_pg11_IOdisable();
+   ////set_pg11_IOdisable();
    disable_pg11_int();
 
    printk(KERN_INFO "------ gpio_to_irq(PG11) triggered! -----\n");
@@ -222,6 +228,7 @@ static int __init gpio_int_init(void)
    set_pg11_eint();// set PG11 EINT11
    set_pg11_pulld(); // SET PG11 PULL DOWN
    set_pg11_level3(); // set PG11 Multi-Driving Level3
+
    if(gpio_is_valid(gpio_int) == 0)
    {
 	printk("gpio_int is valid!\n");
