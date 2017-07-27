@@ -83,8 +83,9 @@ void main()
       usleep(100000);
   }
 
-
-  //---unlock i2c fd ----
+  //---free I2C ioctl data mem---
+       free_I2C_IOdata();
+  //---unlock i2c fd---
        intFcntlOp(g_fdOled, F_SETLK, F_UNLCK, 0, SEEK_SET,10);
 
 }

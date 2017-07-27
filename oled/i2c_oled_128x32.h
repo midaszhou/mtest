@@ -24,6 +24,9 @@ enum oled_sig{   //---command or data
 oled_SIG_CMD,
 oled_SIG_DAT
 };
+
+static struct i2c_rdwr_ioctl_data g_i2c_iodata;
+
 struct flock g_i2cFdReadLock;
 struct flock g_i2cFdWriteLock;
 
@@ -82,7 +85,32 @@ void initOledTimer(void)
 
 }
 
+/*----------------------------------------
+  initiate i2c ioctl data
+----------------------------------------*/
+void init_I2C_IOdata(void)
+{
+    g_i2c_iodata.nmsgs=1;
+    g_i2c_iodata.msgs=(struct i2c_msg*)malloc(g_i2c_iodata.nmsgs*sizeof(struct i2c_msg));
+    g_i2c_iodata.msgs[0].len=2;
+    g_i2c_iodata.msgs[0].addr=g_u8oledAddr;
+    g_i2c_iodata.msgs[0].flags=0; //write
+    g_i2c_iodata.msgs[0].buf=(unsigned char*)malloc(2);
+    //--- following data to be set in i2c ioctl functions --
+//    i2c_iodata.msgs[0].buf[0]=sig; // 0x00 for Command, 0x40 for data
+//    i2c_iodata.msgs[0].buf[1]=val;
+}
 
+/*----------------------------------------
+    free i2c ioctl data mem.
+----------------------------------------*/
+ void free_I2C_IOdata(void)
+{
+    if(g_i2c_iodata.msgs != NULL)
+	    free(g_i2c_iodata.msgs);
+    if(g_i2c_iodata.msgs[0].buf != NULL )
+	    free(g_i2c_iodata.msgs[0].buf);
+}
 
 /*--------------send command to oled---------------
   send DATA or COMMAND to oled 
@@ -96,30 +124,16 @@ void sendDatCmdoled(enum oled_sig datcmd,uint8_t val) {
     else
 	sig=0x40; //--send data
 
-    struct i2c_rdwr_ioctl_data i2c_iodata;
-
-    i2c_iodata.nmsgs=1;
-    i2c_iodata.msgs=(struct i2c_msg*)malloc(i2c_iodata.nmsgs*sizeof(struct i2c_msg));
-    i2c_iodata.msgs[0].len=2;
-    i2c_iodata.msgs[0].addr=g_u8oledAddr;
-    i2c_iodata.msgs[0].flags=0; //write
-    i2c_iodata.msgs[0].buf=(unsigned char*)malloc(2);
-    i2c_iodata.msgs[0].buf[0]=sig; // 0x00 for Command, 0x40 for data
-    i2c_iodata.msgs[0].buf[1]=val; 
-
-    ioctl(g_fdOled,I2C_TIMEOUT,2);
-    ioctl(g_fdOled,I2C_RETRIES,1);
-
+    g_i2c_iodata.msgs[0].buf[0]=sig; // 0x00 for Command, 0x40 for data
+    g_i2c_iodata.msgs[0].buf[1]=val; 
 
     while(ret<0)
     {
-	 ret=ioctl(g_fdOled,I2C_RDWR,(unsigned long)&i2c_iodata);
+	 ret=ioctl(g_fdOled,I2C_RDWR,(unsigned long)&g_i2c_iodata);
  	 printf("i2c ioctl read error! retry....\n");
 //	 sleep(1);
     }
 
-    free(i2c_iodata.msgs);
-    free(i2c_iodata.msgs[0].buf);
 }
 
 /*------ send command to oled ---------*/
@@ -150,10 +164,17 @@ void initOledDefault(void)
   else
    	printf("Open i2c bus successfully!\n");
 
+  //---set g_fdOled-----
+  ioctl(g_fdOled,I2C_TIMEOUT,2);
+  ioctl(g_fdOled,I2C_RETRIES,1);
+
   //------ try to lock file
   intFcntlOp(g_fdOled,F_SETLK, F_WRLCK, 0, SEEK_SET,0);//write lock
-//  intFcntlOp(g_fdOled,F_SETLK, F_RDLCK, 0, SEEK_SET,0);//read lock
+  // intFcntlOp(g_fdOled,F_SETLK, F_RDLCK, 0, SEEK_SET,0);//read lock
   printf("I2C fd lock operation finished.\n");
+
+  //---- init i2c ioctl data -----
+  init_I2C_IOdata();
 
 //-------set I2C speed
 /*
@@ -292,7 +313,6 @@ void  drawOledAscii16x8(uint8_t start_row, uint8_t start_column,unsigned char c)
 	for(j=0;j<16;j++)
 		sendDatOled(ascii_8x16[(c-0x20)*16+j]);
 
-
 }
 
 void  drawOledStr16x8(uint8_t start_row, uint8_t start_column,const char* pstr)
@@ -335,7 +355,6 @@ void sigHndlOledTimer(int signo)
 }
 
 //------file lock/unlock operation ----
-
 int intFcntlOp(int fd, int cmd, int type, off_t offset, int whence, off_t len)
 {
 
@@ -361,10 +380,6 @@ int intFcntlOp(int fd, int cmd, int type, off_t offset, int whence, off_t len)
 		printf("File is not valid..\n");
        }
 
-
-
-
-
     //----init lock with value, otherwise "Invalid argument" error
     lock.l_type=F_WRLCK; //--check whether F_WRLCK is lockable
     lock.l_start=0;
@@ -383,7 +398,7 @@ int intFcntlOp(int fd, int cmd, int type, off_t offset, int whence, off_t len)
 
     if((lock.l_type==F_WRLCK) || (lock.l_type==F_RDLCK) )
     {
-	printf("File is locked!\n");
+	printf("File is locked by other process!\n");
   	exit(1);
      }
 
@@ -424,25 +439,6 @@ void  clearOledV(void)
 
 	for(j=0;j<128*4;j++)  //---fill with 0s
 		sendDatOled(0x00);
-
-}
-
-void  setOledVeScroll(void)
-{
-/*
-      sendCmdOled(0x29); 
-      sendCmdOled(0x00); 
-      sendCmdOled(0x00);//start page 
-      sendCmdOled(0x02);// 128 frames
-      sendCmdOled(0x03);//edn page 
-      sendCmdOled(0x01);//vertical scrolling offset 
-*/
-/*
-      sendCmdOled(0xA3);
-      sendCmdOled(0x00);//no. of rows in top fixed area
-      sendCmdOled(0x64);//no. of rows in scroll area
-*/
-
 
 }
 
