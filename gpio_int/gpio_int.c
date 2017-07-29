@@ -2,10 +2,7 @@
 #include <linux/module.h>
 #include <linux/init.h>
 #include <linux/fs.h>
-#include <linux/gpio_keys.h>
-#include <linux/of_platform.h>
-#include <linux/of_gpio.h>
-#include <linux/spinlock.h>
+//#include <linux/spinlock.h>
 #include <linux/gpio.h>
 #include <linux/interrupt.h> //--request_irq()
 #include <linux/delay.h> //--msleep
@@ -48,13 +45,13 @@ static void set_pg11_level3(void)
   volatile unsigned long *pg_conf_reg;
   volatile unsigned long  conf_reg_val;
 
-  pg_conf_reg=(unsigned long *)(virt_addr+PG_DRV0_REG); //--get pg_eint_ctl_reg register value
+  pg_conf_reg=(volatile unsigned long *)(virt_addr+PG_DRV0_REG); //--get pg_eint_ctl_reg register value
   conf_reg_val=ioread32(pg_conf_reg);
   //conf_reg_val |= (0b11<<22);
-   set_bit(22,&conf_reg_val);  //--!!! set_bit(22,pg_conf_reg) will cause SEGMENTATION FAULT !!!
-   set_bit(23,&conf_reg_val);
+  set_bit(22,&conf_reg_val);  //--!!! set_bit(22,pg_conf_reg) will cause SEGMENTATION FAULT !!!
+  set_bit(23,&conf_reg_val);
 
-  iowrite32(conf_reg_val,pg_conf_reg);
+  //iowrite32(conf_reg_val,pg_conf_reg);
 }
 /*------ set PG11 PULL DOWN ------*/
 static void set_pg11_pulld(void)
@@ -68,7 +65,6 @@ static void set_pg11_pulld(void)
   //conf_reg_val &= ~(1<<22);
   clear_bit(22,(volatile unsigned long *)&conf_reg_val);
   set_bit(23,(volatile unsigned long *)&conf_reg_val);
-
   iowrite32(conf_reg_val,pg_conf_reg);
 
 }
@@ -125,7 +121,6 @@ static void set_pg11_IOdisable(void)
   conf_reg_val |= (0xb111<<12);
   iowrite32(conf_reg_val,pg_conf_reg);
 }
-
 
 
 /*------ enable external INT of PG11 -------*/
