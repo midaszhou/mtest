@@ -59,6 +59,9 @@ void main(void)
   uint32_t lirc_buf[100]={0}; //--4bytesx68=272bytes,  for raw lirc data from hardware IR receiver
   uint8_t  lirc_data; //--- received lirc DATA =lirce_codes[15:8]
 
+  //----- for SELECT ----
+  fd_set fds;
+
   int ret;
   int param;
   int i,j;
@@ -85,69 +88,78 @@ void main(void)
   ioctl(fd_lirc,LIRC_GET_MAX_TIMEOUT,&param);
   printf("LIRC_GET_MAX_TIMEOUT: %d ms\n",param);
 
+
+
   //---------------- loop reading LIRC data  -------------------
   while(1)
   {
-    ret=read(fd_lirc,lirc_buf,sizeof(lirc_buf));
-    printf("ret=%d\n",ret);
 
+    //------- init File-hanDle SELECT -------
+    FD_ZERO(&fds);
+    FD_SET(fd_lirc,&fds);// add to fd sets
 
-    if(ret>270 && lirc_buf[0]>0x20000) //if receive complete signal && preamble signal long enough
-    {
-	//---preamble---
-	printf("---preamble: 0x%08x\n",lirc_buf[0]);
-
-	lirc_data=getLircData(lirc_buf);
-
-	switch(lirc_data)
-	{
-		case LIRC_DAT_CH_PLUS:  //----change channel
-			setVolume(vol);
-			system("killall mplayer");
-			printf("screen -dmS MPLAY_LIST /home/fa/mplaylist\n");
-			system("screen -dmS MPLAY_LIST /home/fa/mplaylist");
-			break;
-		case LIRC_DAT_CH_MINUS:  //----change channel
-			setVolume(vol);
-			system("killall mplayer");
-			printf("screen -dmS MPLAY_FOX /home/fa/mplayfox\n");
-			system("screen -dmS MPLAY_FOX /home/fa/mplayfox");
-			break;
-		case LIRC_DAT_NEXT:
-			printf("/home/fa/mnext\n");
-			system("/home/fa/mnext");
-			break;
-		case LIRC_DAT_PREV:
-			printf("/home/fa/mprev\n");
-			system("/home/fa/mprev");
-			break;
-		case LIRC_DAT_PLUS:
-			printf("Volume Up\n");
-			if(vol<30)
-				vol+=3;
-			setVolume(vol);
-			break;
-		case LIRC_DAT_MINUS:
-			printf("Volume Down\n");
-			if(vol>3)
-				vol-=3;
-			setVolume(vol);
-			break;
-		case LIRC_DAT_PAUSE:
-			printf("pause mplayer\n");
-			system("/home/fa/mpause");
-			break;
-	}
-
-    }
-
+    ret=select(fd_lirc+1,&fds,NULL,NULL,NULL); //--survey
+    if(ret<1) //--no data or error
+	continue;
     else
-	    usleep(200000);
+    {
+         if(FD_ISSET(fd_lirc,&fds))//检查集合中指定的文件描述符是否可以读写。
+	 {
+             ret=read(fd_lirc,lirc_buf,sizeof(lirc_buf));
+    	     printf("ret=%d\n",ret);
 
-   }
+	    if(ret>270 && lirc_buf[0]>0x20000) //if receive complete signal && preamble signal long enough
+ 	    {
+		//---preamble---
+		printf("---preamble: 0x%08x\n",lirc_buf[0]);
+		lirc_data=getLircData(lirc_buf);
+		switch(lirc_data)
+		{
+			case LIRC_DAT_CH_PLUS:  //----change channel
+				setVolume(vol);
+				system("killall mplayer");
+				printf("screen -dmS MPLAY_LIST /home/fa/mplaylist\n");
+				system("screen -dmS MPLAY_LIST /home/fa/mplaylist");
+				break;
+			case LIRC_DAT_CH_MINUS:  //----change channel
+				setVolume(vol);
+				system("killall mplayer");
+				printf("screen -dmS MPLAY_FOX /home/fa/mplayfox\n");
+				system("screen -dmS MPLAY_FOX /home/fa/mplayfox");
+				break;	
+
+			case LIRC_DAT_NEXT:
+				printf("/home/fa/mnext\n");
+				system("/home/fa/mnext");
+				break;
+			case LIRC_DAT_PREV:
+				printf("/home/fa/mprev\n");
+				system("/home/fa/mprev");
+				break;
+			case LIRC_DAT_PLUS:
+				printf("Volume Up\n");
+				if(vol<30)
+					vol+=3;
+				setVolume(vol);
+				break;
+			case LIRC_DAT_MINUS:
+				printf("Volume Down\n");
+				if(vol>3)
+					vol-=3;
+				setVolume(vol);
+				break;
+			case LIRC_DAT_PAUSE:
+				printf("pause mplayer\n");
+				system("/home/fa/mpause");
+				break;
+		} //switch
+	    }//if(ret>
+         }//if(FD_ISSET
+   }//else
+ }//while
+ 
 
 }
- 
 
 
 
