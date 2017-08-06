@@ -5,6 +5,8 @@
 #include <media/lirc.h>
 #include <sys/ioctl.h> //ioctl
 #include <stdint.h>
+#include <string.h>
+#include <errno.h>
 
 #define LIRC_DAT_PAUSE 0xc2
 #define LIRC_DAT_NEXT 0x02
@@ -14,6 +16,41 @@
 #define LIRC_DAT_CH 0x62
 #define LIRC_DAT_CH_MINUS 0xa2
 #define LIRC_DAT_CH_PLUS 0xe2
+
+
+/*-------------------------------------------------
+  write commands to mplayer slave fifo
+-------------------------------------------------*/
+static int write_to_fifo(int fd_slave,const char *str_cmd)
+{
+   int nwrite;
+   static char str_buf[100]={0};
+   int len=strlen(str_cmd);
+   strcpy(str_buf,str_cmd);
+   str_buf[len]='\r';
+   str_buf[len+1]='\n';
+
+   if( (nwrite = write(fd_slave,str_buf,len+2)) <= 0 )
+   {
+        if(errno == EAGAIN)
+        {
+            printf("The FIFO is busy or has not been read out yet, Please try write later!\n");
+            return nwrite;
+        }
+        else
+        {
+            perror("Write to mplayer slave FIFO");
+            return nwrite;
+        }
+   }
+   else
+   {
+        printf("Finish wirting %s to FIFO with nwirte=%d\n",str_cmd,nwrite);
+        return nwrite;
+
+    }
+
+}
 
 
 uint8_t getLircData(const uint32_t* lirc_buf)
@@ -53,23 +90,44 @@ void setVolume(int vol)
 
 void main(void)
 {
+  //--------- for LIRC dev ---
   char *dev_lirc="/dev/lirc0";
-  int fd_lirc;
+  int fd_lirc;// file handle to lirc dev.
   int vol=15; //0-31 volume
   uint32_t lirc_buf[100]={0}; //--4bytesx68=272bytes,  for raw lirc data from hardware IR receiver
   uint8_t  lirc_data; //--- received lirc DATA =lirce_codes[15:8]
+
+  //-------- for mplayer slave FIFO
+  const char* str_fifo="/home/fa/slave"; // slave fifo for mplayer
+  char str_buf[100]={0};//command string buf
+  int fd_slave; //file handle to slave FIFO
+  int nread,nwrite; 
+
 
   int ret;
   int param;
   int i,j;
 
+
+   //--------open lirc device ------
   if((fd_lirc=open(dev_lirc, O_RDWR)) <0 )
   {
-	printf("Open %s failed!\n",dev_lirc);
+	perror("Open LIRC dev");
+	close(fd_lirc);
 	exit(-1);
    }
   else
 	printf("Open %s successfully!\n",dev_lirc);
+
+  //--------- open mplayer slave FIFO --------
+  if( (fd_slave=open(str_fifo,O_RDWR | O_NONBLOCK))<0)
+  {
+        perror("Open mplayer slave FIFO");
+        close(fd_slave);
+        exit(-1);
+   }
+   else
+	printf("Open %s successfully!\n",str_fifo);
 
 
    //------  read some defaults ------
@@ -115,11 +173,13 @@ void main(void)
 			break;
 		case LIRC_DAT_NEXT:
 			printf("/home/fa/mnext\n");
-			system("/home/fa/mnext");
+			//system("/home/fa/mnext");
+			write_to_fifo(fd_slave,"pt_step 1");
 			break;
 		case LIRC_DAT_PREV:
 			printf("/home/fa/mprev\n");
-			system("/home/fa/mprev");
+			write_to_fifo(fd_slave,"pt_step -1");
+			//system("/home/fa/mprev");
 			break;
 		case LIRC_DAT_PLUS:
 			printf("Volume Up\n");
@@ -135,8 +195,10 @@ void main(void)
 			break;
 		case LIRC_DAT_PAUSE:
 			printf("pause mplayer\n");
-			system("/home/fa/mpause");
+			//system("/home/fa/mpause");
+			write_to_fifo(fd_slave,"pause");
 			break;
+
 	}
 
     }
@@ -145,6 +207,9 @@ void main(void)
 	    usleep(200000);
 
    }
+
+ close(fd_slave);
+ close(fd_lirc);
 
 }
  

@@ -1,6 +1,6 @@
 #include <stdio.h> //printf
 #include <fcntl.h> //open() 
-#include <unistd.h> //close()
+#include <unistd.h> // write() close()
 #include <errno.h> //perror
 #include <stdlib.h> //exit
 #include <string.h> //strlen
