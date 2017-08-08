@@ -10,10 +10,15 @@
 //#include <linux/interrupt.h> //--request_irq()
 //#include <linux/delay.h> //--msleep
 
+static struct of_device_id my_match_table[] = {
+	{ .compatible = "allwinner,sun5i-a13-ir",     },
+	{ },
+};
+
 
 static int my_probe(struct platform_device *dev)
 {
-    if(dev && (dev->name))
+    if( dev && (dev->name))
     {
         printk("--- dts_test: a compatibale device is found! -----");
 	printk("matched platform_device:   name=%s    id=%d  num_resources=%d\n",dev->name,dev->id,dev->num_resources);
@@ -23,12 +28,15 @@ static int my_probe(struct platform_device *dev)
     return 0;
 }
 
+
+
 static struct platform_driver my_driver = {
         .probe          = my_probe,
 //        .remove         = my_remove,
         .driver         = {
                 .owner  = THIS_MODULE,
-                .name   = "my_platf_dev2_hh",
+                .name   = "ir",//"my_platf_dev2_hh",
+		.of_match_table = my_match_table,
         },
 };
 
