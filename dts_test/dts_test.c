@@ -1,17 +1,23 @@
+/*------------------------------------------------
+1.nano midas.dtsi  as:
+
+/{
+        midas {
+                compatible = "midas,dts_test";
+                midas_tip;
+        };
+};
+2. add  #include "midas.dtsi"  to sun8i-h3-nanopi-neo.dts
+3. make dtbs
+
+---------------------------------------------------*/
+
 #include <linux/module.h>
 #include <linux/init.h>
-//#include <linux/fs.h>
-//#include <linux/gpio_keys.h>
 #include <linux/of_platform.h>
-//#include <linux/device.h>
-//#include <linux/of_gpio.h>
-//#include <linux/spinlock.h>
-//#include <linux/gpio.h>
-//#include <linux/interrupt.h> //--request_irq()
-//#include <linux/delay.h> //--msleep
 
 static struct of_device_id my_match_table[] = {
-	{ .compatible = "allwinner,sun5i-a13-ir",     },
+	{ .compatible = "midas,dts_test",     },
 	{ },
 };
 
@@ -28,15 +34,12 @@ static int my_probe(struct platform_device *dev)
     return 0;
 }
 
-
-
 static struct platform_driver my_driver = {
         .probe          = my_probe,
-//        .remove         = my_remove,
         .driver         = {
                 .owner  = THIS_MODULE,
-                .name   = "ir",//"my_platf_dev2_hh",
-		.of_match_table = my_match_table,
+                .name   = "midas",
+		.of_match_table = my_match_table, //platform_bus will try to match .of_match_table first, and then .name 
         },
 };
 
@@ -50,7 +53,6 @@ static int __init dts_test_init(void)
 
   /*注册平台驱动*/
   return platform_driver_register(&my_driver);
-
 
   node=of_find_compatible_node(NULL,NULL,strCompatible);
   if(node != NULL)
@@ -78,5 +80,5 @@ module_exit(dts_test_exit);
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("MidasZhou");
-MODULE_DESCRIPTION("gpio-irq-test");
+MODULE_DESCRIPTION("dts_test");
 
