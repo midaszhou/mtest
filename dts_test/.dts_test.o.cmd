@@ -1,8 +1,8 @@
-cmd_/works/dts_test/dts_test.o := gcc -Wp,-MD,/works/dts_test/.dts_test.o.d  -nostdinc -isystem /usr/lib/gcc/arm-linux-gnueabihf/5/include -I./arch/arm/include -I./arch/arm/include/generated/uapi -I./arch/arm/include/generated  -I./include -I./arch/arm/include/uapi -I./include/uapi -I./include/generated/uapi -include ./include/linux/kconfig.h -D__KERNEL__ -mlittle-endian -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -Werror-implicit-function-declaration -Wno-format-security -std=gnu89 -fno-PIE -fno-dwarf2-cfi-asm -fno-ipa-sra -mabi=aapcs-linux -mno-thumb-interwork -mfpu=vfp -funwind-tables -marm -D__LINUX_ARM_ARCH__=7 -march=armv7-a -msoft-float -Uarm -fno-delete-null-pointer-checks -O2 --param=allow-store-data-races=0 -DCC_HAVE_ASM_GOTO -Wframe-larger-than=1024 -fno-stack-protector -Wno-unused-but-set-variable -fomit-frame-pointer -fno-var-tracking-assignments -Wdeclaration-after-statement -Wno-pointer-sign -fno-strict-overflow -fconserve-stack -Werror=implicit-int -Werror=strict-prototypes -Werror=date-time -Werror=incompatible-pointer-types  -DMODULE  -DKBUILD_BASENAME='"dts_test"'  -DKBUILD_MODNAME='"dts_test"' -c -o /works/dts_test/dts_test.o /works/dts_test/dts_test.c
+cmd_/works/mtest/dts_test/dts_test.o := gcc -Wp,-MD,/works/mtest/dts_test/.dts_test.o.d  -nostdinc -isystem /usr/lib/gcc/arm-linux-gnueabihf/5/include -I./arch/arm/include -I./arch/arm/include/generated/uapi -I./arch/arm/include/generated  -I./include -I./arch/arm/include/uapi -I./include/uapi -I./include/generated/uapi -include ./include/linux/kconfig.h -D__KERNEL__ -mlittle-endian -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -Werror-implicit-function-declaration -Wno-format-security -std=gnu89 -fno-PIE -fno-dwarf2-cfi-asm -fno-ipa-sra -mabi=aapcs-linux -mno-thumb-interwork -mfpu=vfp -funwind-tables -marm -D__LINUX_ARM_ARCH__=7 -march=armv7-a -msoft-float -Uarm -fno-delete-null-pointer-checks -O2 --param=allow-store-data-races=0 -DCC_HAVE_ASM_GOTO -Wframe-larger-than=1024 -fno-stack-protector -Wno-unused-but-set-variable -fomit-frame-pointer -fno-var-tracking-assignments -Wdeclaration-after-statement -Wno-pointer-sign -fno-strict-overflow -fconserve-stack -Werror=implicit-int -Werror=strict-prototypes -Werror=date-time -Werror=incompatible-pointer-types  -DMODULE  -DKBUILD_BASENAME='"dts_test"'  -DKBUILD_MODNAME='"dts_test"' -c -o /works/mtest/dts_test/dts_test.o /works/mtest/dts_test/dts_test.c
 
-source_/works/dts_test/dts_test.o := /works/dts_test/dts_test.c
+source_/works/mtest/dts_test/dts_test.o := /works/mtest/dts_test/dts_test.c
 
-deps_/works/dts_test/dts_test.o := \
+deps_/works/mtest/dts_test/dts_test.o := \
   include/linux/module.h \
     $(wildcard include/config/modules.h) \
     $(wildcard include/config/sysfs.h) \
@@ -450,6 +450,25 @@ deps_/works/dts_test/dts_test.o := \
     $(wildcard include/config/have/mod/arch/specific.h) \
     $(wildcard include/config/modules/use/elf/rel.h) \
     $(wildcard include/config/modules/use/elf/rela.h) \
+  include/linux/of_platform.h \
+    $(wildcard include/config/of/address.h) \
+    $(wildcard include/config/of/dynamic.h) \
+  include/linux/device.h \
+    $(wildcard include/config/debug/devres.h) \
+    $(wildcard include/config/srcu.h) \
+    $(wildcard include/config/generic/msi/irq/domain.h) \
+    $(wildcard include/config/pinctrl.h) \
+    $(wildcard include/config/generic/msi/irq.h) \
+    $(wildcard include/config/dma/cma.h) \
+    $(wildcard include/config/of.h) \
+    $(wildcard include/config/devtmpfs.h) \
+    $(wildcard include/config/sysfs/deprecated.h) \
+  include/linux/ioport.h \
+  include/linux/klist.h \
+  include/linux/pinctrl/devinfo.h \
+    $(wildcard include/config/pm.h) \
+  include/linux/pinctrl/consumer.h \
+  include/linux/seq_file.h \
   include/linux/fs.h \
     $(wildcard include/config/fs/posix/acl.h) \
     $(wildcard include/config/security.h) \
@@ -511,26 +530,6 @@ deps_/works/dts_test/dts_test.o := \
   include/uapi/linux/fcntl.h \
   arch/arm/include/uapi/asm/fcntl.h \
   include/uapi/asm-generic/fcntl.h \
-  include/linux/gpio_keys.h \
-  include/linux/of_platform.h \
-    $(wildcard include/config/of/address.h) \
-    $(wildcard include/config/of/dynamic.h) \
-  include/linux/device.h \
-    $(wildcard include/config/debug/devres.h) \
-    $(wildcard include/config/srcu.h) \
-    $(wildcard include/config/generic/msi/irq/domain.h) \
-    $(wildcard include/config/pinctrl.h) \
-    $(wildcard include/config/generic/msi/irq.h) \
-    $(wildcard include/config/dma/cma.h) \
-    $(wildcard include/config/of.h) \
-    $(wildcard include/config/devtmpfs.h) \
-    $(wildcard include/config/sysfs/deprecated.h) \
-  include/linux/ioport.h \
-  include/linux/klist.h \
-  include/linux/pinctrl/devinfo.h \
-    $(wildcard include/config/pm.h) \
-  include/linux/pinctrl/consumer.h \
-  include/linux/seq_file.h \
   include/linux/cred.h \
     $(wildcard include/config/debug/credentials.h) \
     $(wildcard include/config/keys.h) \
@@ -669,105 +668,7 @@ deps_/works/dts_test/dts_test.o := \
     $(wildcard include/config/of/overlay.h) \
   include/linux/property.h \
   include/linux/fwnode.h \
-  include/linux/of_gpio.h \
-    $(wildcard include/config/of/gpio.h) \
-  include/linux/gpio.h \
-    $(wildcard include/config/gpiolib.h) \
-    $(wildcard include/config/arch/have/custom/gpio/h.h) \
-  arch/arm/include/asm/gpio.h \
-    $(wildcard include/config/arch/nr/gpio.h) \
-  include/asm-generic/gpio.h \
-  include/linux/gpio/driver.h \
-    $(wildcard include/config/gpio/generic.h) \
-    $(wildcard include/config/gpiolib/irqchip.h) \
-  include/linux/irq.h \
-    $(wildcard include/config/generic/irq/ipi.h) \
-    $(wildcard include/config/irq/domain/hierarchy.h) \
-    $(wildcard include/config/generic/pending/irq.h) \
-    $(wildcard include/config/hardirqs/sw/resend.h) \
-    $(wildcard include/config/generic/irq/legacy/alloc/hwirq.h) \
-    $(wildcard include/config/generic/irq/legacy.h) \
-  include/linux/irqhandler.h \
-  include/linux/irqreturn.h \
-  include/linux/irqnr.h \
-  include/uapi/linux/irqnr.h \
-  include/linux/io.h \
-    $(wildcard include/config/have/arch/huge/vmap.h) \
-    $(wildcard include/config/has/ioport/map.h) \
-  arch/arm/include/asm/io.h \
-    $(wildcard include/config/pci.h) \
-    $(wildcard include/config/need/mach/io/h.h) \
-    $(wildcard include/config/pcmcia/soc/common.h) \
-    $(wildcard include/config/isa.h) \
-    $(wildcard include/config/pccard.h) \
-  include/asm-generic/pci_iomap.h \
-    $(wildcard include/config/no/generic/pci/ioport/map.h) \
-    $(wildcard include/config/generic/pci/iomap.h) \
-  include/xen/xen.h \
-    $(wildcard include/config/xen/dom0.h) \
-    $(wildcard include/config/xen/pvh.h) \
-  include/asm-generic/io.h \
-    $(wildcard include/config/generic/iomap.h) \
-    $(wildcard include/config/virt/to/bus.h) \
-  include/linux/vmalloc.h \
-  arch/arm/include/asm/irq.h \
-    $(wildcard include/config/sparse/irq.h) \
-    $(wildcard include/config/multi/irq/handler.h) \
-  arch/arm/include/generated/asm/irq_regs.h \
-  include/asm-generic/irq_regs.h \
-  include/linux/irqdesc.h \
-    $(wildcard include/config/irq/preflow/fasteoi.h) \
-    $(wildcard include/config/proc/fs.h) \
-    $(wildcard include/config/handle/domain/irq.h) \
-  arch/arm/include/asm/hw_irq.h \
-  include/linux/irqchip/chained_irq.h \
-  include/linux/irqdomain.h \
-    $(wildcard include/config/irq/domain.h) \
-  include/linux/pinctrl/pinctrl.h \
-    $(wildcard include/config/generic/pinconf.h) \
-  include/linux/pinctrl/pinconf-generic.h \
-    $(wildcard include/config/bias/bus/hold.h) \
-    $(wildcard include/config/bias/disable.h) \
-    $(wildcard include/config/bias/high/impedance.h) \
-    $(wildcard include/config/bias/pull/down.h) \
-    $(wildcard include/config/bias/pull/pin/default.h) \
-    $(wildcard include/config/bias/pull/up.h) \
-    $(wildcard include/config/drive/open/drain.h) \
-    $(wildcard include/config/drive/open/source.h) \
-    $(wildcard include/config/drive/push/pull.h) \
-    $(wildcard include/config/drive/strength.h) \
-    $(wildcard include/config/input/debounce.h) \
-    $(wildcard include/config/input/enable.h) \
-    $(wildcard include/config/input/schmitt.h) \
-    $(wildcard include/config/input/schmitt/enable.h) \
-    $(wildcard include/config/low/power/mode.h) \
-    $(wildcard include/config/output.h) \
-    $(wildcard include/config/power/source.h) \
-    $(wildcard include/config/slew/rate.h) \
-    $(wildcard include/config/end.h) \
-    $(wildcard include/config/max.h) \
-    $(wildcard include/config/debug/fs.h) \
-  include/linux/pinctrl/machine.h \
-  include/linux/gpio/consumer.h \
-    $(wildcard include/config/gpio/sysfs.h) \
-  include/linux/interrupt.h \
-    $(wildcard include/config/irq/forced/threading.h) \
-    $(wildcard include/config/generic/irq/probe.h) \
-  include/linux/hardirq.h \
-  include/linux/ftrace_irq.h \
-    $(wildcard include/config/ftrace/nmi/enter.h) \
-    $(wildcard include/config/hwlat/tracer.h) \
-  include/linux/vtime.h \
-    $(wildcard include/config/virt/cpu/accounting.h) \
-    $(wildcard include/config/irq/time/accounting.h) \
-  include/linux/context_tracking_state.h \
-    $(wildcard include/config/context/tracking.h) \
-  include/linux/static_key.h \
-  arch/arm/include/asm/hardirq.h \
-  include/linux/irq_cpustat.h \
-  include/linux/delay.h \
-  arch/arm/include/asm/delay.h \
 
-/works/dts_test/dts_test.o: $(deps_/works/dts_test/dts_test.o)
+/works/mtest/dts_test/dts_test.o: $(deps_/works/mtest/dts_test/dts_test.o)
 
-$(deps_/works/dts_test/dts_test.o):
+$(deps_/works/mtest/dts_test/dts_test.o):

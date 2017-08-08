@@ -1,75 +1,48 @@
 #include <linux/module.h>
 #include <linux/init.h>
-#include <linux/fs.h>
-#include <linux/gpio_keys.h>
+//#include <linux/fs.h>
+//#include <linux/gpio_keys.h>
 #include <linux/of_platform.h>
-#include <linux/of_gpio.h>
-#include <linux/spinlock.h>
-#include <linux/gpio.h>
-#include <linux/interrupt.h> //--request_irq()
-#include <linux/delay.h> //--msleep
+//#include <linux/device.h>
+//#include <linux/of_gpio.h>
+//#include <linux/spinlock.h>
+//#include <linux/gpio.h>
+//#include <linux/interrupt.h> //--request_irq()
+//#include <linux/delay.h> //--msleep
 
 
-static unsigned int gpio_num=203; //--linux num. for GP11
-unsigned int int_num=0;//--interrupter number
-
-static struct work_struct int_wq; //--work queue for INT handler low part
-
-static void enable_int_wq(struct work_struct *data)
+static int my_probe(struct platform_device *dev)
 {
-  printk(KERN_INFO"Entering work_queue and start msleep....\n");
-  msleep_interruptible(300);
-  printk(KERN_INFO"Re-enable irq  ...\n");
-  enable_irq(int_num); 
-
+    if(dev && (dev->name))
+    {
+        printk("--- dts_test: a compatibale device is found! -----");
+	printk("matched platform_device:   name=%s    id=%d  num_resources=%d\n",dev->name,dev->id,dev->num_resources);
+    }
+    else
+	printk("name unknwon =n");
+    return 0;
 }
 
-static irqreturn_t int_handler(int irq, void *dev_id)
-{
-   printk(KERN_INFO "------ gpio_to_irq(PG11) triggered! -----\n");
-
-   printk(KERN_INFO "Disable irq ...\n");
-   disable_irq_nosync(int_num); //--!!!Must NOT use disable_irq() for shared IRQ.
-
-   //----- irq handler low part -------
-    schedule_work(&int_wq);
-   
-   return IRQ_HANDLED;
-}
-
-
-static int register_gpio_irq(void)
-{
-   int int_result=0;
-   int_result=request_irq(int_num,int_handler,IRQF_TRIGGER_RISING,"GPIO_INT_Midas",(void *)&gpio_num);
-   //---!!!! if IRQF_SHARED flag is set, then interrupt will be automattically trigged when the module is installed !!!!!!!!!
-   if(int_result != 0)
-   {
-	printk(KERN_EMERG "--- GPIO request irq failed! ---\n");
-   }
-
-   return int_result;
-}
+static struct platform_driver my_driver = {
+        .probe          = my_probe,
+//        .remove         = my_remove,
+        .driver         = {
+                .owner  = THIS_MODULE,
+                .name   = "my_platf_dev2_hh",
+        },
+};
 
 static int __init dts_test_init(void)
 {
   struct device_node *node=NULL;
   int ncount;
-
   char strCompatible[]="allwinner,sun8i-h3-r-pinctrl";
 
-//  gpio_set_value(gpio_num,1);
-  gpio_direction_input(gpio_num); //-set gpio direction
-  msleep(300);
-  int_num=gpio_to_irq(gpio_num);
-  printk(KERN_INFO "------ gpio_to_irq(PG11):%d -----\n",int_num);
-  if(int_num>0)
-	 register_gpio_irq();
-
-  //---init wor-queue for irq-handler low part
-  INIT_WORK(&int_wq,enable_int_wq);
-
   printk(KERN_EMERG "------ device tree test start -----\n");
+
+  /*注册平台驱动*/
+  return platform_driver_register(&my_driver);
+
 
   node=of_find_compatible_node(NULL,NULL,strCompatible);
   if(node != NULL)
@@ -85,9 +58,8 @@ static int __init dts_test_init(void)
 
 static void __exit dts_test_exit(void)
 {
-
-  if(int_num > 0) 
-  	free_irq(int_num,(void *)&gpio_num); //---!!! void *dev_id MUST be presented,eve no IRQF_SHARED flag in request_irq(xx)
+  /* 注销平台驱动 */
+  platform_driver_unregister(&my_driver);
 
   printk(KERN_EMERG "------ device tree test exit -----\n");
 
