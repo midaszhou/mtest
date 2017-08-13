@@ -38,7 +38,7 @@ static struct platform_driver my_driver = {
         .probe          = my_probe,
         .driver         = {
                 .owner  = THIS_MODULE,
-                .name   = "midas",
+                .name   = "midas_2",
 		.of_match_table = my_match_table, //platform_bus will try to match .of_match_table first, and then .name 
         },
 };

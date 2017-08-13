@@ -6,6 +6,7 @@
 #include <linux/gpio.h>
 #include <linux/interrupt.h> //--request_irq()
 #include <linux/delay.h> //--msleep
+#include <asm-generic/io.h>
 
 #define CPU_PORT_CONTROL_BASE 0x01C20800
 #define PG_CFG1_REG 0xDC
@@ -15,6 +16,9 @@
 #define PG_EINT_CTL_REG  0x230
 #define PG_EINT_STATUS_REG 0x234
 #define PG_CONTROL_IOMAP_SIZE 0x23C
+
+
+//static inline u32 inl(unsigned long addr) !!!! cause SEGMENTATION FAULT !!!!
 
 volatile unsigned long phys_addr,virt_addr; //-- physical and virtual address 
 
@@ -240,8 +244,6 @@ static int __init gpio_int_init(void)
    printk("----- PG_EINT_CTL_REG: 0x%08x -----\n",get_pg_config(PG_EINT_CTL_REG));
    printk("----- PG_EINT_CFG1_REG: 0x%08x -----\n",get_pg_config(PG_EINT_CFG1_REG));
    printk("----- PG_CFG1_REG: 0x%08x -----\n",get_pg_config(PG_CFG1_REG));
-
-
 
    int_num=gpio_to_irq(gpio_int);
    if(int_num>0)

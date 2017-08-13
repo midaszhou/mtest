@@ -1,0 +1,1 @@
+cmd_/works/mtest/rm_kmod/rm_kmod.ko := ld -EL -r  -T ./scripts/module-common.lds --build-id  -o /works/mtest/rm_kmod/rm_kmod.ko /works/mtest/rm_kmod/rm_kmod.o /works/mtest/rm_kmod/rm_kmod.mod.o ;  true

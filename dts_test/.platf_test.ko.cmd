@@ -1,0 +1,1 @@
+cmd_/works/mtest/dts_test/platf_test.ko := ld -EL -r  -T ./scripts/module-common.lds --build-id  -o /works/mtest/dts_test/platf_test.ko /works/mtest/dts_test/platf_test.o /works/mtest/dts_test/platf_test.mod.o ;  true

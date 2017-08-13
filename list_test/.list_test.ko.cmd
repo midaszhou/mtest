@@ -1,0 +1,1 @@
+cmd_/works/mtest/list_test/list_test.ko := ld -EL -r  -T ./scripts/module-common.lds --build-id  -o /works/mtest/list_test/list_test.ko /works/mtest/list_test/list_test.o /works/mtest/list_test/list_test.mod.o ;  true

@@ -1,0 +1,3 @@
+kernel//works/mtest/platform_test/platf_dev.ko
+kernel//works/mtest/platform_test/platf_dev2.ko
+kernel//works/mtest/platform_test/platf_drv.ko

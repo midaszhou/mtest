@@ -17,19 +17,28 @@
 #define LIRC_DAT_CH_MINUS 0xa2
 #define LIRC_DAT_CH_PLUS 0xe2
 
-
 /*-------------------------------------------------
   write commands to mplayer slave fifo
 -------------------------------------------------*/
 static int write_to_fifo(int fd_slave,const char *str_cmd)
 {
-   int nwrite;
+   int nwrite,nread;
    static char str_buf[100]={0};
    int len=strlen(str_cmd);
    strcpy(str_buf,str_cmd);
-   str_buf[len]='\r';
-   str_buf[len+1]='\n';
 
+   //----- read out all commands first to avoid fifo jam ----
+   nread = read(fd_slave,str_buf,20);
+   if(nread>0)
+   {
+//   	str_buf[nread]='\r'; //--put and end to command string
+   	str_buf[nread+1]='\n'; // -- for mplayer to seperate commands
+   	printf("read out jammed commands: %s\n",str_buf);
+   }
+
+   //----- write commands to mplayer slave fifo ------
+   str_buf[len]='\r'; //--put and end to command string
+   str_buf[len+1]='\n';
    if( (nwrite = write(fd_slave,str_buf,len+2)) <= 0 )
    {
         if(errno == EAGAIN)
@@ -96,6 +105,7 @@ void main(void)
   int vol=15; //0-31 volume
   uint32_t lirc_buf[100]={0}; //--4bytesx68=272bytes,  for raw lirc data from hardware IR receiver
   uint8_t  lirc_data; //--- received lirc DATA =lirce_codes[15:8]
+
 
   //-------- for mplayer slave FIFO
   const char* str_fifo="/home/fa/slave"; // slave fifo for mplayer

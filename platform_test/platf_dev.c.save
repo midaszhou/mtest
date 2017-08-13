@@ -1,0 +1,65 @@
+#include <linux/device.h>
+#include <linux/module.h>
+#include <linux/kernel.h>
+#include <linux/init.h>
+#include <linux/string.h>
+#include <linux/platform_device.h>
+
+MODULE_AUTHOR("David Xie");
+MODULE_LICENSE("Dual BSD/GPL");
+
+
+static void my_device_release(struct device *dev)
+{
+
+}
+
+//static struct platform_device *my_device;
+
+static struct platform_device my_device  = {
+	.name = "my_device_hhh",
+/*
+	.dev={
+		.release=my_device_release,
+	     },
+*/
+};
+
+
+static __init int __init my_device_init(void)
+{
+	int ret = 0;
+
+	printk(" ---- start init my platform device ----\n");
+
+        // 分配结构 
+	//my_device = platform_device_alloc("my_platform_dev", -1); //show dir. name at: /sys/bus/platform/devices/my_platform_dev
+
+        // 注册设备
+//	ret = platform_device_add(my_device);
+
+        // 可以将上面两部分合并成 platform_device_register
+	if( my_device == NULL)
+	{
+	     printk("----- platform_device *my_device == NULL! platform_device_register() fails, init exit.-----\n");
+	     return -1;
+	}
+
+        ret=platform_device_register(&my_device);
+
+	/*注册失败，释放相关内存*/
+	if (ret)
+	    platform_device_put(&my_device);
+
+	return ret;
+}
+
+static __exit void my_device_exit(void)
+{
+	platform_device_unregister(&my_device);
+	printk(" ---- my platform device exit ----\n");
+}
+
+module_init(my_device_init);
+module_exit(my_device_exit);
+
