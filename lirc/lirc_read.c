@@ -169,15 +169,22 @@ void main(void)
 
 	switch(lirc_data)
 	{
+		case LIRC_DAT_CH: //--NK news
+			system("killall recnkmp3");
+			printf("load NK news...\n");
+			system("screen -dmS NK_NEWS /home/fa/recnkmp3");
+			break;
 		case LIRC_DAT_CH_PLUS:  //----change channel
 			setVolume(vol);
 			system("killall mplayer");
+			sleep(1); // try free fifo slave  
 			printf("screen -dmS MPLAY_LIST /home/fa/mplaylist\n");
 			system("screen -dmS MPLAY_LIST /home/fa/mplaylist");
 			break;
 		case LIRC_DAT_CH_MINUS:  //----change channel
 			setVolume(vol);
 			system("killall mplayer");
+			sleep(1); // try free fifo slave  
 			printf("screen -dmS MPLAY_FOX /home/fa/mplayfox\n");
 			system("screen -dmS MPLAY_FOX /home/fa/mplayfox");
 			break;
