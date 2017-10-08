@@ -1,0 +1,1006 @@
+fl2000_bulk.c:	spin_lock_irqsave(&dev_ctx->count_lock, flags);
+fl2000_bulk.c:	spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+fl2000_bulk.c:	spin_lock_irqsave(&dev_ctx->count_lock, flags);
+fl2000_bulk.c:	spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+fl2000_bulk.c:		dev_ctx->usb_dev,
+fl2000_bulk.c:		dev_ctx->usb_pipe_bulk_out,
+fl2000_bulk.c:                dev_ctx->usb_dev,
+fl2000_bulk.c:                dev_ctx->usb_pipe_iso_out,
+fl2000_bulk.c:	if (dev_ctx->vr_params.end_of_frame_type == EOF_ZERO_LENGTH) {
+fl2000_bulk.c:			dev_ctx->usb_dev,
+fl2000_bulk.c:			dev_ctx->usb_pipe_bulk_out,
+fl2000_bulk.c:        if (dev_ctx->vr_params.end_of_frame_type == EOF_ZERO_LENGTH) {
+fl2000_bulk.c:        	        dev_ctx->usb_dev,
+fl2000_bulk.c:                	dev_ctx->usb_pipe_iso_out,
+fl2000_compression.c:	switch (dev_ctx->vr_params.compression_mask_index) {
+fl2000_compression.c:	if (dev_ctx->vr_params.compression_mask_index_min <
+fl2000_compression.c:	    dev_ctx->vr_params.compression_mask_index) {
+fl2000_compression.c:		dev_ctx->vr_params.compression_mask_index--;
+fl2000_compression.c:		( int )dev_ctx->vr_params.compression_mask_index );
+fl2000_compression.c:	if (dev_ctx->vr_params.compression_mask_index_max !=
+fl2000_compression.c:	    dev_ctx->vr_params.compression_mask_index)
+fl2000_compression.c:		dev_ctx->vr_params.compression_mask_index++;
+fl2000_compression.c:	ASSERT(dev_ctx->vr_params.compression_mask_index <=
+fl2000_compression.c:		(int)dev_ctx->vr_params.compression_mask_index);
+fl2000_compression.c:	dev_ctx->vr_params.compression_mask_index = COMPRESSION_MASK_INDEX_MAXIMUM;
+fl2000_compression.c:	if (dev_ctx->vr_params.use_compression)
+fl2000_compression.c:	pixelBytes = GET_BYTES_PER_PIXEL(dev_ctx->vr_params.output_image_type);
+fl2000_compression.c:	ASSERT((dev_ctx->vr_params.input_bytes_per_pixel * num_of_pixels ) >= compressed_length );
+Binary file fl2000_compression.o matches
+fl2000_def.h:#define IS_DEVICE_USB3LINK(dev_ctx)             (USB3_BCD == dev_ctx->usb_dev_desc.bcdUSB)
+fl2000_desc.c:	memcpy(	&dev_ctx->usb_dev_desc,
+fl2000_desc.c:		&dev_ctx->usb_dev->descriptor,
+fl2000_desc.c:        //dev_ctx->card_name = CARD_NAME_UNDEFINED;
+fl2000_desc.c:	dev_ctx->card_name=CARD_NAME_FL2000;
+fl2000_desc.c:	if (VID_FRESCO_LOGIC == dev_ctx->usb_dev_desc.idVendor &&
+fl2000_desc.c:	    PID_FL2000 == dev_ctx->usb_dev_desc.idProduct &&
+fl2000_desc.c:	    DEVICE_ID_FL2000DX == dev_ctx->usb_dev_desc.bcdDevice)
+fl2000_desc.c:		dev_ctx->card_name = CARD_NAME_FL2000DX;
+fl2000_dev.c://	dev_ctx->card_name = CARD_NAME_FL2000DX; //FL2000DX;
+fl2000_dev.c:	dev_ctx->monitor_plugged_in = false;
+fl2000_dev.c:	init_waitqueue_head(&dev_ctx->ioctl_wait_q);
+fl2000_dev.c:	cur_altsetting = dev_ctx->usb_ifc_streaming->cur_altsetting;
+fl2000_dev.c:		dev_ctx->usb_dev,
+fl2000_dev.c:	spin_lock_init(&dev_ctx->count_lock);
+Binary file fl2000_dev.o matches
+fl2000_dongle.c:	dev_ctx->registry.UsePollingMonitorConnection = 0;
+fl2000_dongle.c://+++++ what is this for ????!!!!dev_ctx->registry.FilterEdidTableEnable = EDID_FILTER_USB2_800_600_60HZ;
+fl2000_dongle.c:        //dev_ctx->registry.FilterEdidTableEnable = EDID_FILTER_USB2_800_600_60HZ;
+fl2000_dongle.c:        dev_ctx->registry.CompressionEnable = 0;
+fl2000_dongle.c:	dev_ctx->registry.Usb2PixelFormatTransformCompressionEnable = 1;
+fl2000_dongle.c:	if (!dev_ctx->usb_dev) {
+fl2000_dongle.c:	old_pll = dev_ctx->vr_params.pll_reg;
+fl2000_dongle.c:	memcpy(&dev_ctx->vr_params, vr_params, sizeof(struct vr_params));
+fl2000_dongle.c:	dev_ctx->vr_params.pll_reg = old_pll;
+fl2000_dongle.c:	dev_ctx->vr_params.end_of_frame_type = EOF_ZERO_LENGTH;
+fl2000_dongle.c:	if (dev_ctx->registry.CompressionEnable ||
+fl2000_dongle.c:		dev_ctx->vr_params.use_compression = 1;
+fl2000_dongle.c:		dev_ctx->vr_params.compression_mask_index_min = COMPRESSION_MASK_INDEX_MINIMUM;
+fl2000_dongle.c:		dev_ctx->vr_params.compression_mask_index_max = COMPRESSION_MASK_INDEX_MAXIMUM;
+fl2000_dongle.c:		if (dev_ctx->registry.Usb2PixelFormatTransformCompressionEnable) {
+fl2000_dongle.c://+++++COMP change dev_ctx->vr_params.compression_mask_index = COMPRESSION_MASK_13_BIT_INDEX
+fl2000_dongle.c:			dev_ctx->vr_params.compression_mask = COMPRESSION_MASK_15_BIT_VALUE;
+fl2000_dongle.c:			dev_ctx->vr_params.compression_mask_index = COMPRESSION_MASK_15_BIT_INDEX; //13_BIT_INDEX;
+fl2000_dongle.c:			dev_ctx->vr_params.compression_mask_index_min = COMPRESSION_MASK_15_BIT_INDEX;
+fl2000_dongle.c:			dev_ctx->vr_params.compression_mask = COMPRESSION_MASK_23_BIT_VALUE;
+fl2000_dongle.c:			dev_ctx->vr_params.compression_mask_index = COMPRESSION_MASK_23_BIT_INDEX;
+fl2000_dongle.c:	switch (dev_ctx->vr_params.output_image_type) {
+fl2000_dongle.c:                dev_ctx->vr_params.width,
+fl2000_dongle.c:                dev_ctx->vr_params.height,
+fl2000_dongle.c:                dev_ctx->vr_params.freq);
+fl2000_dongle.c:		dev_ctx->vr_params.width,
+fl2000_dongle.c:		dev_ctx->vr_params.height,
+fl2000_dongle.c:		dev_ctx->vr_params.freq);
+fl2000_dongle.c:	dev_ctx->vr_params.h_sync_reg_1 = entry->h_sync_reg_1;
+fl2000_dongle.c:	dev_ctx->vr_params.h_sync_reg_2 = entry->h_sync_reg_2;
+fl2000_dongle.c://----- CHANGE dev_ctx->vr_params.v_sync_reg_1 = entry->v_sync_reg_1 to +0x100000
+fl2000_dongle.c:	dev_ctx->vr_params.v_sync_reg_1 = entry->v_sync_reg_1;
+fl2000_dongle.c:	dev_ctx->vr_params.v_sync_reg_2 = entry->v_sync_reg_2; //change this will cause No Signal for monitor 
+fl2000_dongle.c:	dev_ctx->vr_params.h_total_time = entry->h_total_time;
+fl2000_dongle.c:	dev_ctx->vr_params.h_sync_time  = entry->h_sync_time;
+fl2000_dongle.c:	dev_ctx->vr_params.h_back_porch = entry->h_back_porch;
+fl2000_dongle.c:	dev_ctx->vr_params.v_total_time = entry->v_total_time;
+fl2000_dongle.c://	dev_ctx->vr_params.v_total_time = ((entry->v_total_time)>>1);
+fl2000_dongle.c:	dev_ctx->vr_params.v_sync_time  = entry->v_sync_time;
+fl2000_dongle.c://	dev_ctx->vr_params.v_sync_time  = (entry->v_sync_time)>>1;
+fl2000_dongle.c://----- dev_ctx->vr_params.v_back_porch = entry->v_back_porch change to >>1
+fl2000_dongle.c:	dev_ctx->vr_params.v_back_porch = entry->v_back_porch;
+fl2000_dongle.c://	dev_ctx->vr_params.v_back_porch = (entry->v_back_porch)>>1;
+fl2000_dongle.c:	if (dev_ctx->hdmi_chip_found)
+fl2000_dongle.c:	if (new_pll != dev_ctx->vr_params.pll_reg) {
+fl2000_dongle.c:	    dev_ctx->vr_params.pll_reg = new_pll;
+fl2000_dongle.c://	dev_ctx->usb_pipe_bulk_out = usb_sndbulkpipe(dev_ctx->usb_dev, 1);
+fl2000_dongle.c:	dev_ctx->usb_pipe_iso_out = usb_sndisocpipe(dev_ctx->usb_dev, 2);
+fl2000_dongle.c:	printk("fl2000_dongle_set_params: usb_pipe_iso_out= 0x%x  ----------\n",dev_ctx->usb_pipe_iso_out);
+fl2000_dongle.c:	if ((dev_ctx->vr_params.width != display_mode->width) ||
+fl2000_dongle.c:	    (dev_ctx->vr_params.height != display_mode->height))
+fl2000_dongle.c:	if (dev_ctx->hdmi_chip_found)
+fl2000_dongle.c:	dev_ctx->hdmi_chip_found = hdmi_chip_found;
+fl2000_dongle.c:		if (!dev_ctx->hdmi_powered_up) {
+fl2000_fops.c:	spin_lock_irqsave(&dev_ctx->count_lock, flags);
+fl2000_fops.c:	open_count = ++dev_ctx->open_count;
+fl2000_fops.c:	spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+fl2000_fops.c:		spin_lock_irqsave(&dev_ctx->count_lock, flags);
+fl2000_fops.c:		dev_ctx->open_count--;
+fl2000_fops.c:		spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+fl2000_fops.c:	kref_get(&dev_ctx->kref);
+fl2000_fops.c:	if (waitqueue_active(&dev_ctx->ioctl_wait_q)) {
+fl2000_fops.c:		wake_up_interruptible(&dev_ctx->ioctl_wait_q);
+fl2000_fops.c:	spin_lock_irqsave(&dev_ctx->count_lock, flags);
+fl2000_fops.c:	open_count = --dev_ctx->open_count;
+fl2000_fops.c:	spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+fl2000_fops.c:	kref_put(&dev_ctx->kref, fl2000_module_free);
+fl2000_fops.c:		struct page * page = dev_ctx->start_page + i;
+fl2000_fops.c:		struct page * page = dev_ctx->start_page + i;
+fl2000_hdmi.c:        if (dev_ctx->vr_params.width == 640 &&
+fl2000_hdmi.c:            dev_ctx->vr_params.height == 480) {
+fl2000_hdmi.c:        else if (dev_ctx->vr_params.width == 1280 &&
+fl2000_hdmi.c:                 dev_ctx->vr_params.height == 720) {
+fl2000_hdmi.c:        else if (dev_ctx->vr_params.width == 1920 &&
+fl2000_hdmi.c:                 dev_ctx->vr_params.height == 1080) {
+fl2000_hdmi.c:        pixelClock = dev_ctx->vr_params.h_total_time *
+fl2000_hdmi.c:                dev_ctx->vr_params.v_total_time *
+fl2000_hdmi.c:                dev_ctx->vr_params.freq;
+fl2000_hdmi.c:        if (dev_ctx->hdmi_running_in_dvi_mode)
+fl2000_hdmi.c:        dev_ctx->hdmi_powered_up = true;
+fl2000_hdmi.c:        dev_ctx->hdmi_powered_up = false;
+fl2000_hdmi.c:        if (dev_ctx->hdmi_audio_use_spdif) {
+fl2000_hdmi.c:        if (dev_ctx->hdmi_audio_use_spdif)
+fl2000_hdmi.c:        if (dev_ctx->hdmi_audio_use_spdif) {
+fl2000_hdmi.c:        if (dev_ctx->hdmi_audio_use_spdif) {
+fl2000_hdmi.c:        target_block = dev_ctx->monitor_edid[block_id];
+fl2000_hdmi.c:        if (dev_ctx->vr_params.width == 640 &&
+fl2000_hdmi.c:            dev_ctx->vr_params.height == 480 &&
+fl2000_hdmi.c:            dev_ctx->vr_params.freq == 60) {
+fl2000_hdmi.c:                dev_ctx->vr_params.h_back_porch = 48;
+fl2000_hdmi.c:                dev_ctx->vr_params.v_back_porch = 33;
+fl2000_hdmi.c:                dev_ctx->vr_params.h_sync_reg_2 = 0x600091;
+fl2000_hdmi.c:                dev_ctx->vr_params.v_sync_reg_2 = 0x2420024;
+fl2000_hdmi.c:        } else if (dev_ctx->vr_params.width == 1280 &&
+fl2000_hdmi.c:                   dev_ctx->vr_params.height == 720 &&
+fl2000_hdmi.c:                   dev_ctx->vr_params.freq == 60) {
+fl2000_hdmi.c:                dev_ctx->vr_params.v_back_porch = 20;
+fl2000_hdmi.c:                dev_ctx->vr_params.v_sync_reg_2 = 0x1A5001A;
+fl2000_hdmi.c:        if (!dev_ctx->hdmi_chip_found)
+fl2000_hdmi.c:        if (!dev_ctx->hdmi_powered_up) {
+fl2000_hdmi.c:                tmp = dev_ctx->Hdmi.W[ ( t - 3 ) % HDMI_HDCP_WCOUNT ] ^ dev_ctx->Hdmi.W[(t - 8)% HDMI_HDCP_WCOUNT] ^ dev_ctx->Hdmi.W[ ( t - 14 ) % HDMI_HDCP_WCOUNT ] ^ dev_ctx->Hdmi.W[ ( t - 16 ) % HDMI_HDCP_WCOUNT ];
+fl2000_hdmi.c:                dev_ctx->Hdmi.W[ ( t ) % HDMI_HDCP_WCOUNT ] = UTILITY_ROLLING_LEFT( tmp, 1 );
+fl2000_hdmi.c:        tmp = UTILITY_ROLLING_LEFT( h[ 0 ], 5 ) + ( ( h[ 1 ] & h[ 2 ] ) | ( h[ 3 ] & ~h[ 1 ] ) )+ h[4] + dev_ctx->Hdmi.W[(t)% HDMI_HDCP_WCOUNT] + 0x5a827999;
+fl2000_hdmi.c:        tmp=dev_ctx->Hdmi.W[(t - 3)% HDMI_HDCP_WCOUNT] ^ dev_ctx->Hdmi.W[(t - 8)% HDMI_HDCP_WCOUNT] ^ dev_ctx->Hdmi.W[(t - 14)% HDMI_HDCP_WCOUNT] ^ dev_ctx->Hdmi.W[(t - 16)% HDMI_HDCP_WCOUNT];
+fl2000_hdmi.c:        dev_ctx->Hdmi.W[(t)% HDMI_HDCP_WCOUNT]=UTILITY_ROLLING_LEFT(tmp,1);
+fl2000_hdmi.c:        tmp=UTILITY_ROLLING_LEFT(h[0],5)+ (h[1] ^ h[2] ^ h[3])+ h[4] + dev_ctx->Hdmi.W[(t)% HDMI_HDCP_WCOUNT] + 0x6ed9eba1;
+fl2000_hdmi.c:        tmp=dev_ctx->Hdmi.W[(t - 3)% HDMI_HDCP_WCOUNT] ^ dev_ctx->Hdmi.W[(t - 8)% HDMI_HDCP_WCOUNT] ^ dev_ctx->Hdmi.W[(t - 14)% HDMI_HDCP_WCOUNT] ^ dev_ctx->Hdmi.W[(t - 16)% HDMI_HDCP_WCOUNT];
+fl2000_hdmi.c:        dev_ctx->Hdmi.W[(t)% HDMI_HDCP_WCOUNT]=UTILITY_ROLLING_LEFT(tmp,1);
+fl2000_hdmi.c:        tmp=UTILITY_ROLLING_LEFT(h[0],5)+ ((h[1] & h[2])| (h[1] & h[3])| (h[2] & h[3]))+ h[4] + dev_ctx->Hdmi.W[(t)% HDMI_HDCP_WCOUNT] + 0x8f1bbcdc;
+fl2000_hdmi.c:        tmp=dev_ctx->Hdmi.W[(t - 3)% HDMI_HDCP_WCOUNT] ^ dev_ctx->Hdmi.W[(t - 8)% HDMI_HDCP_WCOUNT] ^ dev_ctx->Hdmi.W[(t - 14)% HDMI_HDCP_WCOUNT] ^ dev_ctx->Hdmi.W[(t - 16)% HDMI_HDCP_WCOUNT];
+fl2000_hdmi.c:        dev_ctx->Hdmi.W[(t)% HDMI_HDCP_WCOUNT]=UTILITY_ROLLING_LEFT(tmp,1);
+fl2000_hdmi.c:        tmp=UTILITY_ROLLING_LEFT(h[0],5)+ (h[1] ^ h[2] ^ h[3])+ h[4] + dev_ctx->Hdmi.W[(t)% HDMI_HDCP_WCOUNT] + 0xca62c1d6;
+fl2000_hdmi.c:            dev_ctx->Hdmi.W[t]=0;
+fl2000_hdmi.c:        dev_ctx->Hdmi.W[t] |=c;
+fl2000_hdmi.c:        dev_ctx->Hdmi.W[t]=0;
+fl2000_hdmi.c:    dev_ctx->Hdmi.W[t]|=c;t++;
+fl2000_hdmi.c:        dev_ctx->Hdmi.W[t]=0;
+fl2000_hdmi.c:    dev_ctx->Hdmi.W[15]=len*8;
+fl2000_hdmi.c:    HDMI_HDCP_SHA_Transform( dev_ctx, dev_ctx->Hdmi.VH );
+fl2000_hdmi.c:        output[i*4+3]=( uint8_t )((dev_ctx->Hdmi.VH[i]>>24)&0xFF);
+fl2000_hdmi.c:        output[i*4+2]=( uint8_t )((dev_ctx->Hdmi.VH[i]>>16)&0xFF);
+fl2000_hdmi.c:        output[i*4+1]=( uint8_t )((dev_ctx->Hdmi.VH[i]>>8)&0xFF);
+fl2000_hdmi.c:        output[i*4+0]=( uint8_t )(dev_ctx->Hdmi.VH[i]&0xFF);
+fl2000_hdmi.c:        dev_ctx->Hdmi.HdcpSHABuffer[i] = ksv_list[i] ;
+fl2000_hdmi.c:    dev_ctx->Hdmi.HdcpSHABuffer[i++] = BStatus & 0xFF;
+fl2000_hdmi.c:    dev_ctx->Hdmi.HdcpSHABuffer[i++] = (BStatus>>8) & 0xFF;
+fl2000_hdmi.c:        dev_ctx->Hdmi.HdcpSHABuffer[i] = m0[n] ;
+fl2000_hdmi.c:        dev_ctx->Hdmi.HdcpSHABuffer[i] = 0 ;
+fl2000_hdmi.c:    HDMI_HDCP_SHA_Simple( dev_ctx, dev_ctx->Hdmi.HdcpSHABuffer, n, dev_ctx->Hdmi.V );
+fl2000_hdmi.c:        if(dev_ctx->Hdmi.V[i] != Vr[i])
+fl2000_hdmi.c:    is_good = fl2000_hdcp_get_ksv_list( dev_ctx, dev_ctx->Hdmi.KSVList, downstream );
+fl2000_hdmi.c:    is_good = fl2000_hdmi_hdcp_get_vr( dev_ctx, dev_ctx->Hdmi.VR );
+fl2000_hdmi.c:    is_good = fl2000_hdmi_hdcp_get_m0( dev_ctx, dev_ctx->Hdmi.M0 );
+fl2000_hdmi.c:                                  dev_ctx->Hdmi.M0,
+fl2000_hdmi.c:                                  dev_ctx->Hdmi.KSVList,
+fl2000_hdmi.c:                                  dev_ctx->Hdmi.VR );
+fl2000_i2c.c:		pipe = usb_rcvctrlpipe(dev_ctx->usb_dev, 0);
+fl2000_i2c.c:		pipe = usb_sndctrlpipe(dev_ctx->usb_dev, 0);
+fl2000_i2c.c:		dev_ctx->usb_dev,
+fl2000_interrupt.c:		dev_ctx->usb_ifc_intr->cur_altsetting;
+fl2000_interrupt.c:	dev_ctx->ep_intr_in = NULL;
+fl2000_interrupt.c:			dev_ctx->ep_intr_in = endpoint;
+fl2000_interrupt.c:			dev_ctx->ep_num_intr_in = usb_endpoint_num(desc);
+fl2000_interrupt.c:			dev_ctx->ep_desc_intr_in = desc;
+fl2000_interrupt.c:				dev_ctx->ep_num_intr_in
+fl2000_interrupt.c:	if (dev_ctx->ep_intr_in == NULL) {
+fl2000_interrupt.c:	 * dev_ctx->ep_num_intr_in should be 3
+fl2000_interrupt.c:	dev_ctx->usb_pipe_intr_in = usb_rcvintpipe(dev_ctx->usb_dev, 3);
+fl2000_interrupt.c:	if (!dev_ctx->usb_pipe_intr_in) {
+fl2000_interrupt.c:	dev_ctx->intr_urb = usb_alloc_urb(0, GFP_ATOMIC);
+fl2000_interrupt.c:	if (!dev_ctx->intr_urb) {
+fl2000_interrupt.c:	dev_ctx->intr_pipe_wq = create_workqueue("intr_pipe_wq");
+fl2000_interrupt.c:	if (dev_ctx->intr_pipe_wq == NULL) {
+fl2000_interrupt.c:		usb_free_urb(dev_ctx->intr_urb);
+fl2000_interrupt.c:		dev_ctx->intr_urb = NULL;
+fl2000_interrupt.c:	if (dev_ctx->intr_pipe_wq) {
+fl2000_interrupt.c:		destroy_workqueue(dev_ctx->intr_pipe_wq);
+fl2000_interrupt.c:		dev_ctx->intr_pipe_wq = NULL;
+fl2000_interrupt.c:	if (dev_ctx->intr_urb){
+fl2000_interrupt.c:		usb_free_urb(dev_ctx->intr_urb);
+fl2000_interrupt.c:		dev_ctx->intr_urb = NULL;
+fl2000_interrupt.c:	dev_ctx->intr_pipe_started = true;
+fl2000_interrupt.c:		dev_ctx->intr_urb,
+fl2000_interrupt.c:		dev_ctx->usb_dev,
+fl2000_interrupt.c:		dev_ctx->usb_pipe_intr_in,
+fl2000_interrupt.c:		&dev_ctx->intr_data,
+fl2000_interrupt.c:		sizeof(dev_ctx->intr_data),
+fl2000_interrupt.c:		dev_ctx->ep_desc_intr_in->bInterval);
+fl2000_interrupt.c:	spin_lock_irqsave(&dev_ctx->count_lock, flags);
+fl2000_interrupt.c:	dev_ctx->intr_pipe_pending_count++;
+fl2000_interrupt.c:	spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+fl2000_interrupt.c:	ret_val = usb_submit_urb(dev_ctx->intr_urb, GFP_KERNEL);
+fl2000_interrupt.c:		spin_lock_irqsave(&dev_ctx->count_lock, flags);
+fl2000_interrupt.c:		dev_ctx->intr_pipe_pending_count--;
+fl2000_interrupt.c:		spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+fl2000_interrupt.c:		dev_ctx->intr_pipe_started = false;
+fl2000_interrupt.c:	dev_ctx->intr_pipe_started = false;
+fl2000_interrupt.c:	if (dev_ctx->intr_pipe_pending_count != 0)
+fl2000_interrupt.c:		usb_kill_urb(dev_ctx->intr_urb);
+fl2000_interrupt.c:	drain_workqueue(dev_ctx->intr_pipe_wq);
+fl2000_interrupt.c:	spin_lock_irqsave(&dev_ctx->count_lock, flags);
+fl2000_interrupt.c:	dev_ctx->intr_pipe_pending_count--;
+fl2000_interrupt.c:	spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+fl2000_interrupt.c:	INIT_WORK(&dev_ctx->intr_pipe_work, &fl2000_intr_pipe_work);
+fl2000_interrupt.c:	work_queued = queue_work(dev_ctx->intr_pipe_wq, &dev_ctx->intr_pipe_work);
+fl2000_interrupt.c:	if (!dev_ctx->intr_pipe_started) {
+fl2000_interrupt.c:		dev_ctx->intr_urb,
+fl2000_interrupt.c:		dev_ctx->usb_dev,
+fl2000_interrupt.c:		dev_ctx->usb_pipe_intr_in,
+fl2000_interrupt.c:		&dev_ctx->intr_data,
+fl2000_interrupt.c:		sizeof(dev_ctx->intr_data),
+fl2000_interrupt.c:		dev_ctx->ep_desc_intr_in->bInterval);
+fl2000_interrupt.c:	spin_lock_irqsave(&dev_ctx->count_lock, flags);
+fl2000_interrupt.c:	dev_ctx->intr_pipe_pending_count++;
+fl2000_interrupt.c:	spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+fl2000_interrupt.c:	ret_val = usb_submit_urb(dev_ctx->intr_urb, GFP_KERNEL);
+fl2000_interrupt.c:		spin_lock_irqsave(&dev_ctx->count_lock, flags);
+fl2000_interrupt.c:		dev_ctx->intr_pipe_pending_count--;
+fl2000_interrupt.c:		spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+fl2000_interrupt.c:		dev_ctx->intr_pipe_started = false;
+fl2000_interrupt.c:	if (!dev_ctx->intr_pipe_started) {
+fl2000_interrupt.c:		dev_ctx->intr_urb,
+fl2000_interrupt.c:		dev_ctx->usb_dev,
+fl2000_interrupt.c:		dev_ctx->usb_pipe_intr_in,
+fl2000_interrupt.c:		&dev_ctx->intr_data,
+fl2000_interrupt.c:		sizeof(dev_ctx->intr_data),
+fl2000_interrupt.c:		dev_ctx->ep_desc_intr_in->bInterval);
+fl2000_interrupt.c:	spin_lock_irqsave(&dev_ctx->count_lock, flags);
+fl2000_interrupt.c:	dev_ctx->intr_pipe_pending_count++;
+fl2000_interrupt.c:	spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+fl2000_interrupt.c:	ret_val = usb_submit_urb(dev_ctx->intr_urb, GFP_KERNEL);
+fl2000_interrupt.c:		spin_lock_irqsave(&dev_ctx->count_lock, flags);
+fl2000_interrupt.c:		dev_ctx->intr_pipe_pending_count--;
+fl2000_interrupt.c:		spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+fl2000_interrupt.c:		dev_ctx->intr_pipe_started = false;
+fl2000_ioctl.c:	bool const prev_plug_in = dev_ctx->monitor_plugged_in;
+fl2000_ioctl.c:	 * return when dev_ctx->monitor_plugged_in changed.
+fl2000_ioctl.c:	wait_status = wait_event_interruptible(dev_ctx->ioctl_wait_q,
+fl2000_ioctl.c:		(prev_plug_in != dev_ctx->monitor_plugged_in));
+fl2000_ioctl.c:		dev_ctx->monitor_plugged_in, wait_status);
+fl2000_ioctl.c:	monitor_info.monitor_flags.connected = (dev_ctx->monitor_plugged_in == true);
+fl2000_ioctl.c:	monitor_info.fl2000_flags.connected = (dev_ctx->dev_gone != true);
+fl2000_ioctl.c:	memcpy(monitor_info.edid, dev_ctx->monitor_edid[0], EDID_SIZE);
+fl2000_ioctl.c:		"current plugged_in(%d)", dev_ctx->monitor_plugged_in);
+fl2000_ioctl.c:	monitor_info.monitor_flags.connected = (dev_ctx->monitor_plugged_in == true);
+fl2000_ioctl.c:	monitor_info.fl2000_flags.connected = (dev_ctx->dev_gone != true);
+fl2000_ioctl.c:	memcpy(monitor_info.edid, dev_ctx->monitor_edid[0], EDID_SIZE);
+fl2000_ioctl.c:	dev_ctx->render.display_mode = display_mode;
+fl2000_ioctl.c:	struct list_head * const list_head = &dev_ctx->render.surface_list;
+fl2000_ioctl.c:	spin_lock_bh(&dev_ctx->render.surface_list_lock);
+fl2000_ioctl.c:			spin_lock_irqsave(&dev_ctx->count_lock, flags);
+fl2000_ioctl.c:			dev_ctx->render.surface_list_count--;
+fl2000_ioctl.c:			spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+fl2000_ioctl.c:	spin_unlock_bh(&dev_ctx->render.surface_list_lock);
+fl2000_ioctl.c:	spin_lock_bh(&dev_ctx->render.surface_list_lock);
+fl2000_ioctl.c:	if(list_empty(&dev_ctx->render.surface_list)){
+fl2000_ioctl.c:	list_for_each_entry(s, &dev_ctx->render.surface_list, list_entry) {
+fl2000_ioctl.c:	spin_unlock_bh(&dev_ctx->render.surface_list_lock);
+fl2000_ioctl.c:			if(dev_ctx->vr_params.use_compression){
+fl2000_ioctl.c:			if(dev_ctx->vr_params.use_compression){
+fl2000_ioctl.c:		if(dev_ctx->vr_params.use_compression){
+fl2000_ioctl.c:	spin_lock_bh(&dev_ctx->render.surface_list_lock);
+fl2000_ioctl.c:	list_for_each_entry(s, &dev_ctx->render.surface_list, list_entry) {
+fl2000_ioctl.c:	spin_unlock_bh(&dev_ctx->render.surface_list_lock);
+fl2000_ioctl.c:	spin_lock_bh(&dev_ctx->render.surface_list_lock);
+fl2000_ioctl.c:	list_for_each_entry(s, &dev_ctx->render.surface_list, list_entry) {
+fl2000_ioctl.c:	spin_unlock_bh(&dev_ctx->render.surface_list_lock);
+fl2000_ioctl.c:	dev_ctx->start_page = page;
+Binary file fl2000.ko matches
+fl2000_module.c:		kref_init(&dev_ctx->kref);
+fl2000_module.c:		kref_get(&dev_ctx->kref);
+fl2000_module.c:	dev_ctx->usb_dev = usb_dev;
+fl2000_module.c:		dev_ctx->usb_ifc_streaming = ifc;
+fl2000_module.c:                dev_ctx->usb_dev = usb_dev;
+fl2000_module.c:		dev_ctx->usb_ifc_intr = ifc;
+fl2000_module.c:			fl2000_module_free(&dev_ctx->kref);
+fl2000_module.c:	dev_ctx->dev_gone = true;
+fl2000_module.c:	if (waitqueue_active(&dev_ctx->ioctl_wait_q)) {
+fl2000_module.c:		wake_up_interruptible(&dev_ctx->ioctl_wait_q);
+fl2000_module.c:			dev_ctx->usb_dev,
+fl2000_module.c:	kref_put(&dev_ctx->kref, fl2000_module_free);
+fl2000_module.c:		dev_ctx->kref.refcount.refs);
+fl2000_monitor.c:	dev_ctx->monitor_edid[0][35] = 0x21;
+fl2000_monitor.c:	dev_ctx->monitor_edid[0][36] = 0x8;
+fl2000_monitor.c:	dev_ctx->monitor_edid[0][37] = 0;
+fl2000_monitor.c:		uint8_t	 x = dev_ctx->monitor_edid[0][i];
+fl2000_monitor.c:		uint8_t  ratio = dev_ctx->monitor_edid[0][i + 1] >> 6;
+fl2000_monitor.c:		freq = (dev_ctx->monitor_edid[0][i + 1] & 0x3F) + 60;
+fl2000_monitor.c:		if (dev_ctx->monitor_edid[0][i] == 1 &&
+fl2000_monitor.c:		    dev_ctx->monitor_edid[0][i + 1] == 1)
+fl2000_monitor.c:			dev_ctx->monitor_edid[0][i] = 97;
+fl2000_monitor.c:			dev_ctx->monitor_edid[0][i + 1]= IMAGE_ASPECT_RATIO_4_3 << 6;
+fl2000_monitor.c:		uint8_t *  entry = &dev_ctx->monitor_edid[0][i];
+fl2000_monitor.c:		memcpy(&dev_ctx->monitor_edid[0][index], &data, 4);
+fl2000_monitor.c:		data = dev_ctx->vr_params.pll_reg;
+fl2000_monitor.c:			    dev_ctx->vr_params.trasfer_pipe)
+fl2000_monitor.c:	if (dev_ctx->vr_params.pll_reg != data) {
+fl2000_monitor.c:	if (dev_ctx->vr_params.end_of_frame_type == EOF_ZERO_LENGTH) {
+fl2000_monitor.c:	if (dev_ctx->vr_params.use_compression) {
+fl2000_monitor.c:	if (OUTPUT_IMAGE_TYPE_RGB_16 == dev_ctx->vr_params.output_image_type) {
+fl2000_monitor.c:		    dev_ctx->vr_params.color_mode_16bit) {
+fl2000_monitor.c:		 dev_ctx->vr_params.output_image_type) {
+fl2000_monitor.c:	data = dev_ctx->vr_params.h_sync_reg_1;
+fl2000_monitor.c:		if (dev_ctx->vr_params.h_sync_reg_1 != data) {
+fl2000_monitor.c:	data = dev_ctx->vr_params.h_sync_reg_2;
+fl2000_monitor.c:		if (dev_ctx->vr_params.h_sync_reg_2 != data) {
+fl2000_monitor.c:	data = dev_ctx->vr_params.v_sync_reg_1;
+fl2000_monitor.c:		if (dev_ctx->vr_params.v_sync_reg_1 != data) {
+fl2000_monitor.c:	data = dev_ctx->vr_params.v_sync_reg_2;
+fl2000_monitor.c:		if ( dev_ctx->vr_params.v_sync_reg_2 != data ) {
+fl2000_monitor.c:	if (dev_ctx->hdmi_chip_found) {
+fl2000_monitor.c:		num_ext = dev_ctx->monitor_edid[0][126];
+fl2000_monitor.c:		memset(dev_ctx->monitor_edid[0], 0, EDID_SIZE);
+fl2000_monitor.c:	if (dev_ctx->registry.FilterEdidTableEnable) {
+fl2000_monitor.c:			switch (dev_ctx->registry.FilterEdidTableEnable) {
+fl2000_monitor.c:				dev_ctx->monitor_edid[0][35] = 1;
+fl2000_monitor.c:				dev_ctx->monitor_edid[0][36] = 0;
+fl2000_monitor.c:				dev_ctx->monitor_edid[0][37] = 0;
+fl2000_monitor.c:					dev_ctx->monitor_edid[0][index] = 0x01;
+fl2000_monitor.c:				dev_ctx->monitor_edid[0][54] = 0x40;
+fl2000_monitor.c:				dev_ctx->monitor_edid[0][55] = 0x0B;
+fl2000_monitor.c:				dev_ctx->monitor_edid[0][56] = 0x20;
+fl2000_monitor.c:				dev_ctx->monitor_edid[0][57] = 0x00;
+fl2000_monitor.c:				dev_ctx->monitor_edid[0][58] = 0x30;
+fl2000_monitor.c:				dev_ctx->monitor_edid[0][59] = 0x58;
+fl2000_monitor.c:				dev_ctx->monitor_edid[0][60] = 0x00;
+fl2000_monitor.c:				dev_ctx->monitor_edid[0][61] = 0x20;
+fl2000_monitor.c:				dev_ctx->monitor_edid[0][35] = 0x20;
+fl2000_monitor.c:				dev_ctx->monitor_edid[0][36] = 0;
+fl2000_monitor.c:				dev_ctx->monitor_edid[0][37] = 0;
+fl2000_monitor.c:					dev_ctx->monitor_edid[0][index] = 0x01;
+fl2000_monitor.c:				dev_ctx->monitor_edid[0][54] = 0x3F;
+fl2000_monitor.c:				dev_ctx->monitor_edid[0][55] = 0x07;
+fl2000_monitor.c:				dev_ctx->monitor_edid[0][56] = 0x80;
+fl2000_monitor.c:				dev_ctx->monitor_edid[0][57] = 0x00;
+fl2000_monitor.c:				dev_ctx->monitor_edid[0][58] = 0x20;
+fl2000_monitor.c:				dev_ctx->monitor_edid[0][59] = 0xE0;
+fl2000_monitor.c:				dev_ctx->monitor_edid[0][60] = 0x0;
+fl2000_monitor.c:				dev_ctx->monitor_edid[0][61] = 0x10;
+fl2000_monitor.c:	    check_sum += dev_ctx->monitor_edid[0][index];
+fl2000_monitor.c:	dev_ctx->monitor_edid[0][127] = check_sum;
+fl2000_monitor.c:	dev_ctx->monitor_plugged_in = true;
+fl2000_monitor.c:	if (CARD_NAME_FL2000DX == dev_ctx->card_name)
+fl2000_monitor.c:	memset(dev_ctx->monitor_edid, 0, sizeof(dev_ctx->monitor_edid));
+fl2000_monitor.c:	if (waitqueue_active(&dev_ctx->ioctl_wait_q))
+fl2000_monitor.c:		wake_up_interruptible(&dev_ctx->ioctl_wait_q);
+fl2000_monitor.c:	dev_ctx->monitor_plugged_in = false;
+fl2000_monitor.c:	if (waitqueue_active(&dev_ctx->ioctl_wait_q))
+fl2000_monitor.c:		wake_up_interruptible(&dev_ctx->ioctl_wait_q);
+fl2000_monitor.c:	memset(dev_ctx->monitor_edid, 0, sizeof(dev_ctx->monitor_edid));
+fl2000_monitor.c:	dev_ctx->vr_params.pll_reg = 0;
+fl2000_monitor.c:	if (CARD_NAME_FL2000DX == dev_ctx->card_name)
+fl2000_monitor.c:		if (!dev_ctx->monitor_plugged_in) {
+fl2000_monitor.c:		if (dev_ctx->monitor_plugged_in)
+Binary file fl2000.o matches
+fl2000_render.c: * push render_ctx to the bus, with dev_ctx->render.busy_list_lock held
+fl2000_render.c:	struct list_head* const	free_list_head = &dev_ctx->render.free_list;
+fl2000_render.c:	if (!dev_ctx->monitor_plugged_in) {
+fl2000_render.c:		spin_lock_bh(&dev_ctx->render.free_list_lock);
+fl2000_render.c:		spin_unlock_bh(&dev_ctx->render.free_list_lock);
+fl2000_render.c:		spin_lock_irqsave(&dev_ctx->count_lock, flags);
+fl2000_render.c:		dev_ctx->render.free_list_count++;
+fl2000_render.c:		spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+fl2000_render.c:	list_add_tail(&render_ctx->list_entry, &dev_ctx->render.busy_list);
+fl2000_render.c:	spin_lock_irqsave(&dev_ctx->count_lock, flags);
+fl2000_render.c:	dev_ctx->render.busy_list_count++;
+fl2000_render.c:	spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+fl2000_render.c:	                dev_ctx->usb_dev,
+fl2000_render.c:        	        dev_ctx->usb_pipe_bulk_out,
+fl2000_render.c:	        if (dev_ctx->vr_params.end_of_frame_type == EOF_ZERO_LENGTH) {
+fl2000_render.c:	                        dev_ctx->usb_dev,
+fl2000_render.c:        	                dev_ctx->usb_pipe_bulk_out,
+fl2000_render.c:	spin_lock_irqsave(&dev_ctx->count_lock, flags);
+fl2000_render.c:	spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+fl2000_render.c:		spin_lock_irqsave(&dev_ctx->count_lock, flags);
+fl2000_render.c:		spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+fl2000_render.c:		spin_lock_irqsave(&dev_ctx->count_lock, flags);
+fl2000_render.c:		dev_ctx->render.busy_list_count--;
+fl2000_render.c:		spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+fl2000_render.c:		spin_lock_bh(&dev_ctx->render.free_list_lock);
+fl2000_render.c:		spin_unlock_bh(&dev_ctx->render.free_list_lock);
+fl2000_render.c:		spin_lock_irqsave(&dev_ctx->count_lock, flags);
+fl2000_render.c:		dev_ctx->render.free_list_count++;
+fl2000_render.c:		spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+fl2000_render.c:			dev_ctx->dev_gone = 1;
+fl2000_render.c:	if ((dev_ctx->vr_params.end_of_frame_type == EOF_ZERO_LENGTH) &&
+fl2000_render.c:	    (VR_TRANSFER_PIPE_BULK == dev_ctx->vr_params.trasfer_pipe)) {
+fl2000_render.c:		spin_lock_irqsave(&dev_ctx->count_lock, flags);
+fl2000_render.c:		spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+fl2000_render.c:			spin_lock_irqsave(&dev_ctx->count_lock, flags);
+fl2000_render.c:			spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+fl2000_render.c:				dev_ctx->dev_gone = 1;
+fl2000_render.c:		render_ctx = &dev_ctx->render.render_ctx[i];
+fl2000_render.c:			&dev_ctx->render.free_list);
+fl2000_render.c:		spin_lock_irqsave(&dev_ctx->count_lock, flags);
+fl2000_render.c:		dev_ctx->render.free_list_count++;
+fl2000_render.c:		spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+fl2000_render.c:		render_ctx = &dev_ctx->render.render_ctx[i];
+fl2000_render.c:		spin_lock_irqsave(&dev_ctx->count_lock, flags);
+fl2000_render.c:		dev_ctx->render.free_list_count--;
+fl2000_render.c:		spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+fl2000_render.c:	INIT_LIST_HEAD(&dev_ctx->render.free_list);
+fl2000_render.c:	spin_lock_init(&dev_ctx->render.free_list_lock);
+fl2000_render.c:	dev_ctx->render.free_list_count = 0;
+fl2000_render.c:	INIT_LIST_HEAD(&dev_ctx->render.ready_list);
+fl2000_render.c:	spin_lock_init(&dev_ctx->render.ready_list_lock);
+fl2000_render.c:	dev_ctx->render.ready_list_count = 0;
+fl2000_render.c:	INIT_LIST_HEAD(&dev_ctx->render.busy_list);
+fl2000_render.c:	spin_lock_init(&dev_ctx->render.busy_list_lock);
+fl2000_render.c:	dev_ctx->render.busy_list_count = 0;
+fl2000_render.c:	INIT_LIST_HEAD(&dev_ctx->render.surface_list);
+fl2000_render.c:	spin_lock_init(&dev_ctx->render.surface_list_lock);
+fl2000_render.c:	dev_ctx->render.surface_list_count = 0;
+fl2000_render.c:	spin_lock_bh(&dev_ctx->render.busy_list_lock);
+fl2000_render.c:	spin_unlock_bh(&dev_ctx->render.busy_list_lock);
+fl2000_render.c:	spin_lock_irqsave(&dev_ctx->count_lock, flags);
+fl2000_render.c:	dev_ctx->render.busy_list_count--;
+fl2000_render.c:	spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+fl2000_render.c:	spin_lock_bh(&dev_ctx->render.free_list_lock);
+fl2000_render.c:	list_add_tail(&render_ctx->list_entry, &dev_ctx->render.free_list);
+fl2000_render.c:	spin_unlock_bh(&dev_ctx->render.free_list_lock);
+fl2000_render.c:	spin_lock_irqsave(&dev_ctx->count_lock, flags);
+fl2000_render.c:	dev_ctx->render.free_list_count++;
+fl2000_render.c:	spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+fl2000_render.c:		dev_ctx->render.green_light = 0;
+fl2000_render.c:			dev_ctx->dev_gone = true;
+fl2000_render.c:	struct list_head* const	free_list_head = &dev_ctx->render.free_list;
+fl2000_render.c:	struct list_head* const	ready_list_head = &dev_ctx->render.ready_list;
+fl2000_render.c:	dev_ctx->render.last_updated_surface = surface;
+fl2000_render.c:	dev_ctx->render.last_frame_num = surface->frame_num;
+fl2000_render.c:	if (dev_ctx->render.green_light == 0) {
+fl2000_render.c:	spin_lock_bh(&dev_ctx->render.free_list_lock);
+fl2000_render.c:		spin_lock_irqsave(&dev_ctx->count_lock, flags);
+fl2000_render.c:		dev_ctx->render.free_list_count--;
+fl2000_render.c:		spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+fl2000_render.c:	spin_unlock_bh(&dev_ctx->render.free_list_lock);
+fl2000_render.c:   	if(dev_ctx->vr_params.use_compression){
+fl2000_render.c:	spin_lock_bh(&dev_ctx->render.ready_list_lock);
+fl2000_render.c:	spin_lock_irqsave(&dev_ctx->count_lock, flags);
+fl2000_render.c:	ready_count = ++dev_ctx->render.ready_list_count;
+fl2000_render.c:	spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+fl2000_render.c:	spin_unlock_bh(&dev_ctx->render.ready_list_lock);
+fl2000_render.c:	struct list_head* const	free_list_head = &dev_ctx->render.free_list;
+fl2000_render.c:	struct list_head* const	ready_list_head = &dev_ctx->render.ready_list;
+fl2000_render.c:	if (dev_ctx->render.green_light == 0) {
+fl2000_render.c:	spin_lock_bh(&dev_ctx->render.ready_list_lock);
+fl2000_render.c:		spin_lock_irqsave(&dev_ctx->count_lock, flags);
+fl2000_render.c:		ready_count = --dev_ctx->render.ready_list_count;
+fl2000_render.c:		spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+fl2000_render.c:	spin_unlock_bh(&dev_ctx->render.ready_list_lock);
+fl2000_render.c:	spin_lock_bh(&dev_ctx->render.busy_list_lock);
+fl2000_render.c:			dev_ctx->render.green_light = false;
+fl2000_render.c:	if (dev_ctx->render.busy_list_count < NUM_RENDER_ON_BUS &&
+fl2000_render.c:	    dev_ctx->render.green_light) {
+fl2000_render.c:		spin_lock_bh(&dev_ctx->render.free_list_lock);
+fl2000_render.c:			spin_lock_irqsave(&dev_ctx->count_lock, flags);
+fl2000_render.c:			dev_ctx->render.free_list_count--;
+fl2000_render.c:			spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+fl2000_render.c:		spin_unlock_bh(&dev_ctx->render.free_list_lock);
+fl2000_render.c:			surface = dev_ctx->render.last_updated_surface;
+fl2000_render.c:	spin_unlock_bh(&dev_ctx->render.busy_list_lock);
+fl2000_render.c:	dev_ctx->render.green_light = 1;
+fl2000_render.c:	dev_ctx->render.green_light = 0;
+fl2000_render.c:		"busy_list_count(%u)", dev_ctx->render.busy_list_count);
+fl2000_render.c:	while (dev_ctx->render.busy_list_count != 0) {
+fl2000_surface.c:	spin_lock_bh(&dev_ctx->render.surface_list_lock);
+fl2000_surface.c:	list_for_each_entry(s, &dev_ctx->render.surface_list, list_entry) {
+fl2000_surface.c:	spin_unlock_bh(&dev_ctx->render.surface_list_lock);
+fl2000_surface.c:	spin_lock_bh(&dev_ctx->render.surface_list_lock);
+fl2000_surface.c:	list_add_tail(&surface->list_entry, &dev_ctx->render.surface_list);
+fl2000_surface.c:	spin_lock_irqsave(&dev_ctx->count_lock, flags);
+fl2000_surface.c:	dev_ctx->render.surface_list_count++;
+fl2000_surface.c:	spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+fl2000_surface.c:	spin_unlock_bh(&dev_ctx->render.surface_list_lock);
+fl2000_surface.c:		dev_ctx->render.surface_list_count);
+fl2000_surface.c:		dev_ctx->render.surface_list_count);
+fl2000_surface.c:	struct list_head * list_head = &dev_ctx->render.surface_list;
+fl2000_surface.c:	spin_lock_bh(&dev_ctx->render.surface_list_lock);
+fl2000_surface.c:		spin_lock_irqsave(&dev_ctx->count_lock, flags);
+fl2000_surface.c:		dev_ctx->render.surface_list_count--;
+fl2000_surface.c:		spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+fl2000_surface.c:		spin_unlock_bh(&dev_ctx->render.surface_list_lock);
+fl2000_surface.c:			surface, dev_ctx->render.surface_list_count);
+fl2000_surface.c:		spin_lock_bh(&dev_ctx->render.surface_list_lock);
+fl2000_surface.c:	spin_unlock_bh(&dev_ctx->render.surface_list_lock);
+frame_num:fl2000_render.c:	dev_ctx->render.last_frame_num = surface->frame_num;
+frame_num:fl2000_surface.c:	list_add_tail(&surface->list_entry, &dev_ctx->render.surface_list);
+frame_num:private:fl2000_render.c:	dev_ctx->render.last_frame_num = surface->frame_num;
+frame_num:private:fl2000_surface.c:	list_add_tail(&surface->list_entry, &dev_ctx->render.surface_list);
+frame_num:render_buffer:fl2000_render.c:	dev_ctx->render.last_frame_num = surface->frame_num;
+frame_num:render_buffer:fl2000_surface.c:	list_add_tail(&surface->list_entry, &dev_ctx->render.surface_list);
+frame_num:render_buffer:private:fl2000_render.c:	dev_ctx->render.last_frame_num = surface->frame_num;
+frame_num:render_buffer:private:fl2000_surface.c:	list_add_tail(&surface->list_entry, &dev_ctx->render.surface_list);
+private:fl2000_bulk.c:	spin_lock_irqsave(&dev_ctx->count_lock, flags);
+private:fl2000_bulk.c:	spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+private:fl2000_bulk.c:	spin_lock_irqsave(&dev_ctx->count_lock, flags);
+private:fl2000_bulk.c:	spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+private:fl2000_bulk.c:		dev_ctx->usb_dev,
+private:fl2000_bulk.c:		dev_ctx->usb_pipe_bulk_out,
+private:fl2000_bulk.c:	if (dev_ctx->vr_params.end_of_frame_type == EOF_ZERO_LENGTH) {
+private:fl2000_bulk.c:			dev_ctx->usb_dev,
+private:fl2000_bulk.c:			dev_ctx->usb_pipe_bulk_out,
+private:fl2000_compression.c:	switch (dev_ctx->vr_params.compression_mask_index) {
+private:fl2000_compression.c:	if (dev_ctx->vr_params.compression_mask_index_min <
+private:fl2000_compression.c:	    dev_ctx->vr_params.compression_mask_index) {
+private:fl2000_compression.c:		dev_ctx->vr_params.compression_mask_index--;
+private:fl2000_compression.c:		( int )dev_ctx->vr_params.compression_mask_index );
+private:fl2000_compression.c:	if (dev_ctx->vr_params.compression_mask_index_max !=
+private:fl2000_compression.c:	    dev_ctx->vr_params.compression_mask_index)
+private:fl2000_compression.c:		dev_ctx->vr_params.compression_mask_index++;
+private:fl2000_compression.c:	ASSERT(dev_ctx->vr_params.compression_mask_index <=
+private:fl2000_compression.c:		(int)dev_ctx->vr_params.compression_mask_index);
+private:fl2000_compression.c:	dev_ctx->vr_params.compression_mask_index = COMPRESSION_MASK_INDEX_MAXIMUM;
+private:fl2000_compression.c:	if (dev_ctx->vr_params.use_compression)
+private:fl2000_compression.c:	pixelBytes = GET_BYTES_PER_PIXEL(dev_ctx->vr_params.output_image_type);
+private:fl2000_compression.c:	ASSERT((dev_ctx->vr_params.input_bytes_per_pixel * num_of_pixels ) >= compressed_length );
+private:fl2000_def.h:#define IS_DEVICE_USB3LINK(dev_ctx)             (USB3_BCD == dev_ctx->usb_dev_desc.bcdUSB)
+private:fl2000_desc.c:	memcpy(	&dev_ctx->usb_dev_desc,
+private:fl2000_desc.c:		&dev_ctx->usb_dev->descriptor,
+private:fl2000_desc.c:        //dev_ctx->card_name = CARD_NAME_UNDEFINED;
+private:fl2000_desc.c:	dev_ctx->card_name=CARD_NAME_FL2000;
+private:fl2000_desc.c:	if (VID_FRESCO_LOGIC == dev_ctx->usb_dev_desc.idVendor &&
+private:fl2000_desc.c:	    PID_FL2000 == dev_ctx->usb_dev_desc.idProduct &&
+private:fl2000_desc.c:	    DEVICE_ID_FL2000DX == dev_ctx->usb_dev_desc.bcdDevice)
+private:fl2000_desc.c:		dev_ctx->card_name = CARD_NAME_FL2000DX;
+private:fl2000_dev.c://	dev_ctx->card_name = CARD_NAME_FL2000DX; //FL2000DX;
+private:fl2000_dev.c:	dev_ctx->monitor_plugged_in = false;
+private:fl2000_dev.c:	init_waitqueue_head(&dev_ctx->ioctl_wait_q);
+private:fl2000_dev.c:	cur_altsetting = dev_ctx->usb_ifc_streaming->cur_altsetting;
+private:fl2000_dev.c:		dev_ctx->usb_dev,
+private:fl2000_dev.c:	spin_lock_init(&dev_ctx->count_lock);
+private:fl2000_dongle.c:	dev_ctx->registry.UsePollingMonitorConnection = 0;
+private:fl2000_dongle.c:	//+++++ what is this for ????!!!!dev_ctx->registry.FilterEdidTableEnable = EDID_FILTER_USB2_800_600_60HZ;
+private:fl2000_dongle.c:        //dev_ctx->registry.FilterEdidTableEnable = EDID_FILTER_USB2_800_600_60HZ;
+private:fl2000_dongle.c:        dev_ctx->registry.CompressionEnable = 0;
+private:fl2000_dongle.c:	dev_ctx->registry.Usb2PixelFormatTransformCompressionEnable = 1;
+private:fl2000_dongle.c:	if (!dev_ctx->usb_dev) {
+private:fl2000_dongle.c:	old_pll = dev_ctx->vr_params.pll_reg;
+private:fl2000_dongle.c:	memcpy(&dev_ctx->vr_params, vr_params, sizeof(struct vr_params));
+private:fl2000_dongle.c:	dev_ctx->vr_params.pll_reg = old_pll;
+private:fl2000_dongle.c:	dev_ctx->vr_params.end_of_frame_type = EOF_ZERO_LENGTH;
+private:fl2000_dongle.c:	if (dev_ctx->registry.CompressionEnable ||
+private:fl2000_dongle.c:		dev_ctx->vr_params.use_compression = 1;
+private:fl2000_dongle.c:		dev_ctx->vr_params.compression_mask_index_min = COMPRESSION_MASK_INDEX_MINIMUM;
+private:fl2000_dongle.c:		dev_ctx->vr_params.compression_mask_index_max = COMPRESSION_MASK_INDEX_MAXIMUM;
+private:fl2000_dongle.c:		if (dev_ctx->registry.Usb2PixelFormatTransformCompressionEnable) {
+private:fl2000_dongle.c:			dev_ctx->vr_params.compression_mask = COMPRESSION_MASK_13_BIT_VALUE;
+private:fl2000_dongle.c:			dev_ctx->vr_params.compression_mask_index = COMPRESSION_MASK_13_BIT_INDEX;
+private:fl2000_dongle.c:			dev_ctx->vr_params.compression_mask_index_min = COMPRESSION_MASK_15_BIT_INDEX;
+private:fl2000_dongle.c:			dev_ctx->vr_params.compression_mask = COMPRESSION_MASK_23_BIT_VALUE;
+private:fl2000_dongle.c:			dev_ctx->vr_params.compression_mask_index = COMPRESSION_MASK_23_BIT_INDEX;
+private:fl2000_dongle.c:	switch (dev_ctx->vr_params.output_image_type) {
+private:fl2000_dongle.c:		dev_ctx->vr_params.width,
+private:fl2000_dongle.c:		dev_ctx->vr_params.height,
+private:fl2000_dongle.c:		dev_ctx->vr_params.freq);
+private:fl2000_dongle.c:	dev_ctx->vr_params.h_sync_reg_1 = entry->h_sync_reg_1;
+private:fl2000_dongle.c:	dev_ctx->vr_params.h_sync_reg_2 = entry->h_sync_reg_2;
+private:fl2000_dongle.c:	dev_ctx->vr_params.v_sync_reg_1 = entry->v_sync_reg_1;
+private:fl2000_dongle.c:	dev_ctx->vr_params.v_sync_reg_2 = entry->v_sync_reg_2;
+private:fl2000_dongle.c:	dev_ctx->vr_params.h_total_time = entry->h_total_time;
+private:fl2000_dongle.c:	dev_ctx->vr_params.h_sync_time  = entry->h_sync_time;
+private:fl2000_dongle.c:	dev_ctx->vr_params.h_back_porch = entry->h_back_porch;
+private:fl2000_dongle.c:	dev_ctx->vr_params.v_total_time = entry->v_total_time;
+private:fl2000_dongle.c:	dev_ctx->vr_params.v_sync_time  = entry->v_sync_time;
+private:fl2000_dongle.c:	dev_ctx->vr_params.v_back_porch = entry->v_back_porch;
+private:fl2000_dongle.c:	if (dev_ctx->hdmi_chip_found)
+private:fl2000_dongle.c:	if (new_pll != dev_ctx->vr_params.pll_reg) {
+private:fl2000_dongle.c:	    dev_ctx->vr_params.pll_reg = new_pll;
+private:fl2000_dongle.c:	dev_ctx->usb_pipe_bulk_out = usb_sndbulkpipe(dev_ctx->usb_dev, 1);
+private:fl2000_dongle.c:	if ((dev_ctx->vr_params.width != display_mode->width) ||
+private:fl2000_dongle.c:	    (dev_ctx->vr_params.height != display_mode->height))
+private:fl2000_dongle.c:	if (dev_ctx->hdmi_chip_found)
+private:fl2000_dongle.c:	dev_ctx->hdmi_chip_found = hdmi_chip_found;
+private:fl2000_dongle.c:		if (!dev_ctx->hdmi_powered_up) {
+private:fl2000_fops.c:	spin_lock_irqsave(&dev_ctx->count_lock, flags);
+private:fl2000_fops.c:	open_count = ++dev_ctx->open_count;
+private:fl2000_fops.c:	spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+private:fl2000_fops.c:		spin_lock_irqsave(&dev_ctx->count_lock, flags);
+private:fl2000_fops.c:		dev_ctx->open_count--;
+private:fl2000_fops.c:		spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+private:fl2000_fops.c:	kref_get(&dev_ctx->kref);
+private:fl2000_fops.c:	if (waitqueue_active(&dev_ctx->ioctl_wait_q)) {
+private:fl2000_fops.c:		wake_up_interruptible(&dev_ctx->ioctl_wait_q);
+private:fl2000_fops.c:	spin_lock_irqsave(&dev_ctx->count_lock, flags);
+private:fl2000_fops.c:	open_count = --dev_ctx->open_count;
+private:fl2000_fops.c:	spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+private:fl2000_fops.c:	kref_put(&dev_ctx->kref, fl2000_module_free);
+private:fl2000_fops.c:		struct page * page = dev_ctx->start_page + i;
+private:fl2000_fops.c:		struct page * page = dev_ctx->start_page + i;
+private:fl2000_hdmi.c:        if (dev_ctx->vr_params.width == 640 &&
+private:fl2000_hdmi.c:            dev_ctx->vr_params.height == 480) {
+private:fl2000_hdmi.c:        else if (dev_ctx->vr_params.width == 1280 &&
+private:fl2000_hdmi.c:                 dev_ctx->vr_params.height == 720) {
+private:fl2000_hdmi.c:        else if (dev_ctx->vr_params.width == 1920 &&
+private:fl2000_hdmi.c:                 dev_ctx->vr_params.height == 1080) {
+private:fl2000_hdmi.c:        pixelClock = dev_ctx->vr_params.h_total_time *
+private:fl2000_hdmi.c:                dev_ctx->vr_params.v_total_time *
+private:fl2000_hdmi.c:                dev_ctx->vr_params.freq;
+private:fl2000_hdmi.c:        if (dev_ctx->hdmi_running_in_dvi_mode)
+private:fl2000_hdmi.c:        dev_ctx->hdmi_powered_up = true;
+private:fl2000_hdmi.c:        dev_ctx->hdmi_powered_up = false;
+private:fl2000_hdmi.c:        if (dev_ctx->hdmi_audio_use_spdif) {
+private:fl2000_hdmi.c:        if (dev_ctx->hdmi_audio_use_spdif)
+private:fl2000_hdmi.c:        if (dev_ctx->hdmi_audio_use_spdif) {
+private:fl2000_hdmi.c:        if (dev_ctx->hdmi_audio_use_spdif) {
+private:fl2000_hdmi.c:        target_block = dev_ctx->monitor_edid[block_id];
+private:fl2000_hdmi.c:        if (dev_ctx->vr_params.width == 640 &&
+private:fl2000_hdmi.c:            dev_ctx->vr_params.height == 480 &&
+private:fl2000_hdmi.c:            dev_ctx->vr_params.freq == 60) {
+private:fl2000_hdmi.c:                dev_ctx->vr_params.h_back_porch = 48;
+private:fl2000_hdmi.c:                dev_ctx->vr_params.v_back_porch = 33;
+private:fl2000_hdmi.c:                dev_ctx->vr_params.h_sync_reg_2 = 0x600091;
+private:fl2000_hdmi.c:                dev_ctx->vr_params.v_sync_reg_2 = 0x2420024;
+private:fl2000_hdmi.c:        } else if (dev_ctx->vr_params.width == 1280 &&
+private:fl2000_hdmi.c:                   dev_ctx->vr_params.height == 720 &&
+private:fl2000_hdmi.c:                   dev_ctx->vr_params.freq == 60) {
+private:fl2000_hdmi.c:                dev_ctx->vr_params.v_back_porch = 20;
+private:fl2000_hdmi.c:                dev_ctx->vr_params.v_sync_reg_2 = 0x1A5001A;
+private:fl2000_hdmi.c:        if (!dev_ctx->hdmi_chip_found)
+private:fl2000_hdmi.c:        if (!dev_ctx->hdmi_powered_up) {
+private:fl2000_hdmi.c:                tmp = dev_ctx->Hdmi.W[ ( t - 3 ) % HDMI_HDCP_WCOUNT ] ^ dev_ctx->Hdmi.W[(t - 8)% HDMI_HDCP_WCOUNT] ^ dev_ctx->Hdmi.W[ ( t - 14 ) % HDMI_HDCP_WCOUNT ] ^ dev_ctx->Hdmi.W[ ( t - 16 ) % HDMI_HDCP_WCOUNT ];
+private:fl2000_hdmi.c:                dev_ctx->Hdmi.W[ ( t ) % HDMI_HDCP_WCOUNT ] = UTILITY_ROLLING_LEFT( tmp, 1 );
+private:fl2000_hdmi.c:        tmp = UTILITY_ROLLING_LEFT( h[ 0 ], 5 ) + ( ( h[ 1 ] & h[ 2 ] ) | ( h[ 3 ] & ~h[ 1 ] ) )+ h[4] + dev_ctx->Hdmi.W[(t)% HDMI_HDCP_WCOUNT] + 0x5a827999;
+private:fl2000_hdmi.c:        tmp=dev_ctx->Hdmi.W[(t - 3)% HDMI_HDCP_WCOUNT] ^ dev_ctx->Hdmi.W[(t - 8)% HDMI_HDCP_WCOUNT] ^ dev_ctx->Hdmi.W[(t - 14)% HDMI_HDCP_WCOUNT] ^ dev_ctx->Hdmi.W[(t - 16)% HDMI_HDCP_WCOUNT];
+private:fl2000_hdmi.c:        dev_ctx->Hdmi.W[(t)% HDMI_HDCP_WCOUNT]=UTILITY_ROLLING_LEFT(tmp,1);
+private:fl2000_hdmi.c:        tmp=UTILITY_ROLLING_LEFT(h[0],5)+ (h[1] ^ h[2] ^ h[3])+ h[4] + dev_ctx->Hdmi.W[(t)% HDMI_HDCP_WCOUNT] + 0x6ed9eba1;
+private:fl2000_hdmi.c:        tmp=dev_ctx->Hdmi.W[(t - 3)% HDMI_HDCP_WCOUNT] ^ dev_ctx->Hdmi.W[(t - 8)% HDMI_HDCP_WCOUNT] ^ dev_ctx->Hdmi.W[(t - 14)% HDMI_HDCP_WCOUNT] ^ dev_ctx->Hdmi.W[(t - 16)% HDMI_HDCP_WCOUNT];
+private:fl2000_hdmi.c:        dev_ctx->Hdmi.W[(t)% HDMI_HDCP_WCOUNT]=UTILITY_ROLLING_LEFT(tmp,1);
+private:fl2000_hdmi.c:        tmp=UTILITY_ROLLING_LEFT(h[0],5)+ ((h[1] & h[2])| (h[1] & h[3])| (h[2] & h[3]))+ h[4] + dev_ctx->Hdmi.W[(t)% HDMI_HDCP_WCOUNT] + 0x8f1bbcdc;
+private:fl2000_hdmi.c:        tmp=dev_ctx->Hdmi.W[(t - 3)% HDMI_HDCP_WCOUNT] ^ dev_ctx->Hdmi.W[(t - 8)% HDMI_HDCP_WCOUNT] ^ dev_ctx->Hdmi.W[(t - 14)% HDMI_HDCP_WCOUNT] ^ dev_ctx->Hdmi.W[(t - 16)% HDMI_HDCP_WCOUNT];
+private:fl2000_hdmi.c:        dev_ctx->Hdmi.W[(t)% HDMI_HDCP_WCOUNT]=UTILITY_ROLLING_LEFT(tmp,1);
+private:fl2000_hdmi.c:        tmp=UTILITY_ROLLING_LEFT(h[0],5)+ (h[1] ^ h[2] ^ h[3])+ h[4] + dev_ctx->Hdmi.W[(t)% HDMI_HDCP_WCOUNT] + 0xca62c1d6;
+private:fl2000_hdmi.c:            dev_ctx->Hdmi.W[t]=0;
+private:fl2000_hdmi.c:        dev_ctx->Hdmi.W[t] |=c;
+private:fl2000_hdmi.c:        dev_ctx->Hdmi.W[t]=0;
+private:fl2000_hdmi.c:    dev_ctx->Hdmi.W[t]|=c;t++;
+private:fl2000_hdmi.c:        dev_ctx->Hdmi.W[t]=0;
+private:fl2000_hdmi.c:    dev_ctx->Hdmi.W[15]=len*8;
+private:fl2000_hdmi.c:    HDMI_HDCP_SHA_Transform( dev_ctx, dev_ctx->Hdmi.VH );
+private:fl2000_hdmi.c:        output[i*4+3]=( uint8_t )((dev_ctx->Hdmi.VH[i]>>24)&0xFF);
+private:fl2000_hdmi.c:        output[i*4+2]=( uint8_t )((dev_ctx->Hdmi.VH[i]>>16)&0xFF);
+private:fl2000_hdmi.c:        output[i*4+1]=( uint8_t )((dev_ctx->Hdmi.VH[i]>>8)&0xFF);
+private:fl2000_hdmi.c:        output[i*4+0]=( uint8_t )(dev_ctx->Hdmi.VH[i]&0xFF);
+private:fl2000_hdmi.c:        dev_ctx->Hdmi.HdcpSHABuffer[i] = ksv_list[i] ;
+private:fl2000_hdmi.c:    dev_ctx->Hdmi.HdcpSHABuffer[i++] = BStatus & 0xFF;
+private:fl2000_hdmi.c:    dev_ctx->Hdmi.HdcpSHABuffer[i++] = (BStatus>>8) & 0xFF;
+private:fl2000_hdmi.c:        dev_ctx->Hdmi.HdcpSHABuffer[i] = m0[n] ;
+private:fl2000_hdmi.c:        dev_ctx->Hdmi.HdcpSHABuffer[i] = 0 ;
+private:fl2000_hdmi.c:    HDMI_HDCP_SHA_Simple( dev_ctx, dev_ctx->Hdmi.HdcpSHABuffer, n, dev_ctx->Hdmi.V );
+private:fl2000_hdmi.c:        if(dev_ctx->Hdmi.V[i] != Vr[i])
+private:fl2000_hdmi.c:    is_good = fl2000_hdcp_get_ksv_list( dev_ctx, dev_ctx->Hdmi.KSVList, downstream );
+private:fl2000_hdmi.c:    is_good = fl2000_hdmi_hdcp_get_vr( dev_ctx, dev_ctx->Hdmi.VR );
+private:fl2000_hdmi.c:    is_good = fl2000_hdmi_hdcp_get_m0( dev_ctx, dev_ctx->Hdmi.M0 );
+private:fl2000_hdmi.c:                                  dev_ctx->Hdmi.M0,
+private:fl2000_hdmi.c:                                  dev_ctx->Hdmi.KSVList,
+private:fl2000_hdmi.c:                                  dev_ctx->Hdmi.VR );
+private:fl2000_i2c.c:		pipe = usb_rcvctrlpipe(dev_ctx->usb_dev, 0);
+private:fl2000_i2c.c:		pipe = usb_sndctrlpipe(dev_ctx->usb_dev, 0);
+private:fl2000_i2c.c:		dev_ctx->usb_dev,
+private:fl2000_interrupt.c:		dev_ctx->usb_ifc_intr->cur_altsetting;
+private:fl2000_interrupt.c:	dev_ctx->ep_intr_in = NULL;
+private:fl2000_interrupt.c:			dev_ctx->ep_intr_in = endpoint;
+private:fl2000_interrupt.c:			dev_ctx->ep_num_intr_in = usb_endpoint_num(desc);
+private:fl2000_interrupt.c:			dev_ctx->ep_desc_intr_in = desc;
+private:fl2000_interrupt.c:				dev_ctx->ep_num_intr_in
+private:fl2000_interrupt.c:	if (dev_ctx->ep_intr_in == NULL) {
+private:fl2000_interrupt.c:	 * dev_ctx->ep_num_intr_in should be 3
+private:fl2000_interrupt.c:	dev_ctx->usb_pipe_intr_in = usb_rcvintpipe(dev_ctx->usb_dev, 3);
+private:fl2000_interrupt.c:	if (!dev_ctx->usb_pipe_intr_in) {
+private:fl2000_interrupt.c:	dev_ctx->intr_urb = usb_alloc_urb(0, GFP_ATOMIC);
+private:fl2000_interrupt.c:	if (!dev_ctx->intr_urb) {
+private:fl2000_interrupt.c:	dev_ctx->intr_pipe_wq = create_workqueue("intr_pipe_wq");
+private:fl2000_interrupt.c:	if (dev_ctx->intr_pipe_wq == NULL) {
+private:fl2000_interrupt.c:		usb_free_urb(dev_ctx->intr_urb);
+private:fl2000_interrupt.c:		dev_ctx->intr_urb = NULL;
+private:fl2000_interrupt.c:	if (dev_ctx->intr_pipe_wq) {
+private:fl2000_interrupt.c:		destroy_workqueue(dev_ctx->intr_pipe_wq);
+private:fl2000_interrupt.c:		dev_ctx->intr_pipe_wq = NULL;
+private:fl2000_interrupt.c:	if (dev_ctx->intr_urb){
+private:fl2000_interrupt.c:		usb_free_urb(dev_ctx->intr_urb);
+private:fl2000_interrupt.c:		dev_ctx->intr_urb = NULL;
+private:fl2000_interrupt.c:	dev_ctx->intr_pipe_started = true;
+private:fl2000_interrupt.c:		dev_ctx->intr_urb,
+private:fl2000_interrupt.c:		dev_ctx->usb_dev,
+private:fl2000_interrupt.c:		dev_ctx->usb_pipe_intr_in,
+private:fl2000_interrupt.c:		&dev_ctx->intr_data,
+private:fl2000_interrupt.c:		sizeof(dev_ctx->intr_data),
+private:fl2000_interrupt.c:		dev_ctx->ep_desc_intr_in->bInterval);
+private:fl2000_interrupt.c:	spin_lock_irqsave(&dev_ctx->count_lock, flags);
+private:fl2000_interrupt.c:	dev_ctx->intr_pipe_pending_count++;
+private:fl2000_interrupt.c:	spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+private:fl2000_interrupt.c:	ret_val = usb_submit_urb(dev_ctx->intr_urb, GFP_KERNEL);
+private:fl2000_interrupt.c:		spin_lock_irqsave(&dev_ctx->count_lock, flags);
+private:fl2000_interrupt.c:		dev_ctx->intr_pipe_pending_count--;
+private:fl2000_interrupt.c:		spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+private:fl2000_interrupt.c:		dev_ctx->intr_pipe_started = false;
+private:fl2000_interrupt.c:	dev_ctx->intr_pipe_started = false;
+private:fl2000_interrupt.c:	if (dev_ctx->intr_pipe_pending_count != 0)
+private:fl2000_interrupt.c:		usb_kill_urb(dev_ctx->intr_urb);
+private:fl2000_interrupt.c:	drain_workqueue(dev_ctx->intr_pipe_wq);
+private:fl2000_interrupt.c:	spin_lock_irqsave(&dev_ctx->count_lock, flags);
+private:fl2000_interrupt.c:	dev_ctx->intr_pipe_pending_count--;
+private:fl2000_interrupt.c:	spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+private:fl2000_interrupt.c:	INIT_WORK(&dev_ctx->intr_pipe_work, &fl2000_intr_pipe_work);
+private:fl2000_interrupt.c:	work_queued = queue_work(dev_ctx->intr_pipe_wq, &dev_ctx->intr_pipe_work);
+private:fl2000_interrupt.c:	if (!dev_ctx->intr_pipe_started) {
+private:fl2000_interrupt.c:		dev_ctx->intr_urb,
+private:fl2000_interrupt.c:		dev_ctx->usb_dev,
+private:fl2000_interrupt.c:		dev_ctx->usb_pipe_intr_in,
+private:fl2000_interrupt.c:		&dev_ctx->intr_data,
+private:fl2000_interrupt.c:		sizeof(dev_ctx->intr_data),
+private:fl2000_interrupt.c:		dev_ctx->ep_desc_intr_in->bInterval);
+private:fl2000_interrupt.c:	spin_lock_irqsave(&dev_ctx->count_lock, flags);
+private:fl2000_interrupt.c:	dev_ctx->intr_pipe_pending_count++;
+private:fl2000_interrupt.c:	spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+private:fl2000_interrupt.c:	ret_val = usb_submit_urb(dev_ctx->intr_urb, GFP_KERNEL);
+private:fl2000_interrupt.c:		spin_lock_irqsave(&dev_ctx->count_lock, flags);
+private:fl2000_interrupt.c:		dev_ctx->intr_pipe_pending_count--;
+private:fl2000_interrupt.c:		spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+private:fl2000_interrupt.c:		dev_ctx->intr_pipe_started = false;
+private:fl2000_interrupt.c:	if (!dev_ctx->intr_pipe_started) {
+private:fl2000_interrupt.c:		dev_ctx->intr_urb,
+private:fl2000_interrupt.c:		dev_ctx->usb_dev,
+private:fl2000_interrupt.c:		dev_ctx->usb_pipe_intr_in,
+private:fl2000_interrupt.c:		&dev_ctx->intr_data,
+private:fl2000_interrupt.c:		sizeof(dev_ctx->intr_data),
+private:fl2000_interrupt.c:		dev_ctx->ep_desc_intr_in->bInterval);
+private:fl2000_interrupt.c:	spin_lock_irqsave(&dev_ctx->count_lock, flags);
+private:fl2000_interrupt.c:	dev_ctx->intr_pipe_pending_count++;
+private:fl2000_interrupt.c:	spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+private:fl2000_interrupt.c:	ret_val = usb_submit_urb(dev_ctx->intr_urb, GFP_KERNEL);
+private:fl2000_interrupt.c:		spin_lock_irqsave(&dev_ctx->count_lock, flags);
+private:fl2000_interrupt.c:		dev_ctx->intr_pipe_pending_count--;
+private:fl2000_interrupt.c:		spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+private:fl2000_interrupt.c:		dev_ctx->intr_pipe_started = false;
+private:fl2000_ioctl.c:	bool const prev_plug_in = dev_ctx->monitor_plugged_in;
+private:fl2000_ioctl.c:	 * return when dev_ctx->monitor_plugged_in changed.
+private:fl2000_ioctl.c:	wait_status = wait_event_interruptible(dev_ctx->ioctl_wait_q,
+private:fl2000_ioctl.c:		(prev_plug_in != dev_ctx->monitor_plugged_in));
+private:fl2000_ioctl.c:		dev_ctx->monitor_plugged_in, wait_status);
+private:fl2000_ioctl.c:	monitor_info.monitor_flags.connected = (dev_ctx->monitor_plugged_in == true);
+private:fl2000_ioctl.c:	monitor_info.fl2000_flags.connected = (dev_ctx->dev_gone != true);
+private:fl2000_ioctl.c:	memcpy(monitor_info.edid, dev_ctx->monitor_edid[0], EDID_SIZE);
+private:fl2000_ioctl.c:		"current plugged_in(%d)", dev_ctx->monitor_plugged_in);
+private:fl2000_ioctl.c:	monitor_info.monitor_flags.connected = (dev_ctx->monitor_plugged_in == true);
+private:fl2000_ioctl.c:	monitor_info.fl2000_flags.connected = (dev_ctx->dev_gone != true);
+private:fl2000_ioctl.c:	memcpy(monitor_info.edid, dev_ctx->monitor_edid[0], EDID_SIZE);
+private:fl2000_ioctl.c:	dev_ctx->render.display_mode = display_mode;
+private:fl2000_ioctl.c:	struct list_head * const list_head = &dev_ctx->render.surface_list;
+private:fl2000_ioctl.c:	spin_lock_bh(&dev_ctx->render.surface_list_lock);
+private:fl2000_ioctl.c:			spin_lock_irqsave(&dev_ctx->count_lock, flags);
+private:fl2000_ioctl.c:			dev_ctx->render.surface_list_count--;
+private:fl2000_ioctl.c:			spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+private:fl2000_ioctl.c:	spin_unlock_bh(&dev_ctx->render.surface_list_lock);
+private:fl2000_ioctl.c:	spin_lock_bh(&dev_ctx->render.surface_list_lock);
+private:fl2000_ioctl.c:	list_for_each_entry(s, &dev_ctx->render.surface_list, list_entry) {
+private:fl2000_ioctl.c:	spin_unlock_bh(&dev_ctx->render.surface_list_lock);
+private:fl2000_ioctl.c:	spin_lock_bh(&dev_ctx->render.surface_list_lock);
+private:fl2000_ioctl.c:	list_for_each_entry(s, &dev_ctx->render.surface_list, list_entry) {
+private:fl2000_ioctl.c:	spin_unlock_bh(&dev_ctx->render.surface_list_lock);
+private:fl2000_ioctl.c:	spin_lock_bh(&dev_ctx->render.surface_list_lock);
+private:fl2000_ioctl.c:	list_for_each_entry(s, &dev_ctx->render.surface_list, list_entry) {
+private:fl2000_ioctl.c:	spin_unlock_bh(&dev_ctx->render.surface_list_lock);
+private:fl2000_ioctl.c:	dev_ctx->start_page = page;
+private:fl2000_module.c:		kref_init(&dev_ctx->kref);
+private:fl2000_module.c:		kref_get(&dev_ctx->kref);
+private:fl2000_module.c:	dev_ctx->usb_dev = usb_dev;
+private:fl2000_module.c:		dev_ctx->usb_ifc_streaming = ifc;
+private:fl2000_module.c:                dev_ctx->usb_dev = usb_dev;
+private:fl2000_module.c:		dev_ctx->usb_ifc_intr = ifc;
+private:fl2000_module.c:			fl2000_module_free(&dev_ctx->kref);
+private:fl2000_module.c:	dev_ctx->dev_gone = true;
+private:fl2000_module.c:	if (waitqueue_active(&dev_ctx->ioctl_wait_q)) {
+private:fl2000_module.c:		wake_up_interruptible(&dev_ctx->ioctl_wait_q);
+private:fl2000_module.c:			dev_ctx->usb_dev,
+private:fl2000_module.c:	kref_put(&dev_ctx->kref, fl2000_module_free);
+private:fl2000_module.c:		dev_ctx->kref.refcount.refs);
+private:fl2000_monitor.c:	dev_ctx->monitor_edid[0][35] = 0x21;
+private:fl2000_monitor.c:	dev_ctx->monitor_edid[0][36] = 0x8;
+private:fl2000_monitor.c:	dev_ctx->monitor_edid[0][37] = 0;
+private:fl2000_monitor.c:		uint8_t	 x = dev_ctx->monitor_edid[0][i];
+private:fl2000_monitor.c:		uint8_t  ratio = dev_ctx->monitor_edid[0][i + 1] >> 6;
+private:fl2000_monitor.c:		freq = (dev_ctx->monitor_edid[0][i + 1] & 0x3F) + 60;
+private:fl2000_monitor.c:		if (dev_ctx->monitor_edid[0][i] == 1 &&
+private:fl2000_monitor.c:		    dev_ctx->monitor_edid[0][i + 1] == 1)
+private:fl2000_monitor.c:			dev_ctx->monitor_edid[0][i] = 97;
+private:fl2000_monitor.c:			dev_ctx->monitor_edid[0][i + 1]= IMAGE_ASPECT_RATIO_4_3 << 6;
+private:fl2000_monitor.c:		uint8_t *  entry = &dev_ctx->monitor_edid[0][i];
+private:fl2000_monitor.c:		memcpy(&dev_ctx->monitor_edid[0][index], &data, 4);
+private:fl2000_monitor.c:		data = dev_ctx->vr_params.pll_reg;
+private:fl2000_monitor.c:			    dev_ctx->vr_params.trasfer_pipe)
+private:fl2000_monitor.c:	if (dev_ctx->vr_params.pll_reg != data) {
+private:fl2000_monitor.c:	if (dev_ctx->vr_params.end_of_frame_type == EOF_ZERO_LENGTH) {
+private:fl2000_monitor.c:	if (dev_ctx->vr_params.use_compression) {
+private:fl2000_monitor.c:	if (OUTPUT_IMAGE_TYPE_RGB_16 == dev_ctx->vr_params.output_image_type) {
+private:fl2000_monitor.c:		    dev_ctx->vr_params.color_mode_16bit) {
+private:fl2000_monitor.c:		 dev_ctx->vr_params.output_image_type) {
+private:fl2000_monitor.c:	data = dev_ctx->vr_params.h_sync_reg_1;
+private:fl2000_monitor.c:		if (dev_ctx->vr_params.h_sync_reg_1 != data) {
+private:fl2000_monitor.c:	data = dev_ctx->vr_params.h_sync_reg_2;
+private:fl2000_monitor.c:		if (dev_ctx->vr_params.h_sync_reg_2 != data) {
+private:fl2000_monitor.c:	data = dev_ctx->vr_params.v_sync_reg_1;
+private:fl2000_monitor.c:		if (dev_ctx->vr_params.v_sync_reg_1 != data) {
+private:fl2000_monitor.c:	data = dev_ctx->vr_params.v_sync_reg_2;
+private:fl2000_monitor.c:		if ( dev_ctx->vr_params.v_sync_reg_2 != data ) {
+private:fl2000_monitor.c:	if (dev_ctx->hdmi_chip_found) {
+private:fl2000_monitor.c:		num_ext = dev_ctx->monitor_edid[0][126];
+private:fl2000_monitor.c:		memset(dev_ctx->monitor_edid[0], 0, EDID_SIZE);
+private:fl2000_monitor.c:	if (dev_ctx->registry.FilterEdidTableEnable) {
+private:fl2000_monitor.c:			switch (dev_ctx->registry.FilterEdidTableEnable) {
+private:fl2000_monitor.c:				dev_ctx->monitor_edid[0][35] = 1;
+private:fl2000_monitor.c:				dev_ctx->monitor_edid[0][36] = 0;
+private:fl2000_monitor.c:				dev_ctx->monitor_edid[0][37] = 0;
+private:fl2000_monitor.c:					dev_ctx->monitor_edid[0][index] = 0x01;
+private:fl2000_monitor.c:				dev_ctx->monitor_edid[0][54] = 0x40;
+private:fl2000_monitor.c:				dev_ctx->monitor_edid[0][55] = 0x0B;
+private:fl2000_monitor.c:				dev_ctx->monitor_edid[0][56] = 0x20;
+private:fl2000_monitor.c:				dev_ctx->monitor_edid[0][57] = 0x00;
+private:fl2000_monitor.c:				dev_ctx->monitor_edid[0][58] = 0x30;
+private:fl2000_monitor.c:				dev_ctx->monitor_edid[0][59] = 0x58;
+private:fl2000_monitor.c:				dev_ctx->monitor_edid[0][60] = 0x00;
+private:fl2000_monitor.c:				dev_ctx->monitor_edid[0][61] = 0x20;
+private:fl2000_monitor.c:				dev_ctx->monitor_edid[0][35] = 0x20;
+private:fl2000_monitor.c:				dev_ctx->monitor_edid[0][36] = 0;
+private:fl2000_monitor.c:				dev_ctx->monitor_edid[0][37] = 0;
+private:fl2000_monitor.c:					dev_ctx->monitor_edid[0][index] = 0x01;
+private:fl2000_monitor.c:				dev_ctx->monitor_edid[0][54] = 0x3F;
+private:fl2000_monitor.c:				dev_ctx->monitor_edid[0][55] = 0x07;
+private:fl2000_monitor.c:				dev_ctx->monitor_edid[0][56] = 0x80;
+private:fl2000_monitor.c:				dev_ctx->monitor_edid[0][57] = 0x00;
+private:fl2000_monitor.c:				dev_ctx->monitor_edid[0][58] = 0x20;
+private:fl2000_monitor.c:				dev_ctx->monitor_edid[0][59] = 0xE0;
+private:fl2000_monitor.c:				dev_ctx->monitor_edid[0][60] = 0x0;
+private:fl2000_monitor.c:				dev_ctx->monitor_edid[0][61] = 0x10;
+private:fl2000_monitor.c:	    check_sum += dev_ctx->monitor_edid[0][index];
+private:fl2000_monitor.c:	dev_ctx->monitor_edid[0][127] = check_sum;
+private:fl2000_monitor.c:	dev_ctx->monitor_plugged_in = true;
+private:fl2000_monitor.c:	if (CARD_NAME_FL2000DX == dev_ctx->card_name)
+private:fl2000_monitor.c:	memset(dev_ctx->monitor_edid, 0, sizeof(dev_ctx->monitor_edid));
+private:fl2000_monitor.c:	if (waitqueue_active(&dev_ctx->ioctl_wait_q))
+private:fl2000_monitor.c:		wake_up_interruptible(&dev_ctx->ioctl_wait_q);
+private:fl2000_monitor.c:	dev_ctx->monitor_plugged_in = false;
+private:fl2000_monitor.c:	if (waitqueue_active(&dev_ctx->ioctl_wait_q))
+private:fl2000_monitor.c:		wake_up_interruptible(&dev_ctx->ioctl_wait_q);
+private:fl2000_monitor.c:	memset(dev_ctx->monitor_edid, 0, sizeof(dev_ctx->monitor_edid));
+private:fl2000_monitor.c:	dev_ctx->vr_params.pll_reg = 0;
+private:fl2000_monitor.c:	if (CARD_NAME_FL2000DX == dev_ctx->card_name)
+private:fl2000_monitor.c:		if (!dev_ctx->monitor_plugged_in) {
+private:fl2000_monitor.c:		if (dev_ctx->monitor_plugged_in)
+private:fl2000_render.c: * push render_ctx to the bus, with dev_ctx->render.busy_list_lock held
+private:fl2000_render.c:	struct list_head* const	free_list_head = &dev_ctx->render.free_list;
+private:fl2000_render.c:	if (!dev_ctx->monitor_plugged_in) {
+private:fl2000_render.c:		spin_lock_bh(&dev_ctx->render.free_list_lock);
+private:fl2000_render.c:		spin_unlock_bh(&dev_ctx->render.free_list_lock);
+private:fl2000_render.c:		spin_lock_irqsave(&dev_ctx->count_lock, flags);
+private:fl2000_render.c:		dev_ctx->render.free_list_count++;
+private:fl2000_render.c:		spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+private:fl2000_render.c:	list_add_tail(&render_ctx->list_entry, &dev_ctx->render.busy_list);
+private:fl2000_render.c:	spin_lock_irqsave(&dev_ctx->count_lock, flags);
+private:fl2000_render.c:	dev_ctx->render.busy_list_count++;
+private:fl2000_render.c:	spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+private:fl2000_render.c:	spin_lock_irqsave(&dev_ctx->count_lock, flags);
+private:fl2000_render.c:	spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+private:fl2000_render.c:		spin_lock_irqsave(&dev_ctx->count_lock, flags);
+private:fl2000_render.c:		spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+private:fl2000_render.c:		spin_lock_irqsave(&dev_ctx->count_lock, flags);
+private:fl2000_render.c:		dev_ctx->render.busy_list_count--;
+private:fl2000_render.c:		spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+private:fl2000_render.c:		spin_lock_bh(&dev_ctx->render.free_list_lock);
+private:fl2000_render.c:		spin_unlock_bh(&dev_ctx->render.free_list_lock);
+private:fl2000_render.c:		spin_lock_irqsave(&dev_ctx->count_lock, flags);
+private:fl2000_render.c:		dev_ctx->render.free_list_count++;
+private:fl2000_render.c:		spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+private:fl2000_render.c:			dev_ctx->dev_gone = 1;
+private:fl2000_render.c:	if ((dev_ctx->vr_params.end_of_frame_type == EOF_ZERO_LENGTH) &&
+private:fl2000_render.c:	    (VR_TRANSFER_PIPE_BULK == dev_ctx->vr_params.trasfer_pipe)) {
+private:fl2000_render.c:		spin_lock_irqsave(&dev_ctx->count_lock, flags);
+private:fl2000_render.c:		spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+private:fl2000_render.c:			spin_lock_irqsave(&dev_ctx->count_lock, flags);
+private:fl2000_render.c:			spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+private:fl2000_render.c:				dev_ctx->dev_gone = 1;
+private:fl2000_render.c:		render_ctx = &dev_ctx->render.render_ctx[i];
+private:fl2000_render.c:			&dev_ctx->render.free_list);
+private:fl2000_render.c:		spin_lock_irqsave(&dev_ctx->count_lock, flags);
+private:fl2000_render.c:		dev_ctx->render.free_list_count++;
+private:fl2000_render.c:		spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+private:fl2000_render.c:		render_ctx = &dev_ctx->render.render_ctx[i];
+private:fl2000_render.c:		spin_lock_irqsave(&dev_ctx->count_lock, flags);
+private:fl2000_render.c:		dev_ctx->render.free_list_count--;
+private:fl2000_render.c:		spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+private:fl2000_render.c:	INIT_LIST_HEAD(&dev_ctx->render.free_list);
+private:fl2000_render.c:	spin_lock_init(&dev_ctx->render.free_list_lock);
+private:fl2000_render.c:	dev_ctx->render.free_list_count = 0;
+private:fl2000_render.c:	INIT_LIST_HEAD(&dev_ctx->render.ready_list);
+private:fl2000_render.c:	spin_lock_init(&dev_ctx->render.ready_list_lock);
+private:fl2000_render.c:	dev_ctx->render.ready_list_count = 0;
+private:fl2000_render.c:	INIT_LIST_HEAD(&dev_ctx->render.busy_list);
+private:fl2000_render.c:	spin_lock_init(&dev_ctx->render.busy_list_lock);
+private:fl2000_render.c:	dev_ctx->render.busy_list_count = 0;
+private:fl2000_render.c:	INIT_LIST_HEAD(&dev_ctx->render.surface_list);
+private:fl2000_render.c:	spin_lock_init(&dev_ctx->render.surface_list_lock);
+private:fl2000_render.c:	dev_ctx->render.surface_list_count = 0;
+private:fl2000_render.c:	spin_lock_bh(&dev_ctx->render.busy_list_lock);
+private:fl2000_render.c:	spin_unlock_bh(&dev_ctx->render.busy_list_lock);
+private:fl2000_render.c:	spin_lock_irqsave(&dev_ctx->count_lock, flags);
+private:fl2000_render.c:	dev_ctx->render.busy_list_count--;
+private:fl2000_render.c:	spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+private:fl2000_render.c:	spin_lock_bh(&dev_ctx->render.free_list_lock);
+private:fl2000_render.c:	list_add_tail(&render_ctx->list_entry, &dev_ctx->render.free_list);
+private:fl2000_render.c:	spin_unlock_bh(&dev_ctx->render.free_list_lock);
+private:fl2000_render.c:	spin_lock_irqsave(&dev_ctx->count_lock, flags);
+private:fl2000_render.c:	dev_ctx->render.free_list_count++;
+private:fl2000_render.c:	spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+private:fl2000_render.c:		dev_ctx->render.green_light = 0;
+private:fl2000_render.c:			dev_ctx->dev_gone = true;
+private:fl2000_render.c:	struct list_head* const	free_list_head = &dev_ctx->render.free_list;
+private:fl2000_render.c:	struct list_head* const	ready_list_head = &dev_ctx->render.ready_list;
+private:fl2000_render.c:	dev_ctx->render.last_updated_surface = surface;
+private:fl2000_render.c:	dev_ctx->render.last_frame_num = surface->frame_num;
+private:fl2000_render.c:	if (dev_ctx->render.green_light == 0) {
+private:fl2000_render.c:	spin_lock_bh(&dev_ctx->render.free_list_lock);
+private:fl2000_render.c:		spin_lock_irqsave(&dev_ctx->count_lock, flags);
+private:fl2000_render.c:		dev_ctx->render.free_list_count--;
+private:fl2000_render.c:		spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+private:fl2000_render.c:	spin_unlock_bh(&dev_ctx->render.free_list_lock);
+private:fl2000_render.c:	spin_lock_bh(&dev_ctx->render.ready_list_lock);
+private:fl2000_render.c:	spin_lock_irqsave(&dev_ctx->count_lock, flags);
+private:fl2000_render.c:	ready_count = ++dev_ctx->render.ready_list_count;
+private:fl2000_render.c:	spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+private:fl2000_render.c:	spin_unlock_bh(&dev_ctx->render.ready_list_lock);
+private:fl2000_render.c:	struct list_head* const	free_list_head = &dev_ctx->render.free_list;
+private:fl2000_render.c:	struct list_head* const	ready_list_head = &dev_ctx->render.ready_list;
+private:fl2000_render.c:	if (dev_ctx->render.green_light == 0) {
+private:fl2000_render.c:	spin_lock_bh(&dev_ctx->render.ready_list_lock);
+private:fl2000_render.c:		spin_lock_irqsave(&dev_ctx->count_lock, flags);
+private:fl2000_render.c:		ready_count = --dev_ctx->render.ready_list_count;
+private:fl2000_render.c:		spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+private:fl2000_render.c:	spin_unlock_bh(&dev_ctx->render.ready_list_lock);
+private:fl2000_render.c:	spin_lock_bh(&dev_ctx->render.busy_list_lock);
+private:fl2000_render.c:			dev_ctx->render.green_light = false;
+private:fl2000_render.c:	if (dev_ctx->render.busy_list_count < NUM_RENDER_ON_BUS &&
+private:fl2000_render.c:	    dev_ctx->render.green_light) {
+private:fl2000_render.c:		spin_lock_bh(&dev_ctx->render.free_list_lock);
+private:fl2000_render.c:			spin_lock_irqsave(&dev_ctx->count_lock, flags);
+private:fl2000_render.c:			dev_ctx->render.free_list_count--;
+private:fl2000_render.c:			spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+private:fl2000_render.c:		spin_unlock_bh(&dev_ctx->render.free_list_lock);
+private:fl2000_render.c:			surface = dev_ctx->render.last_updated_surface;
+private:fl2000_render.c:	spin_unlock_bh(&dev_ctx->render.busy_list_lock);
+private:fl2000_render.c:	dev_ctx->render.green_light = 1;
+private:fl2000_render.c:	dev_ctx->render.green_light = 0;
+private:fl2000_render.c:		"busy_list_count(%u)", dev_ctx->render.busy_list_count);
+private:fl2000_render.c:	while (dev_ctx->render.busy_list_count != 0) {
+private:fl2000_surface.c:	spin_lock_bh(&dev_ctx->render.surface_list_lock);
+private:fl2000_surface.c:	list_for_each_entry(s, &dev_ctx->render.surface_list, list_entry) {
+private:fl2000_surface.c:	spin_unlock_bh(&dev_ctx->render.surface_list_lock);
+private:fl2000_surface.c:	spin_lock_bh(&dev_ctx->render.surface_list_lock);
+private:fl2000_surface.c:	list_add_tail(&surface->list_entry, &dev_ctx->render.surface_list);
+private:fl2000_surface.c:	spin_lock_irqsave(&dev_ctx->count_lock, flags);
+private:fl2000_surface.c:	dev_ctx->render.surface_list_count++;
+private:fl2000_surface.c:	spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+private:fl2000_surface.c:	spin_unlock_bh(&dev_ctx->render.surface_list_lock);
+private:fl2000_surface.c:		dev_ctx->render.surface_list_count);
+private:fl2000_surface.c:		dev_ctx->render.surface_list_count);
+private:fl2000_surface.c:	struct list_head * list_head = &dev_ctx->render.surface_list;
+private:fl2000_surface.c:	spin_lock_bh(&dev_ctx->render.surface_list_lock);
+private:fl2000_surface.c:		spin_lock_irqsave(&dev_ctx->count_lock, flags);
+private:fl2000_surface.c:		dev_ctx->render.surface_list_count--;
+private:fl2000_surface.c:		spin_unlock_irqrestore(&dev_ctx->count_lock, flags);
+private:fl2000_surface.c:		spin_unlock_bh(&dev_ctx->render.surface_list_lock);
+private:fl2000_surface.c:			surface, dev_ctx->render.surface_list_count);
+private:fl2000_surface.c:		spin_lock_bh(&dev_ctx->render.surface_list_lock);
+private:fl2000_surface.c:	spin_unlock_bh(&dev_ctx->render.surface_list_lock);
+render_buffer:fl2000_render.c:	dev_ctx->render.last_frame_num = surface->frame_num;
+render_buffer:fl2000_surface.c:	list_add_tail(&surface->list_entry, &dev_ctx->render.surface_list);
+render_buffer:private:fl2000_render.c:	dev_ctx->render.last_frame_num = surface->frame_num;
+render_buffer:private:fl2000_surface.c:	list_add_tail(&surface->list_entry, &dev_ctx->render.surface_list);
+transfer_buffer_length:fl2000_render.c:	list_add_tail(&render_ctx->list_entry, &dev_ctx->render.busy_list);
+transfer_buffer_length:fl2000_render.c:	list_add_tail(&render_ctx->list_entry, &dev_ctx->render.free_list);
+transfer_buffer_length:private:fl2000_render.c:	list_add_tail(&render_ctx->list_entry, &dev_ctx->render.busy_list);
+transfer_buffer_length:private:fl2000_render.c:	list_add_tail(&render_ctx->list_entry, &dev_ctx->render.free_list);

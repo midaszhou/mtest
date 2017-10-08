@@ -1,0 +1,639 @@
+fl2000_bulk.c:	struct scatterlist * const sglist = &surface->sglist[0];
+fl2000_bulk.c:	unsigned int len = surface->buffer_length;
+fl2000_bulk.c:	render_ctx->transfer_buffer = surface->render_buffer;
+fl2000_bulk.c:	render_ctx->transfer_buffer_length = surface->buffer_length;
+fl2000_bulk.c:	if (surface->render_buffer == surface->system_buffer &&
+fl2000_bulk.c:	    surface->type == SURFACE_TYPE_VIRTUAL_FRAGMENTED_PERSISTENT) {
+fl2000_bulk.c:		nr_pages = surface->nr_pages;
+fl2000_bulk.c:		printk("-------------fl2000_bulk_prepare_urb WHEN surface->render_buffer == surface->system_buffer &&  SURFACE_TYPE_VIRTUAL_FRAGMENTED_PERSISTEN -----\n");
+fl2000_bulk.c:			"surface->nr_pages(%u), start_offset(0x%x)",
+fl2000_bulk.c:			nr_pages, surface->start_offset);
+fl2000_bulk.c:			surface->pages[0],
+fl2000_bulk.c:			PAGE_SIZE - surface->start_offset,
+fl2000_bulk.c:			surface->start_offset);
+fl2000_bulk.c:		len -= PAGE_SIZE - surface->start_offset;
+fl2000_bulk.c:			struct page * pg = surface->pages[i];
+fl2000_bulk.c:			struct page * prev_pg = surface->pages[i - 1];
+fl2000_bulk.c:	else if (surface->render_buffer == surface->system_buffer &&
+fl2000_bulk.c:	         (surface->type == SURFACE_TYPE_VIRTUAL_CONTIGUOUS ||
+fl2000_bulk.c:		  surface->type == SURFACE_TYPE_PHYSICAL_CONTIGUOUS)) {
+fl2000_bulk.c:			surface->first_page,
+fl2000_bulk.c:			len - surface->start_offset,
+fl2000_bulk.c:			surface->start_offset);
+fl2000_bulk.c:		printk("-------------fl2000_bulk_prepare_urb EXCEPT surface->render_buffer == surface->system_buffer &&  SURFACE_TYPE_VIRTUAL_FRAGMENTED_PERSISTEN -----\n");
+fl2000_bulk.c:		uint8_t * buf = surface->render_buffer;
+fl2000_bulk.c:		end = (unsigned long) (buf + surface->buffer_length);
+fl2000_bulk.c://+++++URB get surface->num_sgs 
+fl2000_bulk.c:	surface->num_sgs = num_sgs;
+Binary file fl2000_bulk.o matches
+fl2000_ioctl.c://+++++ Let surface->buffer_length = info.buffer_length   if (info.buffer_length != surface->buffer_length)
+fl2000_ioctl.c:	if (info.buffer_length != surface->buffer_length) {
+fl2000_ioctl.c:			(unsigned int) surface->buffer_length);
+fl2000_ioctl.c:		surface->buffer_length = info.buffer_length;
+fl2000_ioctl.c:	surface->frame_num++;
+fl2000_ioctl.c:	if (info.user_buffer != surface->user_buffer) {
+fl2000_ioctl.c:			(void*) (unsigned long) surface->user_buffer);
+fl2000_ioctl.c:	if (surface->render_buffer == surface->shadow_buffer) {
+fl2000_ioctl.c:		if (!surface->pre_locked &&
+fl2000_ioctl.c:		    surface->type == SURFACE_TYPE_VIRTUAL_FRAGMENTED_VOLATILE) {
+fl2000_ioctl.c:			//+++++COMP  if use_compression, then self_pixel_swap(surface->system_buffer, surface->buffer_length),later in fl2000_compression_gravity()
+fl2000_ioctl.c:			//we'll compress surface->system_buffer to surface->render_buffer(=shadow_buffer)
+fl2000_ioctl.c:				self_pixel_swap(surface->system_buffer, surface->buffer_length);
+fl2000_ioctl.c:				pixel_swap(surface->shadow_buffer,
+fl2000_ioctl.c:				surface->system_buffer,
+fl2000_ioctl.c:				surface->buffer_length);
+fl2000_ioctl.c:			//+++++COMP  if use_compression, then self_pixel_swap(surface->system_buffer, surface->buffer_length),later in fl2000_compression_gravity()
+fl2000_ioctl.c:			//we'll compress surface->system_buffer to surface->render_buffer(=shadow_buffer)
+fl2000_ioctl.c:				self_pixel_swap(surface->system_buffer, surface->buffer_length);
+fl2000_ioctl.c:				pixel_swap(surface->shadow_buffer,
+fl2000_ioctl.c:					surface->system_buffer,
+fl2000_ioctl.c:					surface->buffer_length);
+fl2000_ioctl.c:	else if (surface->render_buffer == surface->system_buffer) {
+fl2000_ioctl.c:		// we'll compress surface->shadow_buffer to surface->render_buffer(=system_buffer@@@@@)
+fl2000_ioctl.c:				pixel_swap(surface->shadow_buffer,
+fl2000_ioctl.c:					surface->system_buffer,
+fl2000_ioctl.c:					surface->buffer_length);
+fl2000_ioctl.c:			//+++++ add self_pixel_swap() in case of surface->render_buffer == surface->system_buffer
+fl2000_ioctl.c:			self_pixel_swap(surface->system_buffer, surface->buffer_length);
+fl2000_ioctl.c:			surface->render_buffer,
+fl2000_ioctl.c:			surface->mapped_buffer,
+fl2000_ioctl.c:			surface->shadow_buffer,
+fl2000_ioctl.c:			surface->type);
+fl2000_ioctl.c:	if (info.buffer_length != surface->buffer_length) {
+fl2000_ioctl.c:			(unsigned int) surface->buffer_length);
+fl2000_ioctl.c:	if (surface->type == SURFACE_TYPE_VIRTUAL_CONTIGUOUS ||
+fl2000_ioctl.c:	    surface->type == SURFACE_TYPE_PHYSICAL_CONTIGUOUS) {
+fl2000_ioctl.c:	if (!surface->pre_locked) {
+fl2000_ioctl.c:		surface->pre_locked = true;
+fl2000_ioctl.c:	if (info.buffer_length != surface->buffer_length) {
+fl2000_ioctl.c:			(unsigned int) surface->buffer_length);
+fl2000_ioctl.c:	if (surface->type == SURFACE_TYPE_VIRTUAL_CONTIGUOUS ||
+fl2000_ioctl.c:	    surface->type == SURFACE_TYPE_PHYSICAL_CONTIGUOUS) {
+fl2000_ioctl.c:	if (surface->pre_locked) {
+fl2000_ioctl.c:		surface->pre_locked = false;
+Binary file fl2000.ko matches
+Binary file fl2000.o matches
+fl2000_render.c:        render_ctx->transfer_buffer = surface->render_buffer;
+fl2000_render.c:	render_ctx->transfer_buffer_length = surface->buffer_length;
+fl2000_render.c://+++++URB: add check if  sglist_ready==true && surface->num_sgs>0
+fl2000_render.c://--check if sglist is ready and surface->num_sgs>0
+fl2000_render.c:	if( sglist_ready ==true && surface->num_sgs>0){
+fl2000_render.c:		printk("----------  sglist_ready ==true && surface->num_sgs>0  -----------\n");
+fl2000_render.c:	        render_ctx->main_urb->num_sgs = surface->num_sgs;
+fl2000_render.c:        	render_ctx->main_urb->sg = &surface->sglist[0];
+fl2000_render.c:		printk("--------sglist_ready =%d,  surface->num_sgs=%d  -----------\n", sglist_ready,surface->num_sgs);
+fl2000_render.c:	dev_ctx->render.last_frame_num = surface->frame_num;
+fl2000_render.c:		if(surface->render_buffer == surface->shadow_buffer){  // Use shadow_buffer to render 
+fl2000_render.c:	        		surface->buffer_length,//size_t data_buffer_length,
+fl2000_render.c:		        	surface->system_buffer,//uint8_t * source,-----we self_swapped system_bffer in fl2000_ioctl.c
+fl2000_render.c:	        		surface->shadow_buffer, //uint8_t * target,-------------------------
+fl2000_render.c:		        	surface->buffer_length>>1//for it's in RGB_16, uint32_t num_of_pixels
+fl2000_render.c:		else if(surface->render_buffer == surface->system_buffer){ //Use system_buffer to render
+fl2000_render.c:     		   		surface->buffer_length,//size_t data_buffer_length,
+fl2000_render.c:	        		surface->shadow_buffer,//uint8_t * source,-------we swapped system_buffer to shadow_buffer in fl2000_ioctl.c
+fl2000_render.c:	        		surface->system_buffer, //uint8_t * target,-------------------------
+fl2000_render.c:		        	surface->buffer_length>>1//for it's in RGB_16, uint32_t num_of_pixels
+fl2000_render.c:		surface->buffer_length = ncomp;//length aft. compression
+Binary file fl2000_render.o matches
+fl2000_surface.c:	start = surface->user_buffer & PAGE_MASK;
+fl2000_surface.c:	end = surface->user_buffer + surface->buffer_length;
+fl2000_surface.c:	surface->pages = pages;
+fl2000_surface.c:	surface->nr_pages = nr_pages;
+fl2000_surface.c:	surface->pages_pinned = 0;
+fl2000_surface.c:	 * surface->pages.
+fl2000_surface.c:	switch (surface->type) {
+fl2000_surface.c:		while (surface->pages_pinned != nr_pages) {
+fl2000_surface.c:				surface->user_buffer,
+fl2000_surface.c:			surface->pages_pinned += pages_pinned;
+fl2000_surface.c:		vma = find_vma(current->mm, surface->user_buffer);
+fl2000_surface.c:			surface->user_buffer,
+fl2000_surface.c:		surface->pages_pinned = pages_pinned;
+fl2000_surface.c:		first_page = surface->pages[0];
+fl2000_surface.c:		surface->physical_address = PFN_PHYS(page_to_pfn(first_page)) +
+fl2000_surface.c:		surface->start_offset;
+fl2000_surface.c:		surface->physical_address = surface->user_buffer;
+fl2000_surface.c:		first_page = pfn_to_page(__phys_to_pfn(surface->physical_address));
+fl2000_surface.c:		surface->first_page = first_page;
+fl2000_surface.c:			(unsigned long) surface->physical_address,
+fl2000_surface.c:			(unsigned long) surface->user_buffer);
+fl2000_surface.c:	for (i = 0; i < surface->pages_pinned; i++)
+fl2000_surface.c:	surface->pages = NULL;
+fl2000_surface.c:	surface->nr_pages = 0;
+fl2000_surface.c:	surface->pages_pinned = 0;
+fl2000_surface.c:	struct page ** pages = surface->pages;
+fl2000_surface.c:	unsigned int pages_pinned = surface->pages_pinned;
+fl2000_surface.c:	if (surface->pages == NULL)
+fl2000_surface.c:	surface->pages = NULL;
+fl2000_surface.c:	surface->nr_pages = 0;
+fl2000_surface.c:	surface->pages_pinned = 0;
+fl2000_surface.c:	unsigned long page_offset = surface->user_buffer & ~PAGE_MASK;
+fl2000_surface.c:	switch (surface->type) {
+fl2000_surface.c:		if (surface->pages == NULL || surface->nr_pages == 0) {
+fl2000_surface.c:				surface->pages, surface->nr_pages);
+fl2000_surface.c:		surface->mapped_buffer = vm_map_ram(
+fl2000_surface.c:			surface->pages,
+fl2000_surface.c:			surface->nr_pages,
+fl2000_surface.c:		if (surface->mapped_buffer == NULL) {
+fl2000_surface.c:		// +++++ print surface->mapped_buffer, after vm_map_ram()...
+fl2000_surface.c:		printk("------------aft. vm_map_ram*(), surface->user_buffer = 0x%lx,surface->mapped_buffer = 0x%lx  -------------\n",surface->user_buffer,surface->mapped_buffer);
+fl2000_surface.c:	surface->system_buffer = surface->mapped_buffer + page_offset;
+fl2000_surface.c:		(unsigned long) surface->user_buffer,
+fl2000_surface.c:		(unsigned long) surface->system_buffer);
+fl2000_surface.c:	if (surface->mapped_buffer == NULL)
+fl2000_surface.c:	switch (surface->type) {
+fl2000_surface.c:		vm_unmap_ram(surface->mapped_buffer, surface->nr_pages);
+fl2000_surface.c:	surface->mapped_buffer = NULL;
+fl2000_surface.c:	surface->system_buffer = NULL;
+fl2000_surface.c:			(unsigned int) surface->handle);
+fl2000_surface.c:	INIT_LIST_HEAD(&surface->list_entry);
+fl2000_surface.c:	surface->handle		= info->handle;
+fl2000_surface.c:	surface->user_buffer	= info->user_buffer;
+fl2000_surface.c:	surface->buffer_length	= (uint32_t) info->buffer_length;
+fl2000_surface.c:	surface->width		= info->width;
+fl2000_surface.c:	surface->height		= info->height;
+fl2000_surface.c:	surface->pitch		= info->pitch;
+fl2000_surface.c:	surface->color_format	= info->color_format;
+fl2000_surface.c:	surface->type		= info->type;
+fl2000_surface.c:	surface->start_offset	= info->user_buffer & ~PAGE_MASK;
+fl2000_surface.c:	surface->shadow_buffer = vmalloc(surface->buffer_length);
+fl2000_surface.c:	if (surface->shadow_buffer == NULL) {
+fl2000_surface.c:					(unsigned int) surface->handle);
+fl2000_surface.c:					(unsigned int) surface->handle);
+fl2000_surface.c:			surface->render_buffer = surface->shadow_buffer;
+fl2000_surface.c:			surface->render_buffer = surface->shadow_buffer;
+fl2000_surface.c:		surface->render_buffer = surface->shadow_buffer;
+fl2000_surface.c:				(unsigned int) surface->handle);
+fl2000_surface.c:				(unsigned int) surface->handle);
+fl2000_surface.c:		//+++++ change to surface->render_buffer = surface->system_buffer for VIRTUAL_CONTIGUOUS and PHYSICAL_GONTIGUOUS
+fl2000_surface.c:		//surface->render_buffer = surface->shadow_buffer;
+fl2000_surface.c:		surface->render_buffer = surface->system_buffer;
+fl2000_surface.c:	list_add_tail(&surface->list_entry, &dev_ctx->render.surface_list);
+fl2000_surface.c:		(unsigned int) surface->user_buffer,
+fl2000_surface.c:		(unsigned int) surface->buffer_length,
+fl2000_surface.c:		surface->width,
+fl2000_surface.c:		surface->height,
+fl2000_surface.c:		surface->pitch,
+fl2000_surface.c:		surface->type,
+fl2000_surface.c:		surface->render_buffer,
+fl2000_surface.c:		surface->system_buffer,
+fl2000_surface.c:		surface->shadow_buffer,
+fl2000_surface.c:		(unsigned int) surface->user_buffer,
+fl2000_surface.c:		(unsigned int) surface->buffer_length,
+fl2000_surface.c:		surface->width,
+fl2000_surface.c:		surface->height,
+fl2000_surface.c:		surface->pitch,
+fl2000_surface.c:		surface->type,
+fl2000_surface.c:		surface->render_buffer,
+fl2000_surface.c:	if (surface->shadow_buffer) {
+fl2000_surface.c:		printk("vfree(surface->shadow_buffer)...\n");
+fl2000_surface.c:		vfree(surface->shadow_buffer);
+fl2000_surface.c:		surface->shadow_buffer = NULL;
+fl2000_surface.c:		list_del_init(&surface->list_entry);
+Binary file fl2000_surface.o matches
+private:fl2000_bulk.c:	struct scatterlist * const sglist = &surface->sglist[0];
+private:fl2000_bulk.c:	unsigned int len = surface->buffer_length;
+private:fl2000_bulk.c:	render_ctx->transfer_buffer = surface->render_buffer;
+private:fl2000_bulk.c:	render_ctx->transfer_buffer_length = surface->buffer_length;
+private:fl2000_bulk.c:	if (surface->render_buffer == surface->system_buffer &&
+private:fl2000_bulk.c:	    surface->type == SURFACE_TYPE_VIRTUAL_FRAGMENTED_PERSISTENT) {
+private:fl2000_bulk.c:		nr_pages = surface->nr_pages;
+private:fl2000_bulk.c:			"surface->nr_pages(%u), start_offset(0x%x)",
+private:fl2000_bulk.c:			nr_pages, surface->start_offset);
+private:fl2000_bulk.c:			surface->pages[0],
+private:fl2000_bulk.c:			PAGE_SIZE - surface->start_offset,
+private:fl2000_bulk.c:			surface->start_offset);
+private:fl2000_bulk.c:		len -= PAGE_SIZE - surface->start_offset;
+private:fl2000_bulk.c:			struct page * pg = surface->pages[i];
+private:fl2000_bulk.c:			struct page * prev_pg = surface->pages[i - 1];
+private:fl2000_bulk.c:	else if (surface->render_buffer == surface->system_buffer &&
+private:fl2000_bulk.c:	         (surface->type == SURFACE_TYPE_VIRTUAL_CONTIGUOUS ||
+private:fl2000_bulk.c:		  surface->type == SURFACE_TYPE_PHYSICAL_CONTIGUOUS)) {
+private:fl2000_bulk.c:			surface->first_page,
+private:fl2000_bulk.c:			len - surface->start_offset,
+private:fl2000_bulk.c:			surface->start_offset);
+private:fl2000_bulk.c:		uint8_t * buf = surface->render_buffer;
+private:fl2000_bulk.c:		end = (unsigned long) (buf + surface->buffer_length);
+private:fl2000_ioctl.c:	if (info.buffer_length != surface->buffer_length) {
+private:fl2000_ioctl.c:			(unsigned int) surface->buffer_length);
+private:fl2000_ioctl.c:	surface->frame_num++;
+private:fl2000_ioctl.c:	if (info.user_buffer != surface->user_buffer) {
+private:fl2000_ioctl.c:			(void*) (unsigned long) surface->user_buffer);
+private:fl2000_ioctl.c:	if (surface->render_buffer == surface->shadow_buffer) {
+private:fl2000_ioctl.c:		if (!surface->pre_locked &&
+private:fl2000_ioctl.c:		    surface->type == SURFACE_TYPE_VIRTUAL_FRAGMENTED_VOLATILE) {
+private:fl2000_ioctl.c:			pixel_swap(surface->shadow_buffer,
+private:fl2000_ioctl.c:				surface->system_buffer,
+private:fl2000_ioctl.c:				surface->buffer_length);
+private:fl2000_ioctl.c:			pixel_swap(surface->shadow_buffer,
+private:fl2000_ioctl.c:				surface->system_buffer,
+private:fl2000_ioctl.c:				surface->buffer_length);
+private:fl2000_ioctl.c:	else if (surface->render_buffer == surface->system_buffer) {
+private:fl2000_ioctl.c:			surface->render_buffer,
+private:fl2000_ioctl.c:			surface->mapped_buffer,
+private:fl2000_ioctl.c:			surface->shadow_buffer,
+private:fl2000_ioctl.c:			surface->type);
+private:fl2000_ioctl.c:	if (info.buffer_length != surface->buffer_length) {
+private:fl2000_ioctl.c:			(unsigned int) surface->buffer_length);
+private:fl2000_ioctl.c:	if (surface->type == SURFACE_TYPE_VIRTUAL_CONTIGUOUS ||
+private:fl2000_ioctl.c:	    surface->type == SURFACE_TYPE_PHYSICAL_CONTIGUOUS) {
+private:fl2000_ioctl.c:	if (!surface->pre_locked) {
+private:fl2000_ioctl.c:		surface->pre_locked = true;
+private:fl2000_ioctl.c:	if (info.buffer_length != surface->buffer_length) {
+private:fl2000_ioctl.c:			(unsigned int) surface->buffer_length);
+private:fl2000_ioctl.c:	if (surface->type == SURFACE_TYPE_VIRTUAL_CONTIGUOUS ||
+private:fl2000_ioctl.c:	    surface->type == SURFACE_TYPE_PHYSICAL_CONTIGUOUS) {
+private:fl2000_ioctl.c:	if (surface->pre_locked) {
+private:fl2000_ioctl.c:		surface->pre_locked = false;
+private:fl2000_render.c:	dev_ctx->render.last_frame_num = surface->frame_num;
+private:fl2000_surface.c:	start = surface->user_buffer & PAGE_MASK;
+private:fl2000_surface.c:	end = surface->user_buffer + surface->buffer_length;
+private:fl2000_surface.c:	surface->pages = pages;
+private:fl2000_surface.c:	surface->nr_pages = nr_pages;
+private:fl2000_surface.c:	surface->pages_pinned = 0;
+private:fl2000_surface.c:	 * surface->pages.
+private:fl2000_surface.c:	switch (surface->type) {
+private:fl2000_surface.c:		while (surface->pages_pinned != nr_pages) {
+private:fl2000_surface.c:				surface->user_buffer,
+private:fl2000_surface.c:			surface->pages_pinned += pages_pinned;
+private:fl2000_surface.c:		vma = find_vma(current->mm, surface->user_buffer);
+private:fl2000_surface.c:			surface->user_buffer,
+private:fl2000_surface.c:		surface->pages_pinned = pages_pinned;
+private:fl2000_surface.c:		first_page = surface->pages[0];
+private:fl2000_surface.c:		surface->physical_address = PFN_PHYS(page_to_pfn(first_page)) +
+private:fl2000_surface.c:		surface->start_offset;
+private:fl2000_surface.c:		surface->physical_address = surface->user_buffer;
+private:fl2000_surface.c:		first_page = pfn_to_page(__phys_to_pfn(surface->physical_address));
+private:fl2000_surface.c:		surface->first_page = first_page;
+private:fl2000_surface.c:			(unsigned long) surface->physical_address,
+private:fl2000_surface.c:			(unsigned long) surface->user_buffer);
+private:fl2000_surface.c:	for (i = 0; i < surface->pages_pinned; i++)
+private:fl2000_surface.c:	surface->pages = NULL;
+private:fl2000_surface.c:	surface->nr_pages = 0;
+private:fl2000_surface.c:	surface->pages_pinned = 0;
+private:fl2000_surface.c:	struct page ** pages = surface->pages;
+private:fl2000_surface.c:	unsigned int pages_pinned = surface->pages_pinned;
+private:fl2000_surface.c:	if (surface->pages == NULL)
+private:fl2000_surface.c:	surface->pages = NULL;
+private:fl2000_surface.c:	surface->nr_pages = 0;
+private:fl2000_surface.c:	surface->pages_pinned = 0;
+private:fl2000_surface.c:	unsigned long page_offset = surface->user_buffer & ~PAGE_MASK;
+private:fl2000_surface.c:	switch (surface->type) {
+private:fl2000_surface.c:		if (surface->pages == NULL || surface->nr_pages == 0) {
+private:fl2000_surface.c:				surface->pages, surface->nr_pages);
+private:fl2000_surface.c:		surface->mapped_buffer = vm_map_ram(
+private:fl2000_surface.c:			surface->pages,
+private:fl2000_surface.c:			surface->nr_pages,
+private:fl2000_surface.c:		if (surface->mapped_buffer == NULL) {
+private:fl2000_surface.c:	surface->system_buffer = surface->mapped_buffer + page_offset;
+private:fl2000_surface.c:		(unsigned long) surface->user_buffer,
+private:fl2000_surface.c:		(unsigned long) surface->system_buffer);
+private:fl2000_surface.c:	if (surface->mapped_buffer == NULL)
+private:fl2000_surface.c:	switch (surface->type) {
+private:fl2000_surface.c:		vm_unmap_ram(surface->mapped_buffer, surface->nr_pages);
+private:fl2000_surface.c:	surface->mapped_buffer = NULL;
+private:fl2000_surface.c:	surface->system_buffer = NULL;
+private:fl2000_surface.c:			(unsigned int) surface->handle);
+private:fl2000_surface.c:	INIT_LIST_HEAD(&surface->list_entry);
+private:fl2000_surface.c:	surface->handle		= info->handle;
+private:fl2000_surface.c:	surface->user_buffer	= info->user_buffer;
+private:fl2000_surface.c:	surface->buffer_length	= (uint32_t) info->buffer_length;
+private:fl2000_surface.c:	surface->width		= info->width;
+private:fl2000_surface.c:	surface->height		= info->height;
+private:fl2000_surface.c:	surface->pitch		= info->pitch;
+private:fl2000_surface.c:	surface->color_format	= info->color_format;
+private:fl2000_surface.c:	surface->type		= info->type;
+private:fl2000_surface.c:	surface->start_offset	= info->user_buffer & ~PAGE_MASK;
+private:fl2000_surface.c:	surface->shadow_buffer = vmalloc(surface->buffer_length);
+private:fl2000_surface.c:	if (surface->shadow_buffer == NULL) {
+private:fl2000_surface.c:					(unsigned int) surface->handle);
+private:fl2000_surface.c:					(unsigned int) surface->handle);
+private:fl2000_surface.c:			surface->render_buffer = surface->shadow_buffer;
+private:fl2000_surface.c:			surface->render_buffer = surface->shadow_buffer;
+private:fl2000_surface.c:		surface->render_buffer = surface->shadow_buffer;
+private:fl2000_surface.c:				(unsigned int) surface->handle);
+private:fl2000_surface.c:				(unsigned int) surface->handle);
+private:fl2000_surface.c:		surface->render_buffer = surface->shadow_buffer;
+private:fl2000_surface.c:	list_add_tail(&surface->list_entry, &dev_ctx->render.surface_list);
+private:fl2000_surface.c:		(unsigned int) surface->user_buffer,
+private:fl2000_surface.c:		(unsigned int) surface->buffer_length,
+private:fl2000_surface.c:		surface->width,
+private:fl2000_surface.c:		surface->height,
+private:fl2000_surface.c:		surface->pitch,
+private:fl2000_surface.c:		surface->type,
+private:fl2000_surface.c:		surface->render_buffer,
+private:fl2000_surface.c:		surface->system_buffer,
+private:fl2000_surface.c:		surface->shadow_buffer,
+private:fl2000_surface.c:		(unsigned int) surface->user_buffer,
+private:fl2000_surface.c:		(unsigned int) surface->buffer_length,
+private:fl2000_surface.c:		surface->width,
+private:fl2000_surface.c:		surface->height,
+private:fl2000_surface.c:		surface->pitch,
+private:fl2000_surface.c:		surface->type,
+private:fl2000_surface.c:		surface->render_buffer,
+private:fl2000_surface.c:	if (surface->shadow_buffer) {
+private:fl2000_surface.c:		printk("vfree(surface->shadow_buffer)...\n");
+private:fl2000_surface.c:		vfree(surface->shadow_buffer);
+private:fl2000_surface.c:		surface->shadow_buffer = NULL;
+private:fl2000_surface.c:		list_del_init(&surface->list_entry);
+render_buffer:fl2000_bulk.c:	struct scatterlist * const sglist = &surface->sglist[0];
+render_buffer:fl2000_bulk.c:	unsigned int len = surface->buffer_length;
+render_buffer:fl2000_bulk.c:	render_ctx->transfer_buffer = surface->render_buffer;
+render_buffer:fl2000_bulk.c:	render_ctx->transfer_buffer_length = surface->buffer_length;
+render_buffer:fl2000_bulk.c:	if (surface->render_buffer == surface->system_buffer &&
+render_buffer:fl2000_bulk.c:	    surface->type == SURFACE_TYPE_VIRTUAL_FRAGMENTED_PERSISTENT) {
+render_buffer:fl2000_bulk.c:		nr_pages = surface->nr_pages;
+render_buffer:fl2000_bulk.c:			"surface->nr_pages(%u), start_offset(0x%x)",
+render_buffer:fl2000_bulk.c:			nr_pages, surface->start_offset);
+render_buffer:fl2000_bulk.c:			surface->pages[0],
+render_buffer:fl2000_bulk.c:			PAGE_SIZE - surface->start_offset,
+render_buffer:fl2000_bulk.c:			surface->start_offset);
+render_buffer:fl2000_bulk.c:		len -= PAGE_SIZE - surface->start_offset;
+render_buffer:fl2000_bulk.c:			struct page * pg = surface->pages[i];
+render_buffer:fl2000_bulk.c:			struct page * prev_pg = surface->pages[i - 1];
+render_buffer:fl2000_bulk.c:	else if (surface->render_buffer == surface->system_buffer &&
+render_buffer:fl2000_bulk.c:	         (surface->type == SURFACE_TYPE_VIRTUAL_CONTIGUOUS ||
+render_buffer:fl2000_bulk.c:		  surface->type == SURFACE_TYPE_PHYSICAL_CONTIGUOUS)) {
+render_buffer:fl2000_bulk.c:			surface->first_page,
+render_buffer:fl2000_bulk.c:			len - surface->start_offset,
+render_buffer:fl2000_bulk.c:			surface->start_offset);
+render_buffer:fl2000_bulk.c:		uint8_t * buf = surface->render_buffer;
+render_buffer:fl2000_bulk.c:		end = (unsigned long) (buf + surface->buffer_length);
+render_buffer:fl2000_ioctl.c:	if (info.buffer_length != surface->buffer_length) {
+render_buffer:fl2000_ioctl.c:			(unsigned int) surface->buffer_length);
+render_buffer:fl2000_ioctl.c:	surface->frame_num++;
+render_buffer:fl2000_ioctl.c:	if (info.user_buffer != surface->user_buffer) {
+render_buffer:fl2000_ioctl.c:			(void*) (unsigned long) surface->user_buffer);
+render_buffer:fl2000_ioctl.c:	if (surface->render_buffer == surface->shadow_buffer) {
+render_buffer:fl2000_ioctl.c:		if (!surface->pre_locked &&
+render_buffer:fl2000_ioctl.c:		    surface->type == SURFACE_TYPE_VIRTUAL_FRAGMENTED_VOLATILE) {
+render_buffer:fl2000_ioctl.c:			pixel_swap(surface->shadow_buffer,
+render_buffer:fl2000_ioctl.c:				surface->system_buffer,
+render_buffer:fl2000_ioctl.c:				surface->buffer_length);
+render_buffer:fl2000_ioctl.c:			pixel_swap(surface->shadow_buffer,
+render_buffer:fl2000_ioctl.c:				surface->system_buffer,
+render_buffer:fl2000_ioctl.c:				surface->buffer_length);
+render_buffer:fl2000_ioctl.c:	else if (surface->render_buffer == surface->system_buffer) {
+render_buffer:fl2000_ioctl.c:			surface->render_buffer,
+render_buffer:fl2000_ioctl.c:			surface->mapped_buffer,
+render_buffer:fl2000_ioctl.c:			surface->shadow_buffer,
+render_buffer:fl2000_ioctl.c:			surface->type);
+render_buffer:fl2000_ioctl.c:	if (info.buffer_length != surface->buffer_length) {
+render_buffer:fl2000_ioctl.c:			(unsigned int) surface->buffer_length);
+render_buffer:fl2000_ioctl.c:	if (surface->type == SURFACE_TYPE_VIRTUAL_CONTIGUOUS ||
+render_buffer:fl2000_ioctl.c:	    surface->type == SURFACE_TYPE_PHYSICAL_CONTIGUOUS) {
+render_buffer:fl2000_ioctl.c:	if (!surface->pre_locked) {
+render_buffer:fl2000_ioctl.c:		surface->pre_locked = true;
+render_buffer:fl2000_ioctl.c:	if (info.buffer_length != surface->buffer_length) {
+render_buffer:fl2000_ioctl.c:			(unsigned int) surface->buffer_length);
+render_buffer:fl2000_ioctl.c:	if (surface->type == SURFACE_TYPE_VIRTUAL_CONTIGUOUS ||
+render_buffer:fl2000_ioctl.c:	    surface->type == SURFACE_TYPE_PHYSICAL_CONTIGUOUS) {
+render_buffer:fl2000_ioctl.c:	if (surface->pre_locked) {
+render_buffer:fl2000_ioctl.c:		surface->pre_locked = false;
+render_buffer:fl2000_render.c:	dev_ctx->render.last_frame_num = surface->frame_num;
+render_buffer:fl2000_surface.c:	start = surface->user_buffer & PAGE_MASK;
+render_buffer:fl2000_surface.c:	end = surface->user_buffer + surface->buffer_length;
+render_buffer:fl2000_surface.c:	surface->pages = pages;
+render_buffer:fl2000_surface.c:	surface->nr_pages = nr_pages;
+render_buffer:fl2000_surface.c:	surface->pages_pinned = 0;
+render_buffer:fl2000_surface.c:	 * surface->pages.
+render_buffer:fl2000_surface.c:	switch (surface->type) {
+render_buffer:fl2000_surface.c:		while (surface->pages_pinned != nr_pages) {
+render_buffer:fl2000_surface.c:				surface->user_buffer,
+render_buffer:fl2000_surface.c:			surface->pages_pinned += pages_pinned;
+render_buffer:fl2000_surface.c:		vma = find_vma(current->mm, surface->user_buffer);
+render_buffer:fl2000_surface.c:			surface->user_buffer,
+render_buffer:fl2000_surface.c:		surface->pages_pinned = pages_pinned;
+render_buffer:fl2000_surface.c:		first_page = surface->pages[0];
+render_buffer:fl2000_surface.c:		surface->physical_address = PFN_PHYS(page_to_pfn(first_page)) +
+render_buffer:fl2000_surface.c:		surface->start_offset;
+render_buffer:fl2000_surface.c:		surface->physical_address = surface->user_buffer;
+render_buffer:fl2000_surface.c:		first_page = pfn_to_page(__phys_to_pfn(surface->physical_address));
+render_buffer:fl2000_surface.c:		surface->first_page = first_page;
+render_buffer:fl2000_surface.c:			(unsigned long) surface->physical_address,
+render_buffer:fl2000_surface.c:			(unsigned long) surface->user_buffer);
+render_buffer:fl2000_surface.c:	for (i = 0; i < surface->pages_pinned; i++)
+render_buffer:fl2000_surface.c:	surface->pages = NULL;
+render_buffer:fl2000_surface.c:	surface->nr_pages = 0;
+render_buffer:fl2000_surface.c:	surface->pages_pinned = 0;
+render_buffer:fl2000_surface.c:	struct page ** pages = surface->pages;
+render_buffer:fl2000_surface.c:	unsigned int pages_pinned = surface->pages_pinned;
+render_buffer:fl2000_surface.c:	if (surface->pages == NULL)
+render_buffer:fl2000_surface.c:	surface->pages = NULL;
+render_buffer:fl2000_surface.c:	surface->nr_pages = 0;
+render_buffer:fl2000_surface.c:	surface->pages_pinned = 0;
+render_buffer:fl2000_surface.c:	unsigned long page_offset = surface->user_buffer & ~PAGE_MASK;
+render_buffer:fl2000_surface.c:	switch (surface->type) {
+render_buffer:fl2000_surface.c:		if (surface->pages == NULL || surface->nr_pages == 0) {
+render_buffer:fl2000_surface.c:				surface->pages, surface->nr_pages);
+render_buffer:fl2000_surface.c:		surface->mapped_buffer = vm_map_ram(
+render_buffer:fl2000_surface.c:			surface->pages,
+render_buffer:fl2000_surface.c:			surface->nr_pages,
+render_buffer:fl2000_surface.c:		if (surface->mapped_buffer == NULL) {
+render_buffer:fl2000_surface.c:		// +++++ print surface->mapped_buffer, after vm_map_ram()...
+render_buffer:fl2000_surface.c:		printk("------------aft. vm_map_ram*(), surface->mapped_buffer = 0x%lx  -------------\n",surface->mapped_buffer);
+render_buffer:fl2000_surface.c:	surface->system_buffer = surface->mapped_buffer + page_offset;
+render_buffer:fl2000_surface.c:		(unsigned long) surface->user_buffer,
+render_buffer:fl2000_surface.c:		(unsigned long) surface->system_buffer);
+render_buffer:fl2000_surface.c:	if (surface->mapped_buffer == NULL)
+render_buffer:fl2000_surface.c:	switch (surface->type) {
+render_buffer:fl2000_surface.c:		vm_unmap_ram(surface->mapped_buffer, surface->nr_pages);
+render_buffer:fl2000_surface.c:	surface->mapped_buffer = NULL;
+render_buffer:fl2000_surface.c:	surface->system_buffer = NULL;
+render_buffer:fl2000_surface.c:			(unsigned int) surface->handle);
+render_buffer:fl2000_surface.c:	INIT_LIST_HEAD(&surface->list_entry);
+render_buffer:fl2000_surface.c:	surface->handle		= info->handle;
+render_buffer:fl2000_surface.c:	surface->user_buffer	= info->user_buffer;
+render_buffer:fl2000_surface.c:	surface->buffer_length	= (uint32_t) info->buffer_length;
+render_buffer:fl2000_surface.c:	surface->width		= info->width;
+render_buffer:fl2000_surface.c:	surface->height		= info->height;
+render_buffer:fl2000_surface.c:	surface->pitch		= info->pitch;
+render_buffer:fl2000_surface.c:	surface->color_format	= info->color_format;
+render_buffer:fl2000_surface.c:	surface->type		= info->type;
+render_buffer:fl2000_surface.c:	surface->start_offset	= info->user_buffer & ~PAGE_MASK;
+render_buffer:fl2000_surface.c:	surface->shadow_buffer = vmalloc(surface->buffer_length);
+render_buffer:fl2000_surface.c:	if (surface->shadow_buffer == NULL) {
+render_buffer:fl2000_surface.c:					(unsigned int) surface->handle);
+render_buffer:fl2000_surface.c:					(unsigned int) surface->handle);
+render_buffer:fl2000_surface.c:			surface->render_buffer = surface->shadow_buffer;
+render_buffer:fl2000_surface.c:			surface->render_buffer = surface->shadow_buffer;
+render_buffer:fl2000_surface.c:		surface->render_buffer = surface->shadow_buffer;
+render_buffer:fl2000_surface.c:				(unsigned int) surface->handle);
+render_buffer:fl2000_surface.c:				(unsigned int) surface->handle);
+render_buffer:fl2000_surface.c:		//+++++ change to surface->render_buffer = surface->system_buffer for VIRTUAL_CONTIGUOUS and PHYSICAL_GONTIGUOUS
+render_buffer:fl2000_surface.c://		surface->render_buffer = surface->shadow_buffer;
+render_buffer:fl2000_surface.c:		surface->render_buffer = surface->system_buffer;
+render_buffer:fl2000_surface.c:	list_add_tail(&surface->list_entry, &dev_ctx->render.surface_list);
+render_buffer:fl2000_surface.c:		(unsigned int) surface->user_buffer,
+render_buffer:fl2000_surface.c:		(unsigned int) surface->buffer_length,
+render_buffer:fl2000_surface.c:		surface->width,
+render_buffer:fl2000_surface.c:		surface->height,
+render_buffer:fl2000_surface.c:		surface->pitch,
+render_buffer:fl2000_surface.c:		surface->type,
+render_buffer:fl2000_surface.c:		surface->render_buffer,
+render_buffer:fl2000_surface.c:		surface->system_buffer,
+render_buffer:fl2000_surface.c:		surface->shadow_buffer,
+render_buffer:fl2000_surface.c:		(unsigned int) surface->user_buffer,
+render_buffer:fl2000_surface.c:		(unsigned int) surface->buffer_length,
+render_buffer:fl2000_surface.c:		surface->width,
+render_buffer:fl2000_surface.c:		surface->height,
+render_buffer:fl2000_surface.c:		surface->pitch,
+render_buffer:fl2000_surface.c:		surface->type,
+render_buffer:fl2000_surface.c:		surface->render_buffer,
+render_buffer:fl2000_surface.c:	if (surface->shadow_buffer) {
+render_buffer:fl2000_surface.c:		printk("vfree(surface->shadow_buffer)...\n");
+render_buffer:fl2000_surface.c:		vfree(surface->shadow_buffer);
+render_buffer:fl2000_surface.c:		surface->shadow_buffer = NULL;
+render_buffer:fl2000_surface.c:		list_del_init(&surface->list_entry);
+render_buffer:private:fl2000_bulk.c:	struct scatterlist * const sglist = &surface->sglist[0];
+render_buffer:private:fl2000_bulk.c:	unsigned int len = surface->buffer_length;
+render_buffer:private:fl2000_bulk.c:	render_ctx->transfer_buffer = surface->render_buffer;
+render_buffer:private:fl2000_bulk.c:	render_ctx->transfer_buffer_length = surface->buffer_length;
+render_buffer:private:fl2000_bulk.c:	if (surface->render_buffer == surface->system_buffer &&
+render_buffer:private:fl2000_bulk.c:	    surface->type == SURFACE_TYPE_VIRTUAL_FRAGMENTED_PERSISTENT) {
+render_buffer:private:fl2000_bulk.c:		nr_pages = surface->nr_pages;
+render_buffer:private:fl2000_bulk.c:			"surface->nr_pages(%u), start_offset(0x%x)",
+render_buffer:private:fl2000_bulk.c:			nr_pages, surface->start_offset);
+render_buffer:private:fl2000_bulk.c:			surface->pages[0],
+render_buffer:private:fl2000_bulk.c:			PAGE_SIZE - surface->start_offset,
+render_buffer:private:fl2000_bulk.c:			surface->start_offset);
+render_buffer:private:fl2000_bulk.c:		len -= PAGE_SIZE - surface->start_offset;
+render_buffer:private:fl2000_bulk.c:			struct page * pg = surface->pages[i];
+render_buffer:private:fl2000_bulk.c:			struct page * prev_pg = surface->pages[i - 1];
+render_buffer:private:fl2000_bulk.c:	else if (surface->render_buffer == surface->system_buffer &&
+render_buffer:private:fl2000_bulk.c:	         (surface->type == SURFACE_TYPE_VIRTUAL_CONTIGUOUS ||
+render_buffer:private:fl2000_bulk.c:		  surface->type == SURFACE_TYPE_PHYSICAL_CONTIGUOUS)) {
+render_buffer:private:fl2000_bulk.c:			surface->first_page,
+render_buffer:private:fl2000_bulk.c:			len - surface->start_offset,
+render_buffer:private:fl2000_bulk.c:			surface->start_offset);
+render_buffer:private:fl2000_bulk.c:		uint8_t * buf = surface->render_buffer;
+render_buffer:private:fl2000_bulk.c:		end = (unsigned long) (buf + surface->buffer_length);
+render_buffer:private:fl2000_ioctl.c:	if (info.buffer_length != surface->buffer_length) {
+render_buffer:private:fl2000_ioctl.c:			(unsigned int) surface->buffer_length);
+render_buffer:private:fl2000_ioctl.c:	surface->frame_num++;
+render_buffer:private:fl2000_ioctl.c:	if (info.user_buffer != surface->user_buffer) {
+render_buffer:private:fl2000_ioctl.c:			(void*) (unsigned long) surface->user_buffer);
+render_buffer:private:fl2000_ioctl.c:	if (surface->render_buffer == surface->shadow_buffer) {
+render_buffer:private:fl2000_ioctl.c:		if (!surface->pre_locked &&
+render_buffer:private:fl2000_ioctl.c:		    surface->type == SURFACE_TYPE_VIRTUAL_FRAGMENTED_VOLATILE) {
+render_buffer:private:fl2000_ioctl.c:			pixel_swap(surface->shadow_buffer,
+render_buffer:private:fl2000_ioctl.c:				surface->system_buffer,
+render_buffer:private:fl2000_ioctl.c:				surface->buffer_length);
+render_buffer:private:fl2000_ioctl.c:			pixel_swap(surface->shadow_buffer,
+render_buffer:private:fl2000_ioctl.c:				surface->system_buffer,
+render_buffer:private:fl2000_ioctl.c:				surface->buffer_length);
+render_buffer:private:fl2000_ioctl.c:	else if (surface->render_buffer == surface->system_buffer) {
+render_buffer:private:fl2000_ioctl.c:			surface->render_buffer,
+render_buffer:private:fl2000_ioctl.c:			surface->mapped_buffer,
+render_buffer:private:fl2000_ioctl.c:			surface->shadow_buffer,
+render_buffer:private:fl2000_ioctl.c:			surface->type);
+render_buffer:private:fl2000_ioctl.c:	if (info.buffer_length != surface->buffer_length) {
+render_buffer:private:fl2000_ioctl.c:			(unsigned int) surface->buffer_length);
+render_buffer:private:fl2000_ioctl.c:	if (surface->type == SURFACE_TYPE_VIRTUAL_CONTIGUOUS ||
+render_buffer:private:fl2000_ioctl.c:	    surface->type == SURFACE_TYPE_PHYSICAL_CONTIGUOUS) {
+render_buffer:private:fl2000_ioctl.c:	if (!surface->pre_locked) {
+render_buffer:private:fl2000_ioctl.c:		surface->pre_locked = true;
+render_buffer:private:fl2000_ioctl.c:	if (info.buffer_length != surface->buffer_length) {
+render_buffer:private:fl2000_ioctl.c:			(unsigned int) surface->buffer_length);
+render_buffer:private:fl2000_ioctl.c:	if (surface->type == SURFACE_TYPE_VIRTUAL_CONTIGUOUS ||
+render_buffer:private:fl2000_ioctl.c:	    surface->type == SURFACE_TYPE_PHYSICAL_CONTIGUOUS) {
+render_buffer:private:fl2000_ioctl.c:	if (surface->pre_locked) {
+render_buffer:private:fl2000_ioctl.c:		surface->pre_locked = false;
+render_buffer:private:fl2000_render.c:	dev_ctx->render.last_frame_num = surface->frame_num;
+render_buffer:private:fl2000_surface.c:	start = surface->user_buffer & PAGE_MASK;
+render_buffer:private:fl2000_surface.c:	end = surface->user_buffer + surface->buffer_length;
+render_buffer:private:fl2000_surface.c:	surface->pages = pages;
+render_buffer:private:fl2000_surface.c:	surface->nr_pages = nr_pages;
+render_buffer:private:fl2000_surface.c:	surface->pages_pinned = 0;
+render_buffer:private:fl2000_surface.c:	 * surface->pages.
+render_buffer:private:fl2000_surface.c:	switch (surface->type) {
+render_buffer:private:fl2000_surface.c:		while (surface->pages_pinned != nr_pages) {
+render_buffer:private:fl2000_surface.c:				surface->user_buffer,
+render_buffer:private:fl2000_surface.c:			surface->pages_pinned += pages_pinned;
+render_buffer:private:fl2000_surface.c:		vma = find_vma(current->mm, surface->user_buffer);
+render_buffer:private:fl2000_surface.c:			surface->user_buffer,
+render_buffer:private:fl2000_surface.c:		surface->pages_pinned = pages_pinned;
+render_buffer:private:fl2000_surface.c:		first_page = surface->pages[0];
+render_buffer:private:fl2000_surface.c:		surface->physical_address = PFN_PHYS(page_to_pfn(first_page)) +
+render_buffer:private:fl2000_surface.c:		surface->start_offset;
+render_buffer:private:fl2000_surface.c:		surface->physical_address = surface->user_buffer;
+render_buffer:private:fl2000_surface.c:		first_page = pfn_to_page(__phys_to_pfn(surface->physical_address));
+render_buffer:private:fl2000_surface.c:		surface->first_page = first_page;
+render_buffer:private:fl2000_surface.c:			(unsigned long) surface->physical_address,
+render_buffer:private:fl2000_surface.c:			(unsigned long) surface->user_buffer);
+render_buffer:private:fl2000_surface.c:	for (i = 0; i < surface->pages_pinned; i++)
+render_buffer:private:fl2000_surface.c:	surface->pages = NULL;
+render_buffer:private:fl2000_surface.c:	surface->nr_pages = 0;
+render_buffer:private:fl2000_surface.c:	surface->pages_pinned = 0;
+render_buffer:private:fl2000_surface.c:	struct page ** pages = surface->pages;
+render_buffer:private:fl2000_surface.c:	unsigned int pages_pinned = surface->pages_pinned;
+render_buffer:private:fl2000_surface.c:	if (surface->pages == NULL)
+render_buffer:private:fl2000_surface.c:	surface->pages = NULL;
+render_buffer:private:fl2000_surface.c:	surface->nr_pages = 0;
+render_buffer:private:fl2000_surface.c:	surface->pages_pinned = 0;
+render_buffer:private:fl2000_surface.c:	unsigned long page_offset = surface->user_buffer & ~PAGE_MASK;
+render_buffer:private:fl2000_surface.c:	switch (surface->type) {
+render_buffer:private:fl2000_surface.c:		if (surface->pages == NULL || surface->nr_pages == 0) {
+render_buffer:private:fl2000_surface.c:				surface->pages, surface->nr_pages);
+render_buffer:private:fl2000_surface.c:		surface->mapped_buffer = vm_map_ram(
+render_buffer:private:fl2000_surface.c:			surface->pages,
+render_buffer:private:fl2000_surface.c:			surface->nr_pages,
+render_buffer:private:fl2000_surface.c:		if (surface->mapped_buffer == NULL) {
+render_buffer:private:fl2000_surface.c:	surface->system_buffer = surface->mapped_buffer + page_offset;
+render_buffer:private:fl2000_surface.c:		(unsigned long) surface->user_buffer,
+render_buffer:private:fl2000_surface.c:		(unsigned long) surface->system_buffer);
+render_buffer:private:fl2000_surface.c:	if (surface->mapped_buffer == NULL)
+render_buffer:private:fl2000_surface.c:	switch (surface->type) {
+render_buffer:private:fl2000_surface.c:		vm_unmap_ram(surface->mapped_buffer, surface->nr_pages);
+render_buffer:private:fl2000_surface.c:	surface->mapped_buffer = NULL;
+render_buffer:private:fl2000_surface.c:	surface->system_buffer = NULL;
+render_buffer:private:fl2000_surface.c:			(unsigned int) surface->handle);
+render_buffer:private:fl2000_surface.c:	INIT_LIST_HEAD(&surface->list_entry);
+render_buffer:private:fl2000_surface.c:	surface->handle		= info->handle;
+render_buffer:private:fl2000_surface.c:	surface->user_buffer	= info->user_buffer;
+render_buffer:private:fl2000_surface.c:	surface->buffer_length	= (uint32_t) info->buffer_length;
+render_buffer:private:fl2000_surface.c:	surface->width		= info->width;
+render_buffer:private:fl2000_surface.c:	surface->height		= info->height;
+render_buffer:private:fl2000_surface.c:	surface->pitch		= info->pitch;
+render_buffer:private:fl2000_surface.c:	surface->color_format	= info->color_format;
+render_buffer:private:fl2000_surface.c:	surface->type		= info->type;
+render_buffer:private:fl2000_surface.c:	surface->start_offset	= info->user_buffer & ~PAGE_MASK;
+render_buffer:private:fl2000_surface.c:	surface->shadow_buffer = vmalloc(surface->buffer_length);
+render_buffer:private:fl2000_surface.c:	if (surface->shadow_buffer == NULL) {
+render_buffer:private:fl2000_surface.c:					(unsigned int) surface->handle);
+render_buffer:private:fl2000_surface.c:					(unsigned int) surface->handle);
+render_buffer:private:fl2000_surface.c:			surface->render_buffer = surface->shadow_buffer;
+render_buffer:private:fl2000_surface.c:			surface->render_buffer = surface->shadow_buffer;
+render_buffer:private:fl2000_surface.c:		surface->render_buffer = surface->shadow_buffer;
+render_buffer:private:fl2000_surface.c:				(unsigned int) surface->handle);
+render_buffer:private:fl2000_surface.c:				(unsigned int) surface->handle);
+render_buffer:private:fl2000_surface.c:		surface->render_buffer = surface->shadow_buffer;
+render_buffer:private:fl2000_surface.c:	list_add_tail(&surface->list_entry, &dev_ctx->render.surface_list);
+render_buffer:private:fl2000_surface.c:		(unsigned int) surface->user_buffer,
+render_buffer:private:fl2000_surface.c:		(unsigned int) surface->buffer_length,
+render_buffer:private:fl2000_surface.c:		surface->width,
+render_buffer:private:fl2000_surface.c:		surface->height,
+render_buffer:private:fl2000_surface.c:		surface->pitch,
+render_buffer:private:fl2000_surface.c:		surface->type,
+render_buffer:private:fl2000_surface.c:		surface->render_buffer,
+render_buffer:private:fl2000_surface.c:		surface->system_buffer,
+render_buffer:private:fl2000_surface.c:		surface->shadow_buffer,
+render_buffer:private:fl2000_surface.c:		(unsigned int) surface->user_buffer,
+render_buffer:private:fl2000_surface.c:		(unsigned int) surface->buffer_length,
+render_buffer:private:fl2000_surface.c:		surface->width,
+render_buffer:private:fl2000_surface.c:		surface->height,
+render_buffer:private:fl2000_surface.c:		surface->pitch,
+render_buffer:private:fl2000_surface.c:		surface->type,
+render_buffer:private:fl2000_surface.c:		surface->render_buffer,
+render_buffer:private:fl2000_surface.c:	if (surface->shadow_buffer) {
+render_buffer:private:fl2000_surface.c:		printk("vfree(surface->shadow_buffer)...\n");
+render_buffer:private:fl2000_surface.c:		vfree(surface->shadow_buffer);
+render_buffer:private:fl2000_surface.c:		surface->shadow_buffer = NULL;
+render_buffer:private:fl2000_surface.c:		list_del_init(&surface->list_entry);
+transfer_buffer_length:fl2000_bulk.c:	render_ctx->transfer_buffer = surface->render_buffer;
+transfer_buffer_length:fl2000_bulk.c:	render_ctx->transfer_buffer_length = surface->buffer_length;
+transfer_buffer_length:private:fl2000_bulk.c:	render_ctx->transfer_buffer = surface->render_buffer;
+transfer_buffer_length:private:fl2000_bulk.c:	render_ctx->transfer_buffer_length = surface->buffer_length;
+transfer_buffer_length:render_buffer:fl2000_bulk.c:	render_ctx->transfer_buffer = surface->render_buffer;
+transfer_buffer_length:render_buffer:fl2000_bulk.c:	render_ctx->transfer_buffer_length = surface->buffer_length;
+transfer_buffer_length:render_buffer:private:fl2000_bulk.c:	render_ctx->transfer_buffer = surface->render_buffer;
+transfer_buffer_length:render_buffer:private:fl2000_bulk.c:	render_ctx->transfer_buffer_length = surface->buffer_length;
